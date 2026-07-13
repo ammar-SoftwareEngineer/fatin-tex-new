@@ -13,11 +13,13 @@ type BlogSectionProps = {
 };
 
 export default function BlogSection({ blogSection }: BlogSectionProps) {
-  void blogSection;
+console.log("blogSection", blogSection);
   const t = useTranslations("blogs");
   const tHome = useTranslations("home.blogSection");
   const tCommon = useTranslations("common");
-
+  const titleWords = blogSection?.title?.trim().split(/\s+/).filter(Boolean) ?? [];
+  const titleStart = titleWords.slice(0, -1).join(" ");
+  const titleHighlight = titleWords.at(-1) ?? "";
   const blogs = [0, 1, 2].map((i) => ({
     title: t(`items.${i}.title`),
     desc: t(`items.${i}.desc`),
@@ -36,7 +38,7 @@ export default function BlogSection({ blogSection }: BlogSectionProps) {
           viewport={{ once: true }}
           className="text-[#e0bc80] tracking-[5px] uppercase text-xs sm:text-sm mb-4"
         >
-          {tHome("subtitle")}
+          {blogSection?.sub_title}
         </motion.p>
         <motion.h2
           initial={{ opacity: 0, y: 50 }}
@@ -45,13 +47,14 @@ export default function BlogSection({ blogSection }: BlogSectionProps) {
           viewport={{ once: true }}
           className="text-3xl sm:text-4xl lg:text-6xl font-bold leading-tight"
         >
-          {tHome("title")}{" "}
-          <span className="text-[#e0bc80]">{tHome("titleHighlight")}</span>
+          {titleStart}
+          {" "}
+          {titleHighlight ? <span className="text-[#e0bc80]">{titleHighlight}</span> : null}
         </motion.h2>
       </div>
 
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-7 lg:gap-8">
-        {blogs.map((blog, i) => (
+        {blogSection?.blogs?.map((blog, i: number) => (
           <motion.div
             key={i}
             initial={{ opacity: 0, y: 80 }}
@@ -63,21 +66,21 @@ export default function BlogSection({ blogSection }: BlogSectionProps) {
           >
             <div className="relative h-[260px] overflow-hidden">
               <img
-                src={blog.img}
-                alt={blog.title}
+                src={blog.image}
+                alt={blog.alt_image ?? blog.title}
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
               <div className="absolute top-5 left-5 bg-[#e0bc80] text-black text-xs font-semibold px-4 py-2 rounded-full shadow-lg">
-                {blog.date}
+                {blog.published_at}
               </div>
             </div>
             <div className="p-6 sm:p-7">
               <h3 className="text-2xl font-bold mb-4 group-hover:text-[#e0bc80] transition">
                 {blog.title}
               </h3>
-              <p className="text-gray-400 leading-7 text-sm sm:text-base mb-7">{blog.desc}</p>
+              {/* <p className="text-gray-400 leading-7 text-sm sm:text-base mb-7">{blog.desc}</p> */}
               <Link
-                href={`/blogs/${blog.slug}`}
+                href={`/blogs/${blog.slug.en}`}
                 className="inline-flex items-center gap-3 text-[#e0bc80] font-medium"
               >
                 {tHome("readMore")} →
@@ -88,13 +91,13 @@ export default function BlogSection({ blogSection }: BlogSectionProps) {
       </div>
 
       <div className="flex justify-center mt-14 sm:mt-16">
-        <Link href="/blogs">
+        <Link href={blogSection?.button_link_url ?? ""}>
           <motion.div
             whileHover={{ scale: 1.05, y: -3 }}
             whileTap={{ scale: 0.95 }}
             className="bg-[#e0bc80] text-black px-8 sm:px-10 py-4 rounded-full font-semibold shadow-xl inline-block text-center"
           >
-            {tCommon("viewAll")}
+            {blogSection?.button_text}
           </motion.div>
         </Link>
       </div>

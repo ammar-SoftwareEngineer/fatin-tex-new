@@ -14,13 +14,15 @@ const icons = [
 ];
 
 type WhyChooseUsProps = {
-  whyChooseUs?: HomeSection & { benefits: unknown[] };
+  whyChooseUs?: HomeSection ;
 };
 
 export default function WhyChooseUs({ whyChooseUs }: WhyChooseUsProps) {
-  void whyChooseUs;
-  const t = useTranslations("home.whyChooseUs");
 
+  const t = useTranslations("home.whyChooseUs");
+  const titleWords = whyChooseUs?.title?.trim().split(/\s+/).filter(Boolean) ?? [];
+  const titleStart = titleWords.slice(0, -1).join(" ");
+  const titleHighlight = titleWords.at(-1) ?? "";
   const features = [0, 1, 2, 3].map((i) => ({
     icon: icons[i],
     title: t(`features.${i}.title`),
@@ -41,15 +43,19 @@ export default function WhyChooseUs({ whyChooseUs }: WhyChooseUsProps) {
     <section className="relative py-20 sm:py-28 px-4 sm:px-6 md:px-16 bg-[#0d0b09] overflow-hidden text-white">
       <div className="text-center max-w-3xl mx-auto mb-14 sm:mb-20">
         <p className="text-[#e0bc80] tracking-[4px] sm:tracking-[5px] text-[10px] sm:text-xs mb-4">
-          {t("subtitle")}
+          {whyChooseUs?.sub_title}
         </p>
         <h2 className="text-3xl sm:text-5xl md:text-6xl font-bold font-playfair leading-tight">
-          {t("title")}{" "}
-          <span className="text-[#e0bc80]">{t("titleHighlight")}</span>
+       {
+        titleStart 
+       }
+       {""}
+       {
+        titleHighlight ? <span className="text-[#e0bc80]">{titleHighlight}</span> : null
+       }
+          
         </h2>
-        <p className="text-gray-400 mt-5 sm:mt-6 leading-relaxed text-sm sm:text-base">
-          {t("description")}
-        </p>
+        <p className="text-gray-400 mt-5 sm:mt-6 leading-relaxed text-sm sm:text-base" dangerouslySetInnerHTML={{ __html: whyChooseUs?.text ?? "" }} />
       </div>
 
       <motion.div

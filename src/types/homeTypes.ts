@@ -79,11 +79,21 @@ export type CategoriesSection = HomeSection & {
 export type HomeBlog = {
   id: number;
   title: string;
-  slug: Record<string, string>;
-  image?: string;
-  short_text?: string;
+  excerpt: string;
+  content: string;
+  image: string;
+  alt_image: string | null;
+  order: number;
+  is_active: boolean;
+  published_at: string;
+  slug: {
+    en: string;
+    ar: string;
+  };
 };
+export type Blog = {
 
+};
 export type HomeData = {
   hero: HeroSlide[];
   about_us: HomeSection;
