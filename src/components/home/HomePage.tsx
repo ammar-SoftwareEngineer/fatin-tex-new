@@ -20,7 +20,7 @@ export default function HomePage({ data }: HomePageProps) {
     buttonLink: slide.button_link_url || "/contact",
   }));
 
-
+  console.log("data", data);
   return (
     <>
       <Hero slides={heroSlides} />

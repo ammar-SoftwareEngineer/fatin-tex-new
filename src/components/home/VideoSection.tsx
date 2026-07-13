@@ -1,8 +1,11 @@
-"use client";
+import type { HomeSection } from "@/types/homeTypes";
 
-import React from "react";
+type VideoSectionProps = {
+  video: HomeSection;
+};
 
-export default function VideoSection() {
+export default function VideoSection( { video }: VideoSectionProps ) {
+  console.log("video", video);
   return (
     <section className="relative w-full h-[70vh] overflow-hidden bg-black">
 

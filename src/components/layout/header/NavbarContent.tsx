@@ -214,8 +214,8 @@ export default function NavbarContent({ layoutData }: NavbarContentProps) {
           scrolled ? "bg-black/40 backdrop-blur-xl shadow-lg" : "bg-transparent"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-5 py-4 flex items-center justify-between gap-16">
-          <ul className="hidden lg:flex flex-1 items-center justify-end gap-20 text-lg font-medium">
+        <div className="w-full mx-auto px-5 py-4 flex items-center justify-center gap-16">
+          <ul className="hidden lg:flex  items-center justify-end gap-16 text-lg font-medium text-nowrap">
             {leftLinks.map(renderDesktopLink)}
           </ul>
 
@@ -230,12 +230,12 @@ export default function NavbarContent({ layoutData }: NavbarContentProps) {
             />
           </Link>
 
-          <div className="hidden lg:flex flex-1 items-center justify-start gap-20">
-            <ul className="flex items-center gap-20 text-lg font-medium text-nowrap">
+          <div className="hidden lg:flex  items-center justify-start gap-10">
+            <ul className="flex items-center gap-16 text-lg font-medium text-nowrap">
               {rightLinks.map(renderDesktopLink)}
             </ul>
 
-            <div className="relative group ml-auto">
+            <div className="relative group ">
               <div className="flex items-center gap-2 text-white cursor-pointer hover:text-[#e0bc80] transition">
                 {t("language")}
                 <FaChevronDown className="text-xs" />

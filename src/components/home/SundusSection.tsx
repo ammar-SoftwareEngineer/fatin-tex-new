@@ -12,6 +12,7 @@ type SundusSectionProps = {
 };
 
 export default function SundusSection({ sundus }: SundusSectionProps) {
+  console.log("sundus", sundus);
   const params = useParams();
   const locale = typeof params.locale === "string" ? params.locale : undefined;
 
@@ -28,9 +29,9 @@ export default function SundusSection({ sundus }: SundusSectionProps) {
       />
 
       {/* MAIN CONTENT */}
-      <div className="relative z-10 min-h-screen flex items-center px-4 sm:px-6 md:px-16 py-10">
+      <div className="relative z-10 min-h-screen flex items-center px-4 sm:px-6 md:px-16 py-10 overflow-hidden">
 
-        <div className="relative w-full max-w-7xl mx-auto flex flex-col lg:block gap-10">
+        <div className="relative w-full max-w-7xl mx-auto flex flex-col lg:block gap-10 overflow-hidden">
 
           {/* VIDEO BIG FOCUS */}
           <motion.div
@@ -67,10 +68,11 @@ export default function SundusSection({ sundus }: SundusSectionProps) {
             className="
               w-full
               lg:absolute
-              lg:left-6 md:left-12
+              left-0
               lg:top-1/2
               lg:-translate-y-1/2
               lg:max-w-md
+              h-full
             "
           >
             <div className="
@@ -79,7 +81,7 @@ export default function SundusSection({ sundus }: SundusSectionProps) {
               bg-white/5
               border border-white/10
               rounded-[28px] md:rounded-[40px]
-              p-6 sm:p-8 md:p-10
+              p-6 sm:p-8 md:p-11
               shadow-2xl
               overflow-hidden
             ">

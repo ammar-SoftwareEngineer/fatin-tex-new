@@ -18,8 +18,6 @@ type CategoriesProps = {
 
 export default function Categories({ categories }: CategoriesProps) {
   const categoriesData = categories?.categories;
- 
-  console.log(categoriesData);
   const t = useTranslations("home.categories");
   const tCommon = useTranslations("common");
   const [activeTab, setActiveTab] = useState(0);
