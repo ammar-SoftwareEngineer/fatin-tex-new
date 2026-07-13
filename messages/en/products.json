@@ -1,0 +1,28 @@
+{
+  "items": [
+    {
+      "name": "Luxury Cotton Fabric",
+      "category": "Cotton",
+      "slug": "luxury-cotton-fabric"
+    },
+    {
+      "name": "Premium Silk Fabric",
+      "category": "Silk",
+      "slug": "premium-silk-fabric"
+    },
+    {
+      "name": "Soft Linen Fabric",
+      "category": "Linen",
+      "slug": "soft-linen-fabric"
+    },
+    {
+      "name": "Modern Wool Fabric",
+      "category": "Wool",
+      "slug": "modern-wool-fabric"
+    }
+  ],
+  "viewDetails": "View Details",
+  "heroTitle": "Our",
+  "heroTitleHighlight": "Products",
+  "heroDescription": "Explore our curated collection of premium fabrics designed for luxury fashion."
+}

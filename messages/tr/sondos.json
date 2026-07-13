@@ -1,0 +1,30 @@
+{
+  "subtitle": "PREMIUM BOYAMA",
+  "title": "Sondos",
+  "titleHighlight": "Boyama",
+  "description": "Moda ve endüstriyel uygulamalar için modern teknoloji, zengin renkler ve olağanüstü kalite ile gelişmiş tekstil boyama hizmetleri.",
+  "features": [
+    {
+      "title": "Renk Hassasiyeti",
+      "desc": "Gelişmiş boyama teknolojisi ile hassas renk eşleştirme."
+    },
+    {
+      "title": "Çevre Dostu",
+      "desc": "Çevreyi koruyan sürdürülebilir boyama süreçleri."
+    },
+    {
+      "title": "Hızlı Teslimat",
+      "desc": "Toplu siparişler için verimli üretim ve zamanında teslimat."
+    }
+  ],
+  "page": {
+    "heroSubtitle": "SONDOS BOYAMA FABRİKASI",
+    "heroTitle": "Lüks Kumaşlar için",
+    "heroTitleHighlight": "Hassas Boyama",
+    "heroDescription": "Sondos Boyama'da ham tekstilleri premium şaheserlere dönüştürüyoruz. Gelişmiş boyama sistemlerimiz eşsiz renk derinliği, tutarlılık ve dayanıklılık sağlar.",
+    "exploreProcess": "Sürecimizi Keşfedin",
+    "sectionSubtitle": "LÜKS TEKSTİL MÜHENDİSLİĞİ",
+    "sectionTitle": "Rengin Hassasiyetle Buluştuğu Yer",
+    "sectionDescription": "Sondos Boyama Fabrikası, Alman teknolojisi, çevre dostu süreçler ve sıkı kalite kontrolü birleştiren yüksek hassasiyetli tekstil boyamada uzmanlaşmıştır."
+  }
+}

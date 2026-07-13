@@ -1,0 +1,133 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* Brand Colors */
+  --primary-color: #e0bc80;
+  --secondary-color: #b2895d;
+
+  /* Text */
+  --text-color: #d1d5db;
+  --paragraph-color: #9ca3af;
+
+  /* UI */
+  --border-color: rgba(255, 255, 255, 0.1);
+  --overlay-color: rgba(0, 0, 0, 0.5);
+
+  /* shadcn variables */
+  --background: #0d0b09;
+  --foreground: #ffffff;
+
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+
+  --destructive: oklch(0.577 0.245 27.325);
+
+  --border: rgba(255, 255, 255, 0.1);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+
+  --radius: 0.625rem;
+}
+
+/* Dark mode overrides */
+.dark {
+  --background: #000000;
+  --foreground: #ffffff;
+
+  --border: rgba(255, 255, 255, 0.1);
+}
+
+/* Tailwind theme mapping */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-primary: var(--primary);
+  --color-border: var(--border);
+  --color-ring: var(--ring);
+}
+
+/* ================= BASE ================= */
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    font-family: "Inter", sans-serif;
+    color: var(--text-color);
+    background-color: var(--background);
+  }
+
+  h1, h2, h3 {
+    font-family: "Inter", sans-serif;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* ================= ANIMATIONS ================= */
+
+/* gradient animation */
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradientMove 4s ease infinite;
+}
+
+iframe {
+  filter: grayscale(1) brightness(0.55) contrast(1.3) saturate(0);
+}
+
+/* Swiper Pagination Custom Color */
+.swiper-pagination-bullet {
+  background: white !important;
+  opacity: 0.3;
+  width: 10px;
+  height: 10px;
+}
+
+.swiper-pagination-bullet-active {
+  background: #e0bc80 !important;
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+/* Navigation Arrows */
+.swiper-button-next,
+.swiper-button-prev {
+  color: #e0bc80 !important;
+  transform: scale(0.8);
+}

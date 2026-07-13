@@ -1,0 +1,27 @@
+{
+  "story": {
+    "subtitle": "HİKAYEMİZ",
+    "title": "Her Kumaşa İşlenmiş Mükemmellik",
+    "paragraph1": "Fatin Tex, sofistike, dayanıklılık ve modern tekstil trendlerini bir araya getiren premium kumaşlar sunma konusunda bir itibar oluşturdu. Koleksiyonlarımız, tasarımcıların, markaların ve lüks projelerin ihtiyaçlarını karşılamak üzere özenle seçilmiştir.",
+    "paragraph2": "Kumaşların malzemeden fazlası olduğuna inanıyoruz — yaratıcılığın, zarafetin ve zamansız moda deneyimlerinin temelidir."
+  },
+  "stats": [
+    { "num": "15+", "label": "Yıllık Deneyim" },
+    { "num": "1000+", "label": "Kumaş Koleksiyonu" },
+    { "num": "98%", "label": "Müşteri Memnuniyeti" },
+    { "num": "40+", "label": "Moda Ortağı" }
+  ],
+  "missionVision": {
+    "luxuryFabrics": "LÜKS KUMAŞLAR",
+    "items": [
+      {
+        "title": "MİSYONUMUZ",
+        "desc": "Dünya çapındaki tasarımcılar ve moda markaları için yaratıcılığı, zarafeti ve inovasyonu ilham veren premium kaliteli kumaşlar sunmak."
+      },
+      {
+        "title": "VİZYONUMUZ",
+        "desc": "Kalite, stil ve modern tasarım trendleri aracılığıyla kumaş mükemmelliğini yeniden tanımlayarak lüks tekstilde önde gelen bir isim olmak."
+      }
+    ]
+  }
+}

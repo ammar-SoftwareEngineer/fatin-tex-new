@@ -1,0 +1,16 @@
+{
+  "branding": {
+    "name": "Fatin Tex",
+    "nameAr": "فاتين تكس"
+  },
+  "contact": {
+    "address": "Cairo, Egypt",
+    "phone": "+20 123 456 789",
+    "email": "info@fatien-tex.com"
+  },
+  "social": {
+    "facebook": "https://www.facebook.com/",
+    "instagram": "https://www.instagram.com/",
+    "linkedin": "https://www.linkedin.com/"
+  }
+}

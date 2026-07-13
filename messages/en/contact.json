@@ -1,0 +1,20 @@
+{
+  "phone": { "title": "Phone", "desc": "+20 111 222 3333" },
+  "email": { "title": "Email", "desc": "info@fatintex.com" },
+  "address": { "title": "Address", "desc": "Cairo, Egypt" },
+  "form": {
+    "title": "Send Us a Message",
+    "subtitle": "We'd love to hear from you",
+    "name": "Your Name",
+    "email": "Your Email",
+    "phone": "Phone Number",
+    "message": "Your Message",
+    "subject": "Subject",
+    "submit": "Send Message",
+    "submitting": "Sending...",
+    "success": "Your message has been sent successfully.",
+    "error": "Failed to send your message. Please try again.",
+    "responseTime": "We usually respond within 24 hours"
+  },
+  "location": { "title": "Location", "desc": "Industrial City, Egypt" }
+}

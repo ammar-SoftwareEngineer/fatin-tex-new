@@ -1,0 +1,30 @@
+{
+  "subtitle": "PREMIUM DYEING",
+  "title": "Sondos",
+  "titleHighlight": "Dyeing",
+  "description": "Advanced textile dyeing services with modern technology, rich colors, and exceptional quality for fashion and industrial applications.",
+  "features": [
+    {
+      "title": "Color Precision",
+      "desc": "Accurate color matching with advanced dyeing technology."
+    },
+    {
+      "title": "Eco-Friendly",
+      "desc": "Sustainable dyeing processes that protect the environment."
+    },
+    {
+      "title": "Fast Turnaround",
+      "desc": "Efficient production with timely delivery for bulk orders."
+    }
+  ],
+  "page": {
+    "heroSubtitle": "SONDOS DYEING FACTORY",
+    "heroTitle": "Precision Dyeing for",
+    "heroTitleHighlight": "Luxury Fabrics",
+    "heroDescription": "At Sondos Dyeing, we transform raw textiles into premium masterpieces. Our advanced dyeing systems ensure unmatched color depth, consistency, and durability — crafted for global fashion houses and luxury brands.",
+    "exploreProcess": "Explore Our Process",
+    "sectionSubtitle": "LUXURY TEXTILE ENGINEERING",
+    "sectionTitle": "Where Color Meets Precision",
+    "sectionDescription": "Sondos Dyeing Factory specializes in high-precision textile dyeing, combining German technology, eco-friendly processes, and strict quality control. Every fabric passes through advanced finishing stages to ensure luxury-grade results suitable for international fashion standards."
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "items": [
+    {
+      "name": "Lüks Pamuklu Kumaş",
+      "category": "Pamuk",
+      "slug": "luxury-cotton-fabric"
+    },
+    {
+      "name": "Premium İpek Kumaş",
+      "category": "İpek",
+      "slug": "premium-silk-fabric"
+    },
+    {
+      "name": "Yumuşak Keten Kumaş",
+      "category": "Keten",
+      "slug": "soft-linen-fabric"
+    },
+    {
+      "name": "Modern Yün Kumaş",
+      "category": "Yün",
+      "slug": "modern-wool-fabric"
+    }
+  ],
+  "viewDetails": "Detayları Gör",
+  "heroTitle": "Ürünlerimiz",
+  "heroTitleHighlight": "",
+  "heroDescription": "Lüks moda için tasarlanmış premium kumaş koleksiyonumuzu keşfedin."
+}

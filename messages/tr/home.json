@@ -1,0 +1,92 @@
+{
+  "hero": {
+    "slides": [
+      {
+        "title": "Premium Tekstil Çözümleri",
+        "desc": "Modern endüstriyel standartlarla yüksek kaliteli kumaşlar ve boyama hizmetleri."
+      },
+      {
+        "title": "Modern Kumaş Üretimi",
+        "desc": "Yerel ve küresel pazarlar için yenilikçi tekstil üretimi."
+      },
+      {
+        "title": "Güvenilir Endüstriyel Deneyim",
+        "desc": "Tekstil ve boyama endüstrilerinde yıllarca birikmiş uzmanlık."
+      }
+    ],
+    "exploreMore": "Daha Fazla Keşfet"
+  },
+  "aboutSection": {
+    "bgTitle": "HAKKIMIZDA",
+    "subtitle": "Fatin Tex Hakkında",
+    "title": "Sadece Kumaş Üretmiyoruz —",
+    "titleHighlight": "Doku Tasarlıyoruz",
+    "description": "Fatin Tex'te kumaşı rafine bir tasarım diline dönüştürüyoruz. Her malzeme, modern moda yaratıcıları için eşsiz yumuşaklık, dayanıklılık ve premium görsel kimlik sunmak üzere özenle seçilir ve işlenir.",
+    "cardTitle": "Lüks Kumaşlar",
+    "cardDesc": "Modern tekstil inovasyonu",
+    "stats": [
+      { "num": "10+", "label": "Yıllık Deneyim" },
+      { "num": "500+", "label": "Lüks Tasarım" },
+      { "num": "100%", "label": "Premium Kalite" }
+    ]
+  },
+  "categories": {
+    "subtitle": "Koleksiyonlarımız",
+    "title": "Kumaş",
+    "titleHighlight": "Kategorileri",
+    "tabs": {
+      "cotton": "Pamuk",
+      "silk": "İpek",
+      "linen": "Keten",
+      "wool": "Yün"
+    },
+    "items": {
+      "softCotton": { "name": "Yumuşak Pamuk", "desc": "Nefes alabilen kumaş" },
+      "pureCotton": { "name": "Saf Pamuk", "desc": "Doğal konfor" },
+      "cottonBlend": { "name": "Pamuk Karışım", "desc": "Dayanıklı ve yumuşak" },
+      "warmWool": { "name": "Sıcak Yün", "desc": "Kış vazgeçilmezi" },
+      "royalSilk": { "name": "Kraliyet İpeği", "desc": "Lüks parlaklık" },
+      "smoothSilk": { "name": "Pürüzsüz İpek", "desc": "Zarif doku" },
+      "naturalLinen": { "name": "Doğal Keten", "desc": "Hafif ve ferah" },
+      "softWool": { "name": "Yumuşak Yün", "desc": "Rahat his" },
+      "premiumWool": { "name": "Premium Yün", "desc": "Yüksek dayanıklılık" }
+    }
+  },
+  "whyChooseUs": {
+    "subtitle": "NEDEN BİZİ SEÇMELİSİNİZ",
+    "title": "Her Kumaşta",
+    "titleHighlight": "Mükemmellik",
+    "description": "Sundus Fabrikası, olağanüstü tekstil boyama çözümleri sunmak için inovasyon, hassasiyet ve premium işçiliği bir araya getirir.",
+    "features": [
+      {
+        "title": "Premium Kalite",
+        "desc": "Lüks bitiş ve zarif doku ile özenle üretilmiş kumaşlar."
+      },
+      {
+        "title": "Modern Boyama",
+        "desc": "Zengin ve uzun ömürlü renkler sunan gelişmiş renklendirme teknikleri."
+      },
+      {
+        "title": "Güvenilir Uzmanlık",
+        "desc": "Profesyonel hassasiyetle tekstil işlemede yıllarca deneyim."
+      },
+      {
+        "title": "Hızlı Üretim",
+        "desc": "Kaliteden ödün vermeden verimli iş akışı ve zamanında teslimat."
+      }
+    ]
+  },
+  "sundusSection": {
+    "subtitle": "SONDOS BOYAMA",
+    "title": "Gelişmiş Tekstil",
+    "titleHighlight": "Boyama Çözümleri",
+    "description": "Modern teknoloji ve olağanüstü renk hassasiyeti ile premium boyama hizmetlerini deneyimleyin.",
+    "exploreMore": "Sondos Boyama'yı Keşfet"
+  },
+  "blogSection": {
+    "subtitle": "SON YAZILAR",
+    "title": "Blogumuzdan",
+    "titleHighlight": "Yazılar",
+    "readMore": "Devamını Oku"
+  }
+}

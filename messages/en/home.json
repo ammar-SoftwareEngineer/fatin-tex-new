@@ -1,0 +1,92 @@
+{
+  "hero": {
+    "slides": [
+      {
+        "title": "Premium Textile Solutions",
+        "desc": "High-quality fabrics and dyeing services with modern industrial standards."
+      },
+      {
+        "title": "Modern Fabric Production",
+        "desc": "Innovative textile manufacturing for local and global markets."
+      },
+      {
+        "title": "Trusted Industrial Experience",
+        "desc": "Years of expertise in textile and dyeing industries."
+      }
+    ],
+    "exploreMore": "Explore More"
+  },
+  "aboutSection": {
+    "bgTitle": "ABOUT",
+    "subtitle": "About Fatin Tex",
+    "title": "We Don't Just Make Fabric —",
+    "titleHighlight": "We Design Texture",
+    "description": "At Fatin Tex, we transform fabric into a refined design language. Every material is carefully selected and processed to deliver unmatched softness, durability, and a premium visual identity for modern fashion creators.",
+    "cardTitle": "Luxury Fabrics",
+    "cardDesc": "Modern textile innovation",
+    "stats": [
+      { "num": "10+", "label": "Years Experience" },
+      { "num": "500+", "label": "Luxury Designs" },
+      { "num": "100%", "label": "Premium Quality" }
+    ]
+  },
+  "categories": {
+    "subtitle": "Our Collections",
+    "title": "Fabric",
+    "titleHighlight": "Categories",
+    "tabs": {
+      "cotton": "Cotton",
+      "silk": "Silk",
+      "linen": "Linen",
+      "wool": "Wool"
+    },
+    "items": {
+      "softCotton": { "name": "Soft Cotton", "desc": "Breathable fabric" },
+      "pureCotton": { "name": "Pure Cotton", "desc": "Natural comfort" },
+      "cottonBlend": { "name": "Cotton Blend", "desc": "Durable & soft" },
+      "warmWool": { "name": "Warm Wool", "desc": "Winter essential" },
+      "royalSilk": { "name": "Royal Silk", "desc": "Luxury shine" },
+      "smoothSilk": { "name": "Smooth Silk", "desc": "Elegant texture" },
+      "naturalLinen": { "name": "Natural Linen", "desc": "Light & airy" },
+      "softWool": { "name": "Soft Wool", "desc": "Cozy feel" },
+      "premiumWool": { "name": "Premium Wool", "desc": "High durability" }
+    }
+  },
+  "whyChooseUs": {
+    "subtitle": "WHY CHOOSE US",
+    "title": "Excellence In Every",
+    "titleHighlight": "Fabric",
+    "description": "Sundus Factory combines innovation, precision, and premium craftsmanship to deliver exceptional textile dyeing solutions.",
+    "features": [
+      {
+        "title": "Premium Quality",
+        "desc": "Carefully crafted fabrics with luxurious finishing and elegant texture."
+      },
+      {
+        "title": "Modern Dyeing",
+        "desc": "Advanced coloring techniques delivering rich and long-lasting colors."
+      },
+      {
+        "title": "Trusted Expertise",
+        "desc": "Years of experience in textile processing with professional precision."
+      },
+      {
+        "title": "Fast Production",
+        "desc": "Efficient workflow and timely delivery without compromising quality."
+      }
+    ]
+  },
+  "sundusSection": {
+    "subtitle": "SONDOS DYEING",
+    "title": "Advanced Textile",
+    "titleHighlight": "Dyeing Solutions",
+    "description": "Experience premium dyeing services with modern technology and exceptional color precision.",
+    "exploreMore": "Explore Sondos Dyeing"
+  },
+  "blogSection": {
+    "subtitle": "LATEST INSIGHTS",
+    "title": "From Our",
+    "titleHighlight": "Blog",
+    "readMore": "Read More"
+  }
+}

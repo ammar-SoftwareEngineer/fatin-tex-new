@@ -1,0 +1,28 @@
+{
+  "items": [
+    {
+      "name": "قماش قطني فاخر",
+      "category": "قطن",
+      "slug": "luxury-cotton-fabric"
+    },
+    {
+      "name": "قماش حريري فاخر",
+      "category": "حرير",
+      "slug": "premium-silk-fabric"
+    },
+    {
+      "name": "قماش كتان ناعم",
+      "category": "كتان",
+      "slug": "soft-linen-fabric"
+    },
+    {
+      "name": "قماش صوفي حديث",
+      "category": "صوف",
+      "slug": "modern-wool-fabric"
+    }
+  ],
+  "viewDetails": "عرض التفاصيل",
+  "heroTitle": "منتجاتنا",
+  "heroTitleHighlight": "الفاخرة",
+  "heroDescription": "استكشف مجموعتنا المختارة من الأقمشة الفاخرة المصممة لعالم الأزياء الراقي."
+}

@@ -1,0 +1,23 @@
+{
+  "items": [
+    {
+      "title": "Tekstil İnovasyonunun Geleceği",
+      "desc": "Modern boyama tekniklerinin kumaş endüstrisini nasıl değiştirdiğini keşfedin.",
+      "date": "Oca 2026",
+      "slug": "future-of-textile-innovation"
+    },
+    {
+      "title": "2026 Lüks Kumaş Trendleri",
+      "desc": "Premium dokular ve moda odaklı malzemelere derinlemesine bir bakış.",
+      "date": "Şub 2026",
+      "slug": "luxury-fabrics-trends-2026"
+    },
+    {
+      "title": "Sondos Boyama Sürecinin Arkasında",
+      "desc": "Ham kumaştan nihai şahesere — sürecimizi keşfedin.",
+      "date": "Mar 2026",
+      "slug": "behind-sondos-dyeing-process"
+    }
+  ],
+  "readMore": "Devamını Oku"
+}

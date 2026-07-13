@@ -1,0 +1,56 @@
+{
+  "metadata": {
+    "title": {
+      "default": "Fatin Tex",
+      "home": "Home",
+      "about": "About Us",
+      "blogs": "Blogs",
+      "products": "Products",
+      "contact": "Contact Us",
+      "media": "Media",
+      "sondosDyeing": "Sondos Dyeing"
+    },
+    "description": {
+      "default": "Luxury fabric brand for designers and creators — premium textiles and dyeing services.",
+      "home": "Discover premium fabrics, timeless elegance, and luxury textile collections from Fatin Tex.",
+      "about": "Learn about Fatin Tex — our story, mission, and commitment to premium fabrics.",
+      "blogs": "Read the latest articles about textile innovation, luxury fabrics, and industry trends.",
+      "products": "Browse our premium fabric collections — cotton, silk, linen, and wool.",
+      "contact": "Get in touch with Fatin Tex for inquiries, partnerships, and custom fabric solutions.",
+      "media": "Explore Fatin Tex media gallery — photos and videos from our textile production.",
+      "sondosDyeing": "Discover Sondos Dyeing — advanced textile dyeing services with premium quality."
+    }
+  },
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "products": "Products",
+    "media": "Media",
+    "sondosDyeing": "Sondos Dyeing",
+    "blogs": "Blogs",
+    "contact": "Contact",
+    "language": "Language",
+    "cottonFabric": "Cotton Fabric",
+    "silkFabric": "Silk Fabric",
+    "linenFabric": "Linen Fabric"
+  },
+  "footer": {
+    "description": "Fatin Tex delivers premium fabrics and modern textile solutions for designers, brands, and luxury projects worldwide.",
+    "quickLinks": "Quick Links",
+    "contactUs": "Contact Us",
+    "followUs": "Follow Us",
+    "rights": "All rights reserved."
+  },
+  "breadcrumb": {
+    "home": "Home",
+    "description": "Discover premium fabrics, timeless elegance, and luxury textile collections crafted for fashion and creativity."
+  },
+  "common": {
+    "exploreMore": "Explore More",
+    "learnMore": "Learn More",
+    "viewAll": "View All Products",
+    "readMore": "Read More",
+    "brandName": "Fatin Tex",
+    "luxuryFabrics": "Luxury Fabrics"
+  }
+}

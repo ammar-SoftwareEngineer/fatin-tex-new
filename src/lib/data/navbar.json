@@ -1,0 +1,27 @@
+{
+  "leftLinks": [
+    { "href": "/", "labelKey": "home" },
+    { "href": "/about", "labelKey": "about" },
+    {
+      "labelKey": "products",
+      "dropdown": [
+        { "href": "/products/luxury-cotton-fabric", "labelKey": "cottonFabric" },
+        { "href": "/products/premium-silk-fabric", "labelKey": "silkFabric" },
+        { "href": "/products/soft-linen-fabric", "labelKey": "linenFabric" }
+      ]
+    },
+    { "href": "/media", "labelKey": "media" }
+  ],
+  "rightLinks": [
+    { "href": "/sondos-dyeing", "labelKey": "sondosDyeing" },
+    { "href": "/blogs", "labelKey": "blogs" },
+    { "href": "/contact", "labelKey": "contact" }
+  ],
+  "footerLinks": [
+    { "href": "/", "labelKey": "home" },
+    { "href": "/about", "labelKey": "about" },
+    { "href": "/sondos-dyeing", "labelKey": "sondosDyeing" },
+    { "href": "/products", "labelKey": "products" },
+    { "href": "/contact", "labelKey": "contact" }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "metadata": {
+    "title": {
+      "default": "Fatin Tex",
+      "home": "Ana Sayfa",
+      "about": "Hakkımızda",
+      "blogs": "Blog",
+      "products": "Ürünler",
+      "contact": "İletişim",
+      "media": "Medya",
+      "sondosDyeing": "Sondos Boyama"
+    },
+    "description": {
+      "default": "Tasarımcılar ve yaratıcılar için lüks kumaş markası — premium tekstil ve boyama hizmetleri.",
+      "home": "Fatin Tex'ten premium kumaşları, zamansız zarafeti ve lüks tekstil koleksiyonlarını keşfedin.",
+      "about": "Fatin Tex hakkında bilgi edinin — hikayemiz, misyonumuz ve premium kumaşlara olan bağlılığımız.",
+      "blogs": "Tekstil inovasyonu, lüks kumaşlar ve sektör trendleri hakkındaki en son makaleleri okuyun.",
+      "products": "Premium kumaş koleksiyonlarımıza göz atın — pamuk, ipek, keten ve yün.",
+      "contact": "Sorular, ortaklıklar ve özel kumaş çözümleri için Fatin Tex ile iletişime geçin.",
+      "media": "Fatin Tex medya galerisini keşfedin — tekstil üretimimizden fotoğraflar ve videolar.",
+      "sondosDyeing": "Sondos Boyama'yı keşfedin — premium kalitede gelişmiş tekstil boyama hizmetleri."
+    }
+  },
+  "nav": {
+    "home": "Ana Sayfa",
+    "about": "Hakkımızda",
+    "products": "Ürünler",
+    "media": "Medya",
+    "sondosDyeing": "Sondos Boyama",
+    "blogs": "Blog",
+    "contact": "İletişim",
+    "language": "Dil",
+    "cottonFabric": "Pamuklu Kumaş",
+    "silkFabric": "İpek Kumaş",
+    "linenFabric": "Keten Kumaş"
+  },
+  "footer": {
+    "description": "Fatin Tex, dünya çapındaki tasarımcılar, markalar ve lüks projeler için premium kumaşlar ve modern tekstil çözümleri sunar.",
+    "quickLinks": "Hızlı Bağlantılar",
+    "contactUs": "Bize Ulaşın",
+    "followUs": "Bizi Takip Edin",
+    "rights": "Tüm hakları saklıdır."
+  },
+  "breadcrumb": {
+    "home": "Ana Sayfa",
+    "description": "Moda ve yaratıcılık için tasarlanmış premium kumaşları, zamansız zarafeti ve lüks tekstil koleksiyonlarını keşfedin."
+  },
+  "common": {
+    "exploreMore": "Daha Fazla Keşfet",
+    "learnMore": "Daha Fazla Bilgi",
+    "viewAll": "Tüm Ürünleri Gör",
+    "readMore": "Devamını Oku",
+    "brandName": "Fatin Tex",
+    "luxuryFabrics": "Lüks Kumaşlar"
+  }
+}

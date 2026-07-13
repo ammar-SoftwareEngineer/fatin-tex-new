@@ -1,0 +1,20 @@
+{
+  "phone": { "title": "Telefon", "desc": "+20 111 222 3333" },
+  "email": { "title": "E-posta", "desc": "info@fatintex.com" },
+  "address": { "title": "Adres", "desc": "Kahire, Mısır" },
+  "form": {
+    "title": "Bize Mesaj Gönderin",
+    "subtitle": "Sizden haber almak isteriz",
+    "name": "Adınız",
+    "email": "E-posta Adresiniz",
+    "phone": "Telefon Numarası",
+    "message": "Mesajınız",
+    "subject": "Konu",
+    "submit": "Mesaj Gönder",
+    "submitting": "Gönderiliyor...",
+    "success": "Mesajınız başarıyla gönderildi.",
+    "error": "Mesaj gönderilemedi. Lütfen tekrar deneyin.",
+    "responseTime": "Genellikle 24 saat içinde yanıt veriyoruz"
+  },
+  "location": { "title": "Konum", "desc": "Sanayi Şehri, Mısır" }
+}

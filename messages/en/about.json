@@ -1,0 +1,27 @@
+{
+  "story": {
+    "subtitle": "OUR STORY",
+    "title": "Excellence Woven Into Every Fabric",
+    "paragraph1": "Fatin Tex has built a reputation for delivering premium fabrics that combine sophistication, durability, and modern textile trends. Our collections are carefully selected to meet the needs of designers, brands, and luxury projects.",
+    "paragraph2": "We believe fabrics are more than materials — they are the foundation of creativity, elegance, and timeless fashion experiences."
+  },
+  "stats": [
+    { "num": "15+", "label": "Years Experience" },
+    { "num": "1000+", "label": "Fabric Collections" },
+    { "num": "98%", "label": "Client Satisfaction" },
+    { "num": "40+", "label": "Fashion Partners" }
+  ],
+  "missionVision": {
+    "luxuryFabrics": "LUXURY FABRICS",
+    "items": [
+      {
+        "title": "OUR MISSION",
+        "desc": "To provide premium quality fabrics that inspire creativity, elegance, and innovation for designers and fashion brands worldwide."
+      },
+      {
+        "title": "OUR VISION",
+        "desc": "To become a leading name in luxury textiles by redefining fabric excellence through quality, style, and modern design trends."
+      }
+    ]
+  }
+}
