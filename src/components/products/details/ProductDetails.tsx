@@ -11,8 +11,10 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
+import { ProductDetails } from "@/types/productTypes";
 
-export default function ProductDetails() {
+export default function ProductDetails( { productData }: { productData: ProductDetails } ) {
+  console.log("productData", productData);
   const [open, setOpen] = useState(false);
   const [index, setIndex] = useState(0);
 
@@ -35,7 +37,7 @@ export default function ProductDetails() {
         <Breadcrumb
           items={[
             { label: "Products", href: "/products" },
-            { label: product.name, href: `/products/${product.slug}` },
+            { label: productData.name, href: `/products/${productData.slug.en}` },
           ]}
         />
       </div>
@@ -56,10 +58,10 @@ export default function ProductDetails() {
             spaceBetween={20}
             slidesPerView={1}
           >
-            {product.sliderImages.map((img, i) => (
+            {productData.images.map((img, i) => (
               <SwiperSlide key={i}>
                 <div className="relative h-[700px]">
-                  <Image src={img} alt="" fill className="object-cover" />
+                  <Image src={img.url} alt={productData.name} fill className="object-cover" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
                 </div>
               </SwiperSlide>

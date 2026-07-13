@@ -12,9 +12,12 @@ import {
   type LayoutData,
   type LayoutMenuItem,
 } from "@/types/layoutTypes";
+import type { ProductCategory } from "@/types/productTypes";
 
 type NavbarContentProps = {
   layoutData: Awaited<ReturnType<typeof fetchLayoutData>>;
+  navbarCategories?: ProductCategory[];
+  locale?: string;
 };
 
 type NavItem = {
@@ -34,7 +37,7 @@ const TITLE_HREF_FALLBACKS: { match: RegExp; href: string }[] = [
   { match: /about|من نحن|عنا/i, href: "/about" },
   { match: /product|منتج/i, href: "/products" },
   { match: /categor|فئة|فئات/i, href: "/products" },
-  { match: /catalog|catel|كتالوج/i, href: "/products" },
+  { match: /catalog|catel|cataleg|كتالوج/i, href: "/products" },
   { match: /media|ميديا|وسائط/i, href: "/media" },
   { match: /blog|مقال|مدونة/i, href: "/blogs" },
   { match: /sondos|سندس/i, href: "/sondos-dyeing" },
@@ -62,31 +65,67 @@ function normalizeHref(link?: string | null, title = ""): string {
   return fallback?.href ?? "#";
 }
 
-function isLinkActive(pathname: string, href: string) {
-  if (!href || href === "#") return false;
-  if (href === "/") return pathname === "/";
-  return pathname === href || pathname.startsWith(`${href}/`);
+function resolveSlug(
+  slug?: { en?: string; ar?: string; tr?: string } | string | null,
+): string {
+  if (!slug) return "";
+  if (typeof slug === "string") return slug;
+  return slug.en || slug.ar || slug.tr || "";
 }
 
-function mapMenuItem(item: LayoutMenuItem): NavItem {
-  const children = (item.children ?? []).filter((child) => child?.title);
+function isLinkActive(pathname: string, href: string) {
+  if (!href || href === "#") return false;
+  const pathOnly = href.split("?")[0];
+  if (pathOnly === "/") return pathname === "/";
+  return pathname === pathOnly || pathname.startsWith(`${pathOnly}/`);
+}
+
+function mapCategoryToDropdownItem(category: ProductCategory): {
+  name: string;
+  href: string;
+}[] {
+  const slug = resolveSlug(category.slug);
+  const self = {
+    name: category.name,
+    href: slug ? `/products?category=${encodeURIComponent(slug)}` : "/products",
+  };
+
+  const nested = (category.children ?? []).flatMap(mapCategoryToDropdownItem);
+  return [self, ...nested];
+}
+
+function mapMenuItem(
+  item: LayoutMenuItem,
+  navbarCategories: ProductCategory[],
+): NavItem {
+  const apiChildren = (item.children ?? []).filter((child) => child?.title);
+  const isCategoriesItem = /categor|فئة|فئات/i.test(item.title);
+
+  let dropdown: NavItem["dropdown"];
+
+  if (apiChildren.length > 0) {
+    dropdown = apiChildren.map((child) => ({
+      name: child.title,
+      href: normalizeHref(child.link, child.title),
+    }));
+  } else if (isCategoriesItem && navbarCategories.length > 0) {
+    dropdown = navbarCategories.flatMap(mapCategoryToDropdownItem);
+  }
 
   return {
     name: item.title,
     href: normalizeHref(item.link, item.title),
-    dropdown:
-      children.length > 0
-        ? children.map((child) => ({
-            name: child.title,
-            href: normalizeHref(child.link, child.title),
-          }))
-        : undefined,
+    dropdown,
   };
 }
 
-export default function NavbarContent({ layoutData }: NavbarContentProps) {
+export default function NavbarContent({
+  layoutData,
+  navbarCategories = [],
+  locale: localeProp,
+}: NavbarContentProps) {
   const t = useTranslations("nav");
-  const locale = useLocale();
+  const locale = useLocale() || localeProp || "en";
   const pathname = usePathname();
   const router = useRouter();
 
@@ -102,8 +141,11 @@ export default function NavbarContent({ layoutData }: NavbarContentProps) {
   const siteName = layout?.branding?.site_name || "Logo";
 
   const menuItems = useMemo(
-    () => (layout?.menu ?? []).map(mapMenuItem),
-    [layout?.menu],
+    () =>
+      (layout?.menu ?? []).map((item) =>
+        mapMenuItem(item, navbarCategories),
+      ),
+    [layout?.menu, navbarCategories],
   );
 
   const mid = Math.ceil(menuItems.length / 2);
@@ -138,17 +180,19 @@ export default function NavbarContent({ layoutData }: NavbarContentProps) {
         >
           <button
             type="button"
-            onClick={() =>
-              setOpenDropdown(isOpen ? null : item.name)
-            }
+            onClick={() => setOpenDropdown(isOpen ? null : item.name)}
             className={`flex items-center gap-2 transition ${
-              isParentActive ? "text-[#e0bc80]" : "text-white hover:text-[#e0bc80]"
+              isParentActive
+                ? "text-[#e0bc80]"
+                : "text-white hover:text-[#e0bc80]"
             }`}
             aria-expanded={isOpen}
           >
             {item.name}
             <FaChevronDown
-              className={`text-xs transition duration-300 ${isOpen ? "rotate-180" : ""}`}
+              className={`text-xs transition duration-300 ${
+                isOpen ? "rotate-180" : ""
+              }`}
             />
           </button>
 
@@ -215,7 +259,7 @@ export default function NavbarContent({ layoutData }: NavbarContentProps) {
         }`}
       >
         <div className="w-full mx-auto px-5 py-4 flex items-center justify-center gap-16">
-          <ul className="hidden lg:flex  items-center justify-end gap-16 text-lg font-medium text-nowrap">
+          <ul className="hidden lg:flex items-center justify-end gap-16 text-lg font-medium text-nowrap">
             {leftLinks.map(renderDesktopLink)}
           </ul>
 
@@ -230,12 +274,12 @@ export default function NavbarContent({ layoutData }: NavbarContentProps) {
             />
           </Link>
 
-          <div className="hidden lg:flex  items-center justify-start gap-10">
+          <div className="hidden lg:flex items-center justify-start gap-10">
             <ul className="flex items-center gap-16 text-lg font-medium text-nowrap">
               {rightLinks.map(renderDesktopLink)}
             </ul>
 
-            <div className="relative group ">
+            <div className="relative group">
               <div className="flex items-center gap-2 text-white cursor-pointer hover:text-[#e0bc80] transition">
                 {t("language")}
                 <FaChevronDown className="text-xs" />
@@ -300,11 +344,16 @@ export default function NavbarContent({ layoutData }: NavbarContentProps) {
           {menuItems.map((item, i) => {
             if (item.dropdown) {
               return (
-                <div key={`${item.name}-${i}`} className="border-b border-white/10 pb-4">
+                <div
+                  key={`${item.name}-${i}`}
+                  className="border-b border-white/10 pb-4"
+                >
                   <button
                     type="button"
                     onClick={() =>
-                      setOpenDropdown(openDropdown === item.name ? null : item.name)
+                      setOpenDropdown(
+                        openDropdown === item.name ? null : item.name,
+                      )
                     }
                     className="w-full flex items-center justify-between text-white text-lg"
                   >

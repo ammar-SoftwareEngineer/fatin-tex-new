@@ -1,5 +1,8 @@
 import { createPageMetadata, setupPageLocale } from "@/lib/page-utils";
-import ProductsPageView from "@/components/products/ProductsPage";
+import ProductsPage from "@/components/products/ProductsPage";
+import { fetchProductsData } from "@/api/productsService";
+import { isApiError } from "@/types/layoutTypes";
+import type { ProductsApiResponse } from "@/types/productTypes";
 
 export async function generateMetadata({
   params,
@@ -9,11 +12,22 @@ export async function generateMetadata({
   return createPageMetadata(params, "products");
 }
 
-export default async function ProductsPage({
+export default async function Products({
   params,
+  searchParams,
 }: {
   params: Promise<{ locale: string }>;
+  searchParams: Promise<{ category?: string }>;
 }) {
-  await setupPageLocale(params);
-  return <ProductsPageView />;
+  const locale = await setupPageLocale(params);
+  const { category } = await searchParams;
+  const productsResponse = await fetchProductsData(locale);
+
+  const products = isApiError(productsResponse)
+    ? null
+    : (productsResponse as ProductsApiResponse).data;
+
+  return (
+    <ProductsPage productsData={products} categorySlug={category ?? null} />
+  );
 }
