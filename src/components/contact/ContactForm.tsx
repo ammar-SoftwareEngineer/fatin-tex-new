@@ -33,7 +33,7 @@ export default function ContactForm() {
 
       if (!result.ok) {
         setStatus("error");
-        setErrorMessage(result.error);
+        setErrorMessage( "An error occurred");
         return;
       }
 
