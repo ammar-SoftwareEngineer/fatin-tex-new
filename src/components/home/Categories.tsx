@@ -133,7 +133,7 @@ export default function Categories({ categories }: CategoriesProps) {
             whileTap={{ scale: 0.95 }}
             className="bg-[#e0bc80] text-black px-10 py-4 rounded-full font-semibold shadow-xl inline-block text-center"
           >
-            {categories?.button_text}
+            {categories?.button_text || t("viewMore")}
           </motion.div>
         </Link>
       </div>
