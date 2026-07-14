@@ -11,7 +11,8 @@ type IconsActionProps = {
 
 export default function IconsAction({ callToAction }: IconsActionProps) {
   const phone = callToAction?.phone ?? siteData.contact.phone;
-  const whatsapp = callToAction?.whatsapp ?? siteData.contact.phone.replace(/\D/g, "");
+  const whatsapp =
+    callToAction?.whatsapp ?? siteData.contact.phone.replace(/\D/g, "");
 
   const floatingAnimation = {
     y: [0, -8, 0],

@@ -31,7 +31,9 @@ export default function Breadcrumb({
       >
         <div
           className="w-full h-full bg-cover bg-center"
-          style={{ backgroundImage: `url(${items[items.length - 1]?.image || '/hero2.jpg'})` }}
+          style={{
+            backgroundImage: `url(${items[items.length - 1]?.image || "/hero2.jpg"})`,
+          }}
         />
       </motion.div>
 

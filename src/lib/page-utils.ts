@@ -2,23 +2,43 @@ import { fetchLayoutData } from "@/api/layoutService";
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { isApiError } from "@/types/layoutTypes";
+import {
+  buildLanguageAlternates,
+  getIndexRobots,
+  getSiteUrl,
+  localeUrl,
+} from "@/lib/seo/site";
 
-type PageProps = {
-  params: Promise<{ locale: string }>;
+type PageKey =
+  | "home"
+  | "about"
+  | "blogs"
+  | "products"
+  | "categories"
+  | "contact"
+  | "media"
+  | "sondosDyeing";
+
+const PAGE_PATHS: Record<PageKey, string> = {
+  home: "",
+  about: "/about",
+  blogs: "/blogs",
+  products: "/products",
+  categories: "/categories",
+  contact: "/contact",
+  media: "/media",
+  sondosDyeing: "/sondos-dyeing",
+};
+
+type CreatePageMetadataOptions = {
+  path?: string;
+  image?: string | null;
 };
 
 export async function createPageMetadata(
   params: Promise<{ locale: string }>,
-  page: keyof {
-    home: string;
-    about: string;
-    blogs: string;
-    products: string;
-    categories: string;
-    contact: string;
-    media: string;
-    sondosDyeing: string;
-  }
+  page: PageKey,
+  options: CreatePageMetadataOptions = {},
 ): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "metadata" });
@@ -26,12 +46,21 @@ export async function createPageMetadata(
   const favicon = !isApiError(layoutData)
     ? layoutData.data?.branding?.favicon
     : undefined;
-  const title = !isApiError(layoutData)
+  const siteName = !isApiError(layoutData)
     ? layoutData.data?.branding?.site_name
     : undefined;
+
+  const path = options.path ?? PAGE_PATHS[page];
+  const canonical = localeUrl(locale, path);
+  const title = t(`title.${page}`);
+  const description = t(`description.${page}`);
+  const ogImage = options.image || favicon;
+
   return {
-    title: t(`title.${page}`),
-    description: t(`description.${page}`),
+    metadataBase: new URL(getSiteUrl()),
+    title,
+    description,
+    robots: getIndexRobots(),
     icons: favicon
       ? {
           icon: [{ url: favicon, type: "image/webp" }],
@@ -39,15 +68,18 @@ export async function createPageMetadata(
           apple: favicon,
         }
       : undefined,
+    alternates: {
+      canonical,
+      languages: buildLanguageAlternates(path),
+    },
     openGraph: {
-      title: t(`title.${page}`),
-      description: t(`description.${page}`),
-      url:
-        process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ??
-        "https://fatin-tex.g-homes.net",
-      siteName: title,
+      title,
+      description,
+      url: canonical,
+      siteName,
+      locale,
       type: "website",
-      images: favicon ? [{ url: favicon, type: "image/webp" }] : undefined,
+      images: ogImage ? [{ url: ogImage }] : undefined,
     },
   };
 }

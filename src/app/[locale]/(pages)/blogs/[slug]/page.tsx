@@ -4,7 +4,8 @@ import {
   fetchBlogDetailsData,
   fetchBlogsData,
 } from "@/api/blogsService";
-import { createPageMetadata, setupPageLocale } from "@/lib/page-utils";
+import { createEntityMetadata } from "@/lib/seo/entity-metadata";
+import { setupPageLocale } from "@/lib/page-utils";
 import { isApiError } from "@/types/layoutTypes";
 import type {
   Blog,
@@ -17,7 +18,26 @@ export async function generateMetadata({
 }: {
   params: Promise<{ locale: string; slug: string }>;
 }) {
-  return createPageMetadata(params, "blogs");
+  const { locale, slug } = await params;
+  const response = await fetchBlogDetailsData(slug, locale);
+
+  if (isApiError(response) || !(response as BlogDetailsApiResponse)?.data) {
+    return {};
+  }
+
+  const blog = (response as BlogDetailsApiResponse).data;
+
+  return createEntityMetadata({
+    locale,
+    collection: "blogs",
+    slug: blog.slug,
+    title: blog.title,
+    description: blog.excerpt,
+    image: blog.image,
+    publishedAt: blog.published_at,
+    modifiedAt: blog.published_at,
+    type: "article",
+  });
 }
 
 export default async function BlogDetailPage({

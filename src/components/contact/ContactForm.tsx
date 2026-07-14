@@ -16,7 +16,6 @@ type Status = "idle" | "success" | "error";
 const inputClass =
   "p-4 rounded-xl bg-black/30 border border-white/10 outline-none focus:border-[#e0bc80] w-full";
 
-
 const FIELDS = [
   { name: "name", type: "text", fullWidth: false },
   { name: "email", type: "email", fullWidth: false },
@@ -68,7 +67,10 @@ export default function ContactForm() {
       className="bg-white/5 border border-white/10 backdrop-blur-xl rounded-[28px] p-6 sm:p-10 grid grid-cols-1 md:grid-cols-2 gap-5"
     >
       {FIELDS.map((field) => (
-        <div key={field.name} className={field.fullWidth ? "md:col-span-2" : undefined}>
+        <div
+          key={field.name}
+          className={field.fullWidth ? "md:col-span-2" : undefined}
+        >
           <input
             type={field.type}
             placeholder={t(field.name)}

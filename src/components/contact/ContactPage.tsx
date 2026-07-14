@@ -11,7 +11,6 @@ import { useTranslations } from "next-intl";
 import Breadcrumb from "@/components/layout/hero/Breadcrumb";
 import ContactForm from "@/components/contact/ContactForm";
 import type { ContactData } from "@/types/contactTypes";
-import siteData from "@/lib/data/site.json";
 
 type ContactPageProps = {
   contactData?: ContactData | null;

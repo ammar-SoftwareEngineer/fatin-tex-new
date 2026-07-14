@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import type { HomeBlog, HomeSection } from "@/types/homeTypes";
-
+import { getLocalizedSlug } from "@/lib/localized-slug";
 
 type BlogSectionProps = {
   blogSection?: HomeSection & { blogs: HomeBlog[] };
@@ -79,7 +79,7 @@ export default function BlogSection({ blogSection }: BlogSectionProps) {
                 </p>
               ) : null}
               <Link
-                href={`/blogs/${blog.slug, locale}`}
+                href={`/blogs/${getLocalizedSlug(blog.slug, locale)}`}
                 className="inline-flex items-center gap-3 text-[#e0bc80] font-medium"
               >
                 {tHome("readMore") || t("readMore")} →
@@ -89,19 +89,17 @@ export default function BlogSection({ blogSection }: BlogSectionProps) {
         ))}
       </div>
 
-     
-        <div className="flex justify-center mt-14 sm:mt-16">
-          <Link href={blogSection.button_link_url || "/blogs"}>
-            <motion.div
-              whileHover={{ scale: 1.05, y: -3 }}
-              whileTap={{ scale: 0.95 }}
-              className="bg-[#e0bc80] text-black px-8 sm:px-10 py-4 rounded-full font-semibold shadow-xl inline-block text-center"
-            >
-              {blogSection.button_text || t("readMore")}
-            </motion.div>
-          </Link>
-        </div>
-
+      <div className="flex justify-center mt-14 sm:mt-16">
+        <Link href={blogSection?.button_link_url || "/blogs"}>
+          <motion.div
+            whileHover={{ scale: 1.05, y: -3 }}
+            whileTap={{ scale: 0.95 }}
+            className="bg-[#e0bc80] text-black px-8 sm:px-10 py-4 rounded-full font-semibold shadow-xl inline-block text-center"
+          >
+            {blogSection?.button_text || t("readMore")}
+          </motion.div>
+        </Link>
+      </div>
     </section>
   );
 }

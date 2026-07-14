@@ -45,7 +45,8 @@
     "quickLinks": "روابط سريعة",
     "contactUs": "اتصل بنا",
     "followUs": "تابعنا",
-    "rights": "جميع الحقوق محفوظة."
+    "rights": "جميع الحقوق محفوظة.",
+    "developedBy": "تطوير بواسطة"
   },
   "breadcrumb": {
     "home": "الرئيسية",
@@ -57,6 +58,7 @@
     "viewAll": "عرض جميع المنتجات",
     "readMore": "اقرأ المزيد",
     "brandName": "فاتن تكس",
-    "luxuryFabrics": "أقمشة فاخرة"
+    "luxuryFabrics": "أقمشة فاخرة",
+    "developedBy": "تطوير بواسطة"
   }
 }

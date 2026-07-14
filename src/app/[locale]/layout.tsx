@@ -8,6 +8,7 @@ import Footer from "@/components/layout/footer/Footer";
 import FixedContactIcons from "@/components/layout/call-to-action/FixedContactIcons";
 import { SlugAlternatesProvider } from "@/components/i18n/SlugAlternatesProvider";
 import { routing } from "@/i18n/routing";
+import { getIndexRobots, getSiteUrl } from "@/lib/seo/site";
 import "@/styles/globals.css";
 
 const inter = Inter({
@@ -37,17 +38,17 @@ export async function generateMetadata({
 }: {
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
-
-
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "metadata" });
 
   return {
+    metadataBase: new URL(getSiteUrl()),
     title: {
       default: t("title.default"),
       template: `%s | ${t("title.default")}`,
     },
     description: t("description.default"),
+    robots: getIndexRobots(),
   };
 }
 

@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
+import Link from "next/link";
 
 type FooterCopyrightProps = {
   copyright?: string | null;
@@ -21,6 +22,8 @@ export default function FooterCopyright({ copyright }: FooterCopyrightProps) {
     >
       <p className="text-gray-500 text-xs sm:text-sm leading-6">
         {copyright || `© 2026 ${tCommon("brandName")}. ${t("rights")}`}
+        {" "}
+        <Link href="#" className="text-xs sm:text-sm leading-6">{t("developedBy")} <span className="font-bold text-[#e0bc80] "> Be Group</span></Link>
       </p>
     </motion.div>
   );

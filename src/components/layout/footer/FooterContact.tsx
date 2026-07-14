@@ -14,9 +14,24 @@ type FooterContactProps = {
 };
 
 const contactItems = [
-  { key: "address" as const, icon: HiOutlineLocationMarker, label: "Address",labelAr: "العنوان" },
-  { key: "phone" as const, icon: HiOutlinePhone, label: "Phone",labelAr: "الهاتف" },
-  { key: "email" as const, icon: HiOutlineMail, label: "Email",labelAr: "البريد الإلكتروني" },
+  {
+    key: "address" as const,
+    icon: HiOutlineLocationMarker,
+    label: "Address",
+    labelAr: "العنوان",
+  },
+  {
+    key: "phone" as const,
+    icon: HiOutlinePhone,
+    label: "Phone",
+    labelAr: "الهاتف",
+  },
+  {
+    key: "email" as const,
+    icon: HiOutlineMail,
+    label: "Email",
+    labelAr: "البريد الإلكتروني",
+  },
 ];
 
 export default function FooterContact({ contact }: FooterContactProps) {
@@ -43,9 +58,13 @@ export default function FooterContact({ contact }: FooterContactProps) {
               <Icon />
             </div>
             <div>
-              <p className={`text-sm text-gray-400 mb-2 ${locale==="ar" ? "text-right" : "text-left"}`}>{locale==="ar" ? item.labelAr : item.label}</p>
+              <p
+                className={`text-sm text-gray-400 mb-2 ${locale === "ar" ? "text-right" : "text-left"}`}
+              >
+                {locale === "ar" ? item.labelAr : item.label}
+              </p>
               <h4
-                className={`font-medium ${item.key === "email" ? "break-all" : ""} ${locale==="ar" ? "text-right" : "text-left"}`}
+                className={`font-medium ${item.key === "email" ? "break-all" : ""} ${locale === "ar" ? "text-right" : "text-left"} ${item.key === "phone" && locale === "ar" ? "ltr" : "ltr"}`}
               >
                 {value}
               </h4>
