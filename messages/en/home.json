@@ -50,7 +50,8 @@
       "naturalLinen": { "name": "Natural Linen", "desc": "Light & airy" },
       "softWool": { "name": "Soft Wool", "desc": "Cozy feel" },
       "premiumWool": { "name": "Premium Wool", "desc": "High durability" }
-    }
+    },
+    "viewMore": "View More"
   },
   "whyChooseUs": {
     "subtitle": "WHY CHOOSE US",

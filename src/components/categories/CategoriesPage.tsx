@@ -2,29 +2,25 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import Breadcrumb from "@/components/layout/hero/Breadcrumb";
 import type { ProductCategory } from "@/types/productTypes";
+import { getLocalizedSlug } from "@/lib/localized-slug";
 
 type CategoriesPageProps = {
   categories?: ProductCategory[] | null;
 };
 
-function resolveSlug(
-  slug?: { en?: string; ar?: string; tr?: string } | string | null,
-): string {
-  if (!slug) return "";
-  if (typeof slug === "string") return slug;
-  return slug.en || slug.ar || slug.tr || "";
-}
-
 export default function CategoriesPage({ categories }: CategoriesPageProps) {
+  const locale = useLocale();
   const t = useTranslations("categories");
   const tNav = useTranslations("nav");
   const tBreadcrumb = useTranslations("breadcrumb");
 
-  const items = (categories ?? []).filter((category) => category.is_active !== false);
+  const items = (categories ?? []).filter(
+    (category) => category.is_active !== false,
+  );
 
   return (
     <section className="bg-[#0d0b09] text-white pb-28 overflow-hidden">
@@ -37,11 +33,9 @@ export default function CategoriesPage({ categories }: CategoriesPageProps) {
         />
       </div>
 
-   
-
       <div className="max-w-7xl mx-auto px-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-8 pt-20">
         {items.map((category, i) => {
-          const slug = resolveSlug(category.slug);
+          const slug = getLocalizedSlug(category.slug, locale);
           const href = slug
             ? `/products?category=${encodeURIComponent(slug)}`
             : "/products";

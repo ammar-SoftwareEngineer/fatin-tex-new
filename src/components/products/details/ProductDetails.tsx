@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import Breadcrumb from "@/components/layout/hero/Breadcrumb";
@@ -11,8 +11,10 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
-import { ProductDetailsData } from "@/types/productTypes";
-import { useLocale } from "next-intl";
+import type { ProductDetailsData } from "@/types/productTypes";
+import { useLocale, useTranslations } from "next-intl";
+import { getLocalizedSlug } from "@/lib/localized-slug";
+import { useSlugAlternates } from "@/components/i18n/SlugAlternatesProvider";
 
 export default function ProductDetails({
   productData,
@@ -20,20 +22,26 @@ export default function ProductDetails({
   productData: ProductDetailsData;
 }) {
   const locale = useLocale();
+  const tNav = useTranslations("nav");
+  const { setSlug } = useSlugAlternates();
   const [open, setOpen] = useState(false);
   const [index, setIndex] = useState(0);
+  const productSlug = getLocalizedSlug(productData.slug, locale);
 
-
+  useEffect(() => {
+    setSlug(productData.slug);
+    return () => setSlug(null);
+  }, [productData.slug, setSlug]);
 
   return (
     <section className="bg-[#0f0f0f] text-white pb-28 overflow-hidden">
       <div className="bg-black/60 backdrop-blur-md border-b border-white/10">
         <Breadcrumb
           items={[
-            { label: "Products", href: "/products" },
+            { label: tNav("products"), href: "/products" },
             {
               label: productData.name,
-              href: `/products/${locale === "en" ? productData.slug?.en : productData.slug?.ar || ""}`,
+              href: `/products/${productSlug}`,
             },
           ]}
         />

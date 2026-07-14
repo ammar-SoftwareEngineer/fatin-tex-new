@@ -1,23 +1,4 @@
 {
-  "items": [
-    {
-      "title": "The Future of Textile Innovation",
-      "desc": "Discover how modern dyeing techniques are changing the fabric industry.",
-      "date": "Jan 2026",
-      "slug": "future-of-textile-innovation"
-    },
-    {
-      "title": "Luxury Fabrics Trends 2026",
-      "desc": "A deep dive into premium textures and fashion-forward materials.",
-      "date": "Feb 2026",
-      "slug": "luxury-fabrics-trends-2026"
-    },
-    {
-      "title": "Behind Sundus Dyeing Process",
-      "desc": "From raw fabric to final masterpiece — explore our process.",
-      "date": "Mar 2026",
-      "slug": "behind-sondos-dyeing-process"
-    }
-  ],
-  "readMore": "Read More"
+  "readMore": "Read More",
+  "relatedArticles": "Related Articles"
 }

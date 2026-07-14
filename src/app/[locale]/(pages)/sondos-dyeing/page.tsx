@@ -1,6 +1,6 @@
 import { createPageMetadata, setupPageLocale } from "@/lib/page-utils";
 import SondosPage from "@/components/sondos/SondosPage";
-import { fetchSondosData } from "@/api/sondosService";
+
 export async function generateMetadata({
   params,
 }: {
@@ -15,6 +15,5 @@ export default async function SondosDyeingPage({
   params: Promise<{ locale: string }>;
 }) {
   await setupPageLocale(params);
-
   return <SondosPage />;
 }

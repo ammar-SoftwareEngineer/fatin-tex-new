@@ -11,27 +11,21 @@ import {
 import type { LocalizedSlug } from "@/lib/localized-slug";
 
 type SlugAlternatesContextValue = {
-  productSlug: LocalizedSlug | null;
-  setProductSlug: (slug: LocalizedSlug | null) => void;
+  slug: LocalizedSlug | null;
+  setSlug: (slug: LocalizedSlug | null) => void;
 };
 
-const SlugAlternatesContext = createContext<SlugAlternatesContextValue | null>(
-  null,
-);
+const SlugAlternatesContext =
+  createContext<SlugAlternatesContextValue | null>(null);
 
 export function SlugAlternatesProvider({ children }: { children: ReactNode }) {
-  const [productSlug, setProductSlugState] = useState<LocalizedSlug | null>(
-    null,
-  );
+  const [slug, setSlugState] = useState<LocalizedSlug | null>(null);
 
-  const setProductSlug = useCallback((slug: LocalizedSlug | null) => {
-    setProductSlugState(slug);
+  const setSlug = useCallback((next: LocalizedSlug | null) => {
+    setSlugState(next);
   }, []);
 
-  const value = useMemo(
-    () => ({ productSlug, setProductSlug }),
-    [productSlug, setProductSlug],
-  );
+  const value = useMemo(() => ({ slug, setSlug }), [slug, setSlug]);
 
   return (
     <SlugAlternatesContext.Provider value={value}>
@@ -44,8 +38,8 @@ export function useSlugAlternates() {
   const ctx = useContext(SlugAlternatesContext);
   if (!ctx) {
     return {
-      productSlug: null,
-      setProductSlug: () => undefined,
+      slug: null,
+      setSlug: () => undefined,
     };
   }
   return ctx;

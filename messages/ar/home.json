@@ -50,7 +50,8 @@
       "naturalLinen": { "name": "كتان طبيعي", "desc": "خفيف ومنعش" },
       "softWool": { "name": "صوف ناعم", "desc": "إحساس دافئ" },
       "premiumWool": { "name": "صوف فاخر", "desc": "متانة عالية" }
-    }
+    },
+    "viewMore": "عرض المزيد"
   },
   "whyChooseUs": {
     "subtitle": "لماذا تختارنا",

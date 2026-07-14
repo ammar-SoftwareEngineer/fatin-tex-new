@@ -3,7 +3,7 @@ const NEXT_PUBLIC_BACKEND_BASE_URL = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
 export type ContactFormData = {
   name: string;
   email: string;
-  subject?: string;
+  phone?: string;
   message: string;
 };
 
@@ -36,7 +36,7 @@ export async function fetchContactData(lang = "en") {
 export async function sendContactData(formData: ContactFormData) {
   try {
     const response = await fetch(
-      `${NEXT_PUBLIC_BACKEND_BASE_URL}/sent-contact-message`,
+      `${NEXT_PUBLIC_BACKEND_BASE_URL}/save-contact-us`,
       {
         method: "POST",
         headers: {

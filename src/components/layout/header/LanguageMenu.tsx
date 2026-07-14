@@ -48,7 +48,7 @@ export default function LanguageMenu({
         <FaChevronDown className="text-xs" />
       </div>
       <ul
-        className={`absolute left-0 top-full mt-4 w-44 bg-black/90 backdrop-blur-xl rounded-2xl shadow-2xl
+        className={`absolute ltr:left-0 rtl:right-0 top-full mt-4 w-44 bg-black/90 backdrop-blur-xl rounded-2xl shadow-2xl
         opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 p-3
         ${locale === "ar" ? "text-right" : "text-left"}`}
       >

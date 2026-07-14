@@ -13,6 +13,8 @@ import DesktopNavbar from "./DesktopNavbar";
 import MobileNavbar from "./MobileNavbar";
 import type { NavLink } from "./navTypes";
 import { mapMenuItem } from "./navUtils";
+import { useSlugAlternates } from "@/components/i18n/SlugAlternatesProvider";
+import { localizeSlugPathname } from "@/lib/localized-slug";
 
 type NavbarContentProps = {
   layoutData: Awaited<ReturnType<typeof fetchLayoutData>>;
@@ -51,9 +53,9 @@ export default function NavbarContent({
   const menuItems = useMemo(
     () =>
       (layout?.menu ?? []).map((item) =>
-        mapMenuItem(item, navbarCategories, galleryLinks),
+        mapMenuItem(item, navbarCategories, galleryLinks, locale),
       ),
-    [layout?.menu, navbarCategories, galleryLinks],
+    [layout?.menu, navbarCategories, galleryLinks, locale],
   );
 
   const mid = Math.ceil(menuItems.length / 2);
@@ -67,8 +69,12 @@ export default function NavbarContent({
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const switchLocale = (code: string) =>
-    router.replace(pathname, { locale: code });
+  const { slug: slugAlternates } = useSlugAlternates();
+
+  const switchLocale = (code: string) => {
+    const nextPath = localizeSlugPathname(pathname, code, slugAlternates);
+    router.replace(nextPath, { locale: code });
+  };
 
   return (
     <>

@@ -1,15 +1,14 @@
 import type { HomeSection } from "@/types/homeTypes";
 
 type VideoSectionProps = {
-  video: HomeSection;
+  video?: HomeSection | null;
 };
 
-export default function VideoSection( { video }: VideoSectionProps ) {
-  console.log("video", video);
+export default function VideoSection({ video }: VideoSectionProps) {
+  const src = video?.image || "/vedio.mp4";
+
   return (
     <section className="relative w-full h-[70vh] overflow-hidden bg-black">
-
-      {/* Video */}
       <video
         className="w-full h-full object-cover"
         autoPlay
@@ -17,12 +16,9 @@ export default function VideoSection( { video }: VideoSectionProps ) {
         loop
         playsInline
       >
-        <source src="/vedio.mp4" type="video/mp4" />
+        <source src={src} type="video/mp4" />
       </video>
-
-      {/* Dark Overlay */}
       <div className="absolute inset-0 bg-black/40" />
-
     </section>
   );
 }

@@ -5,12 +5,14 @@ import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import Breadcrumb from "@/components/layout/hero/Breadcrumb";
 import type { Blog } from "@/types/blogTypes";
+import { getLocalizedSlug } from "@/lib/localized-slug";
 import { FaLongArrowAltLeft, FaLongArrowAltRight } from "react-icons/fa";
 
 export default function BlogsPage({ blogs }: { blogs: Blog[] }) {
   const t = useTranslations("blogs");
   const tNav = useTranslations("nav");
   const locale = useLocale();
+  const isRtl = locale === "ar";
 
   return (
     <div className="bg-[#0d0b09] text-white overflow-hidden">
@@ -25,7 +27,7 @@ export default function BlogsPage({ blogs }: { blogs: Blog[] }) {
             transition={{ duration: 0.8, delay: i * 0.15 }}
             viewport={{ once: true }}
             whileHover={{ y: -12 }}
-            className="group relative rounded-[30px] overflow-hidden bg-white/[0.03] border border-white/10 backdrop-blur-xl"
+            className="group relative rounded-[30px] overflow-hidden bg-white/3 border border-white/10 backdrop-blur-xl"
           >
             <div className="relative h-[260px] overflow-hidden">
               <img
@@ -45,10 +47,15 @@ export default function BlogsPage({ blogs }: { blogs: Blog[] }) {
                 {blog.excerpt}
               </p>
               <Link
-                href={`/blogs/${locale === "en" ? blog.slug?.en : blog.slug?.ar || ""}`}
+                href={`/blogs/${getLocalizedSlug(blog.slug, locale)}`}
                 className="text-[#e0bc80] font-medium inline-flex items-center gap-2"
               >
-                {t("readMore")} {locale === "en" ? <FaLongArrowAltRight className="w-4 h-4" /> : <FaLongArrowAltLeft className="w-4 h-4" />}
+                {t("readMore")}{" "}
+                {isRtl ? (
+                  <FaLongArrowAltLeft className="w-4 h-4" />
+                ) : (
+                  <FaLongArrowAltRight className="w-4 h-4" />
+                )}
               </Link>
             </div>
           </motion.div>

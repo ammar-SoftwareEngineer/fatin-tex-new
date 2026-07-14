@@ -10,7 +10,14 @@ import { Link } from "@/i18n/navigation";
 export default function Breadcrumb({
   items,
 }: {
-  items: { label: string; href?: string }[];
+  items: {
+    label?: string;
+    href?: string;
+    image?: string;
+    alt_image?: string;
+    title?: string;
+    description?: string;
+  }[];
 }) {
   const t = useTranslations("breadcrumb");
 
@@ -24,7 +31,7 @@ export default function Breadcrumb({
       >
         <div
           className="w-full h-full bg-cover bg-center"
-          style={{ backgroundImage: "url('/hero2.jpg')" }}
+          style={{ backgroundImage: `url(${items[items.length - 1]?.image || '/hero2.jpg'})` }}
         />
       </motion.div>
 
@@ -47,7 +54,7 @@ export default function Breadcrumb({
           transition={{ duration: 1, delay: 0.2 }}
           className="text-sm sm:text-base md:text-lg text-gray-300 max-w-2xl leading-7 mb-8"
         >
-          {t("description")}
+          {items[items.length - 1]?.description || t("description")}
         </motion.p>
 
         <motion.div
@@ -73,11 +80,11 @@ export default function Breadcrumb({
                   href={item.href}
                   className="text-sm sm:text-base text-gray-200 hover:text-[#e0bc80] transition-all duration-300"
                 >
-                  {item.label}
+                  {item.title || item.label}
                 </Link>
               ) : (
                 <span className="text-sm sm:text-base text-[#e0bc80] font-semibold">
-                  {item.label}
+                  {item.title || item.label}
                 </span>
               )}
             </div>

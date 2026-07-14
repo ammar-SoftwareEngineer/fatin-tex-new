@@ -1,94 +1,111 @@
 "use client";
 
-import React, { useState, useTransition } from "react";
+import { useState, useTransition } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { contactAction } from "@/actions/contact";
-import type { ContactFormValues } from "@/lib/validation/contact.schema";
+import {
+  contactSchema,
+  type ContactFormValues,
+} from "@/lib/validation/contact.schema";
 
-const inputClassName =
+type Status = "idle" | "success" | "error";
+
+const inputClass =
   "p-4 rounded-xl bg-black/30 border border-white/10 outline-none focus:border-[#e0bc80] w-full";
+
+const FIELDS = [
+  { name: "name", type: "text", required: true, fullWidth: false },
+  { name: "email", type: "email", required: true, fullWidth: false },
+  { name: "phone", type: "tel", required: false, fullWidth: true },
+] as const;
 
 export default function ContactForm() {
   const t = useTranslations("contact.form");
-  const [status, setStatus] = useState<"success" | "error" | null>(null);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [status, setStatus] = useState<Status>("idle");
   const [isPending, startTransition] = useTransition();
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setStatus(null);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<ContactFormValues>({
+    resolver: zodResolver(contactSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      phone: "",
+      message: "",
+    },
+  });
 
-    const formData = new FormData(event.currentTarget);
-    const data: ContactFormValues = {
-      name: String(formData.get("name") ?? ""),
-      email: String(formData.get("email") ?? ""),
-      subject: String(formData.get("subject") ?? ""),
-      message: String(formData.get("message") ?? ""),
-    };
+  function onSubmit(values: ContactFormValues) {
+    setStatus("idle");
 
     startTransition(async () => {
-      const result = await contactAction(data);
-      const form = event.currentTarget;
+      const result = await contactAction(values);
 
-      if (!result.ok) {
+      if (result.ok) {
+        setStatus("success");
+        reset();
+      } else {
         setStatus("error");
-        setErrorMessage( "An error occurred");
-        return;
       }
-
-      setStatus("success");
-      form.reset();
     });
   }
 
   return (
     <motion.form
-      onSubmit={handleSubmit}
+      onSubmit={handleSubmit(onSubmit)}
       initial={{ opacity: 0, scale: 0.95 }}
       whileInView={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.7 }}
       viewport={{ once: true }}
       className="bg-white/5 border border-white/10 backdrop-blur-xl rounded-[28px] p-6 sm:p-10 grid grid-cols-1 md:grid-cols-2 gap-5"
     >
-      <input
-        name="name"
-        type="text"
-        required
-        placeholder={t("name")}
-        className={inputClassName}
-      />
-      <input
-        name="email"
-        type="email"
-        required
-        placeholder={t("email")}
-        className={inputClassName}
-      />
-      <input
-        name="subject"
-        type="text"
-        placeholder={t("subject")}
-        className={`md:col-span-2 ${inputClassName}`}
-      />
-      <textarea
-        name="message"
-        required
-        placeholder={t("message")}
-        rows={6}
-        className={`md:col-span-2 ${inputClassName}`}
-      />
+      {FIELDS.map((field) => (
+        <div
+          key={field.name}
+          className={field.fullWidth ? "md:col-span-2" : undefined}
+        >
+          <input
+            type={field.type}
+            placeholder={t(field.name)}
+            className={inputClass}
+            {...register(field.name)}
+          />
+          {errors[field.name] ? (
+            <p className="mt-2 text-xs text-red-400">
+              {errors[field.name]?.message}
+            </p>
+          ) : null}
+        </div>
+      ))}
 
-      {status === "success" && (
-        <p className="md:col-span-2 text-center text-[#e0bc80] text-sm">
-          {t("success")}
+      <div className="md:col-span-2">
+        <textarea
+          placeholder={t("message")}
+          rows={6}
+          className={inputClass}
+          {...register("message")}
+        />
+        {errors.message ? (
+          <p className="mt-2 text-xs text-red-400">{errors.message.message}</p>
+        ) : null}
+      </div>
+
+      {status !== "idle" ? (
+        <p
+          className={`md:col-span-2 text-center text-sm ${
+            status === "success" ? "text-[#e0bc80]" : "text-red-400"
+          }`}
+        >
+          {t(status)}
         </p>
-      )}
-      {status === "error" && (
-        <p className="md:col-span-2 text-center text-red-400 text-sm">
-          {errorMessage || t("error")}
-        </p>
-      )}
+      ) : null}
 
       <button
         type="submit"

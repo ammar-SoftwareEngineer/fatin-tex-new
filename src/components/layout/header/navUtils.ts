@@ -19,9 +19,12 @@ export function resolveMenuHref(item: LayoutMenuItem): string {
   }
 }
 
-function categoryLinks(categories: ProductCategory[]): NavLink[] {
+function categoryLinks(
+  categories: ProductCategory[],
+  locale: string,
+): NavLink[] {
   return categories.flatMap((c) => {
-    const slug = getLocalizedSlug(c.slug);
+    const slug = getLocalizedSlug(c.slug, locale);
     return [
       {
         name: c.name,
@@ -29,7 +32,7 @@ function categoryLinks(categories: ProductCategory[]): NavLink[] {
           ? `/products?category=${encodeURIComponent(slug)}`
           : "/categories",
       },
-      ...categoryLinks(c.children ?? []),
+      ...categoryLinks(c.children ?? [], locale),
     ];
   });
 }
@@ -38,6 +41,7 @@ export function mapMenuItem(
   item: LayoutMenuItem,
   categories: ProductCategory[],
   galleryLinks: NavLink[],
+  locale = "en",
 ): NavItem {
   const href = resolveMenuHref(item);
   const children = (item.children ?? [])
@@ -48,7 +52,7 @@ export function mapMenuItem(
     children.length > 0
       ? children
       : href === "/categories"
-        ? categoryLinks(categories)
+        ? categoryLinks(categories, locale)
         : href === "/media"
           ? galleryLinks
           : undefined;

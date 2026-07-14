@@ -6,6 +6,10 @@ import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import Breadcrumb from "@/components/layout/hero/Breadcrumb";
 import type { Product } from "@/types/productTypes";
+import {
+  getLocalizedSlug,
+  matchesLocalizedSlug,
+} from "@/lib/localized-slug";
 
 type ProductsPageProps = {
   productsData?: Product[] | null;
@@ -15,7 +19,6 @@ type ProductsPageProps = {
 export default function ProductsPage({
   productsData,
   categorySlug,
-
 }: ProductsPageProps) {
   const locale = useLocale();
   const t = useTranslations("products");
@@ -24,7 +27,7 @@ export default function ProductsPage({
 
   const products = (productsData ?? []).filter((product) => {
     if (!categorySlug) return true;
-    return product.category?.slug?.en === categorySlug;
+    return matchesLocalizedSlug(product.category?.slug, categorySlug);
   });
 
   return (
@@ -38,13 +41,16 @@ export default function ProductsPage({
         />
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 grid grid-cols-12  gap-8 pt-24">
+      <div className="max-w-7xl mx-auto px-6 grid grid-cols-12 gap-8 pt-24">
         {products.map((product, i) => {
-          const slug = locale === "en" ? product.slug?.en : product.slug?.ar || "";
-          
+          const slug = getLocalizedSlug(product.slug, locale);
 
           return (
-            <Link key={product.id} href={`/products/${slug}`} className="col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-4">
+            <Link
+              key={product.id}
+              href={`/products/${slug}`}
+              className="col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-4"
+            >
               <motion.div
                 initial={{ opacity: 0, y: 60 }}
                 whileInView={{ opacity: 1, y: 0 }}

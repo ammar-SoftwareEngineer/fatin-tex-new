@@ -110,12 +110,10 @@ export default function Categories({ categories }: CategoriesProps) {
                         <h3 className="text-2xl font-bold mb-3 group-hover:text-[#e0bc80] transition">
                           {item.name}
                         </h3>
-                        <p className="text-gray-300 text-sm sm:text-base mb-6"
-                          dangerouslySetInnerHTML={{ __html: item.short_description }}
-                        />
+                        
                       
                         <div className="flex items-center gap-3 text-[#e0bc80] font-medium opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
-                          <span>{ }</span>
+                          <span>{t("viewMore")}</span>
                           <ArrowRight size={18} />
                         </div>
                       </div>

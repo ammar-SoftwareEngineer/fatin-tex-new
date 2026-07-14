@@ -1,8 +1,6 @@
 "use client";
 
-import { useTranslations } from "next-intl";
 import type { fetchLayoutData } from "@/api/layoutService";
-import navbarData from "@/lib/data/navbar.json";
 import siteData from "@/lib/data/site.json";
 import {
   formatLayoutPhone,
@@ -22,8 +20,6 @@ type FooterClientProps = {
 };
 
 export default function FooterClient({ layoutData }: FooterClientProps) {
-  const tNav = useTranslations("nav");
-
   const layout: LayoutData | null = isApiError(layoutData)
     ? null
     : layoutData.data;
@@ -37,10 +33,11 @@ export default function FooterClient({ layoutData }: FooterClientProps) {
   const logo = layout?.branding?.logo || "/logo.png";
   const description = layout?.footer?.body?.trim();
 
-  const footerLinks = layout?.footer?.links?.map((item) => ({
-    name: item.title,
-    href: item.href,
-  })) ?? [];
+  const footerLinks =
+    layout?.footer?.links?.map((item) => ({
+      name: item.title,
+      href: item.href,
+    })) ?? [];
 
   return (
     <footer className="relative overflow-hidden text-white">
