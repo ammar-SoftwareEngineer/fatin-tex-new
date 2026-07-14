@@ -15,28 +15,34 @@ type ContactPageProps = {
 
 export default function ContactPage({ contactData }: ContactPageProps) {
   const t = useTranslations("contact");
-  const tNav = useTranslations("nav");
-console.log(contactData);
   const mainBranch = contactData?.branches?.[0];
 
   const contactItems = [
     {
       icon: <HiOutlinePhone />,
       title: t("phone.title"),
-      desc: `${mainBranch?.phone_1_country_code} ${mainBranch?.phone_1}` || "",
+      desc: `${mainBranch?.phone_1_country_code ?? ""} ${mainBranch?.phone_1 ?? ""}`.trim(),
+      link: `tel:${mainBranch?.phone_1_country_code ?? ""}${mainBranch?.phone_1 ?? ""}`,
+      target: "_blank" as const,
+      ltr: true,
     },
     {
       icon: <HiOutlineEnvelope />,
       title: t("email.title"),
-      desc: `${mainBranch?.email}` || "",
+      desc: mainBranch?.email || "",
+      link: mainBranch?.email ? `mailto:${mainBranch.email}` : "",
+      target: "_blank" as const,
+      ltr: true,
     },
     {
       icon: <HiOutlineMapPin />,
-      title: t("location.title"),
-      desc: `${mainBranch?.address}` || "",
+      title: mainBranch?.name || "",
+      desc: mainBranch?.address || "",
+      link: mainBranch?.map_url || "",
+      target: "_blank" as const,
+      ltr: false,
     },
   ];
-
   return (
     <div className="bg-[#0d0b09] text-white overflow-hidden">
       <Breadcrumb items={[{ label: contactData?.breadcrumb?.title, href: "/contact", image: contactData?.breadcrumb?.image, alt_image: contactData?.breadcrumb?.alt_image, title: contactData?.breadcrumb?.title, description: contactData?.breadcrumb?.sub_title }]} />
@@ -59,7 +65,17 @@ console.log(contactData);
                 </div>
               </div>
               <h3 className="text-xl font-bold mb-2">{item.title}</h3>
-              <p className="text-gray-400">{item.desc}</p>
+
+              {item.link ? (
+                <a
+                  href={item.link}
+                  target={item.target}
+                  dir={item.ltr ? "ltr" : undefined}
+                  className={`text-gray-400 ${item.ltr ? "inline-block" : ""}`}
+                >
+                  {item.desc}
+                </a>
+              ) : null}
             </motion.div>
           ))}
         </div>
