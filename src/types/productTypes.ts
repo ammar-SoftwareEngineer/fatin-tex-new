@@ -3,6 +3,12 @@ export type ProductImage = {
   url: string;
 };
 
+export type ProductVideo = {
+  id: number;
+  url: string;
+  thumbnail?: string | null;
+};
+
 export type ProductCategory = {
   id: number;
   name: string;
@@ -54,9 +60,12 @@ export type ProductDetailsData = {
   sort_order: number;
   main_image: string;
   images: ProductImage[];
+  videos?: ProductVideo[];
+  reels?: ProductVideo[] | string[];
   slug: {
-    en: string;
-    ar: string;
+    en?: string;
+    ar?: string;
+    tr?: string;
   };
   category: ProductCategory;
 };
@@ -66,5 +75,5 @@ export type ProductsApiResponse = {
 };
 
 export type ProductDetailsApiResponse = {
-  data: Product;
+  data: ProductDetailsData;
 };

@@ -36,7 +36,6 @@ export async function fetchProductDetailsData(slug: string, lang = "en") {
           "Accept-Language": lang,
         },
         method: "GET",
-        cache: "no-store",
       },
     );
 

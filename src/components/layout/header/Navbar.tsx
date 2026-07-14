@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { fetchLayoutData } from "@/api/layoutService";
 import { fetchCategoriesData } from "@/api/categoriesService";
 import { getLocale } from "next-intl/server";
@@ -19,10 +20,11 @@ export default async function Navbar() {
       );
 
   return (
-    <NavbarContent
-      layoutData={layoutData}
-      navbarCategories={navbarCategories}
-      locale={locale}
-    />
+    <Suspense fallback={null}>
+      <NavbarContent
+        layoutData={layoutData}
+        navbarCategories={navbarCategories}
+      />
+    </Suspense>
   );
 }

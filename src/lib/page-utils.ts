@@ -13,6 +13,7 @@ export async function createPageMetadata(
     about: string;
     blogs: string;
     products: string;
+    categories: string;
     contact: string;
     media: string;
     sondosDyeing: string;

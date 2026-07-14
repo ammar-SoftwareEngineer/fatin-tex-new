@@ -1,19 +1,11 @@
-import { createPageMetadata, setupPageLocale } from "@/lib/page-utils";
-import MediaPageView from "@/components/media/MediaPage";
+import { redirect } from "@/i18n/navigation";
+import { setupPageLocale } from "@/lib/page-utils";
 
-export async function generateMetadata({
+export default async function MediaIndexPage({
   params,
 }: {
   params: Promise<{ locale: string }>;
 }) {
-  return createPageMetadata(params, "media");
-}
-
-export default async function MediaPage({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
-  await setupPageLocale(params);
-  return <MediaPageView />;
+  const locale = await setupPageLocale(params);
+  redirect({ href: "/media/images", locale });
 }

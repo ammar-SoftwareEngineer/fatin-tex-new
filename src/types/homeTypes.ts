@@ -1,3 +1,5 @@
+import type { Blog } from "./blogTypes";
+
 export type HeroSlide = {
   id: number;
   title: string;
@@ -76,24 +78,9 @@ export type HomeCategory = {
 export type CategoriesSection = HomeSection & {
   categories: HomeCategory[];
 };
-export type HomeBlog = {
-  id: number;
-  title: string;
-  excerpt: string;
-  content: string;
-  image: string;
-  alt_image: string | null;
-  order: number;
-  is_active: boolean;
-  published_at: string;
-  slug: {
-    en: string;
-    ar: string;
-  };
-};
-export type Blog = {
 
-};
+export type HomeBlog = Blog;
+
 export type HomeData = {
   hero: HeroSlide[];
   about_us: HomeSection;

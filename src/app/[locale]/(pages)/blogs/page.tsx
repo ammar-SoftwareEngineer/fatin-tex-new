@@ -1,5 +1,8 @@
 import { createPageMetadata, setupPageLocale } from "@/lib/page-utils";
 import BlogsPageView from "@/components/blogs/BlogsPage";
+import { fetchBlogsData } from "@/api/blogsService";
+import { isApiError } from "@/types/layoutTypes";
+import type { BlogsApiResponse } from "@/types/blogTypes";
 
 export async function generateMetadata({
   params,
@@ -14,6 +17,12 @@ export default async function BlogsPage({
 }: {
   params: Promise<{ locale: string }>;
 }) {
-  await setupPageLocale(params);
-  return <BlogsPageView />;
+  const locale = await setupPageLocale(params);
+  const blogsResponse = await fetchBlogsData(locale);
+
+  const blogs = isApiError(blogsResponse)
+    ? []
+    : ((blogsResponse as BlogsApiResponse).data ?? []);
+
+  return <BlogsPageView blogs={blogs} />;
 }

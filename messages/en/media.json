@@ -2,5 +2,12 @@
   "subtitle": "OUR GALLERY",
   "title": "Media",
   "titleHighlight": "Showcase",
-  "description": "Explore our textile production, dyeing facilities, and fabric collections through photos and videos."
+  "description": "Explore our textile production, dyeing facilities, and fabric collections through photos and videos.",
+  "imagesTitle": "Photo",
+  "imagesHighlight": "Gallery",
+  "videosTitle": "Video",
+  "videosHighlight": "Gallery",
+  "emptyImages": "No images available yet.",
+  "emptyVideos": "No videos available yet.",
+  "playVideo": "▶ Play Video"
 }

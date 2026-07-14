@@ -79,7 +79,7 @@ export default function SondosPage() {
         <section className="w-full mt-20">
           <div className="relative w-full overflow-hidden border-y border-white/10">
             <div className="w-full h-[500px] md:h-[650px] relative">
-              <VideoSection />
+              {/* <VideoSection /> */}
               <div className="absolute inset-0 bg-gradient-to-tr from-black/60 via-transparent to-black/40" />
             </div>
           </div>

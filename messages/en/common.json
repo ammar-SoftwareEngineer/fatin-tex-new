@@ -6,8 +6,9 @@
       "about": "About Us",
       "blogs": "Blogs",
       "products": "Products",
+      "categories": "Categories",
       "contact": "Contact Us",
-      "media": "Media",
+      "media": "Gallery",
       "sondosDyeing": "Sondos Dyeing"
     },
     "description": {
@@ -16,8 +17,9 @@
       "about": "Learn about Fatin Tex — our story, mission, and commitment to premium fabrics.",
       "blogs": "Read the latest articles about textile innovation, luxury fabrics, and industry trends.",
       "products": "Browse our premium fabric collections — cotton, silk, linen, and wool.",
+      "categories": "Explore Fatin Tex fabric categories — curated collections for luxury fashion.",
       "contact": "Get in touch with Fatin Tex for inquiries, partnerships, and custom fabric solutions.",
-      "media": "Explore Fatin Tex media gallery — photos and videos from our textile production.",
+      "media": "Explore Fatin Tex gallery — photos and videos from our textile production.",
       "sondosDyeing": "Discover Sondos Dyeing — advanced textile dyeing services with premium quality."
     }
   },
@@ -25,7 +27,11 @@
     "home": "Home",
     "about": "About",
     "products": "Products",
+    "categories": "Categories",
     "media": "Media",
+    "gallery": "Gallery",
+    "images": "Images",
+    "videos": "Videos",
     "sondosDyeing": "Sondos Dyeing",
     "blogs": "Blogs",
     "contact": "Contact",

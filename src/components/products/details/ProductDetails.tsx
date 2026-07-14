@@ -12,24 +12,18 @@ import "swiper/css/pagination";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 import { ProductDetailsData } from "@/types/productTypes";
+import { useLocale } from "next-intl";
 
-export default function ProductDetails( { productData }: { productData: ProductDetailsData } ) {
-  console.log("productData", productData);
+export default function ProductDetails({
+  productData,
+}: {
+  productData: ProductDetailsData;
+}) {
+  const locale = useLocale();
   const [open, setOpen] = useState(false);
   const [index, setIndex] = useState(0);
 
-  const product = {
-    slug: "luxury-cotton-fabric",
-    name: "Luxury Cotton Fabric",
-    category: "Cotton",
-    description:
-      "Premium luxury cotton fabric crafted with precision to deliver an ultra-soft touch, breathable texture, and refined finishing.",
-    longDescription:
-      "This fabric is engineered for premium brands and designers who value both aesthetics and performance...",
-    sliderImages: ["/product1.jpg", "/product2.jpg", "/product3.jpg"],
-    gallery: ["/product1.jpg", "/product2.jpg", "/product3.jpg"],
-    reels: ["/video.mp4", "/video.mp4", "/video.mp4"],
-  };
+
 
   return (
     <section className="bg-[#0f0f0f] text-white pb-28 overflow-hidden">
@@ -37,12 +31,15 @@ export default function ProductDetails( { productData }: { productData: ProductD
         <Breadcrumb
           items={[
             { label: "Products", href: "/products" },
-            { label: productData.name, href: `/products/${productData.slug.en}` },
+            {
+              label: productData.name,
+              href: `/products/${locale === "en" ? productData.slug?.en : productData.slug?.ar || ""}`,
+            },
           ]}
         />
       </div>
 
-      <div className="max-w-5xl mx-auto px-6 mt-16 space-y-20">
+      <div className="max-w-7xl mx-auto px-6 mt-16 space-y-20">
         <motion.div
           initial={{ opacity: 0, y: 60 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -61,7 +58,12 @@ export default function ProductDetails( { productData }: { productData: ProductD
             {productData.images.map((img, i) => (
               <SwiperSlide key={i}>
                 <div className="relative h-[700px]">
-                  <Image src={img.url} alt={productData.name} fill className="object-cover" />
+                  <Image
+                    src={img.url}
+                    alt={productData.name}
+                    fill
+                    className="object-cover"
+                  />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
                 </div>
               </SwiperSlide>
@@ -69,16 +71,10 @@ export default function ProductDetails( { productData }: { productData: ProductD
           </Swiper>
         </motion.div>
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          className="text-gray-300 text-lg leading-9 text-center max-w-3xl mx-auto"
-        >
-          {product.description}
-        </motion.p>
+      
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-          {product.gallery.map((img, i) => (
+          {productData?.images?.map((img, i) => (
             <motion.div
               key={i}
               whileHover={{ scale: 1.05 }}
@@ -89,7 +85,7 @@ export default function ProductDetails( { productData }: { productData: ProductD
               className="rounded-2xl overflow-hidden cursor-pointer border border-white/10"
             >
               <Image
-                src={img}
+                src={img.url}
                 alt=""
                 width={400}
                 height={400}
@@ -103,15 +99,22 @@ export default function ProductDetails( { productData }: { productData: ProductD
           <h2 className="text-3xl font-bold text-[#e0bc80] mb-6">
             About This Fabric
           </h2>
-          <p className="text-gray-400 leading-9 max-w-4xl mx-auto text-lg">
-            {product.longDescription}
-          </p>
+          <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          className="text-gray-300 text-lg leading-9 text-center max-w-6xl mx-auto"
+          dangerouslySetInnerHTML={{ __html: productData.short_description }}
+          >
+          
+        </motion.p>
         </div>
 
         <div>
-          <h2 className="text-4xl font-bold text-center mb-12">Product Reels</h2>
+          <h2 className="text-4xl font-bold text-center mb-12">
+            Product Reels
+          </h2>
           <div className="grid md:grid-cols-3 gap-6">
-            {product.reels.map((video, i) => (
+            {productData?.videos?.map((video, i) => (
               <motion.div
                 key={i}
                 whileHover={{ scale: 1.03 }}
@@ -124,7 +127,7 @@ export default function ProductDetails( { productData }: { productData: ProductD
                   autoPlay
                   playsInline
                 >
-                  <source src={video} type="video/mp4" />
+                  <source src={video.url} type="video/mp4" />
                 </video>
               </motion.div>
             ))}
@@ -137,7 +140,7 @@ export default function ProductDetails( { productData }: { productData: ProductD
           open={open}
           close={() => setOpen(false)}
           index={index}
-          slides={product.gallery.map((img) => ({ src: img }))}
+          slides={productData?.images?.map((img) => ({ src: img.url }))}
         />
       </AnimatePresence>
     </section>

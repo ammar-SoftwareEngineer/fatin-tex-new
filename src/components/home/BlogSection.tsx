@@ -13,7 +13,7 @@ type BlogSectionProps = {
 };
 
 export default function BlogSection({ blogSection }: BlogSectionProps) {
-console.log("blogSection", blogSection);
+
   const t = useTranslations("blogs");
   const tHome = useTranslations("home.blogSection");
   const tCommon = useTranslations("common");

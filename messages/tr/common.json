@@ -6,8 +6,9 @@
       "about": "Hakkımızda",
       "blogs": "Blog",
       "products": "Ürünler",
+      "categories": "Kategoriler",
       "contact": "İletişim",
-      "media": "Medya",
+      "media": "Galeri",
       "sondosDyeing": "Sondos Boyama"
     },
     "description": {
@@ -16,8 +17,9 @@
       "about": "Fatin Tex hakkında bilgi edinin — hikayemiz, misyonumuz ve premium kumaşlara olan bağlılığımız.",
       "blogs": "Tekstil inovasyonu, lüks kumaşlar ve sektör trendleri hakkındaki en son makaleleri okuyun.",
       "products": "Premium kumaş koleksiyonlarımıza göz atın — pamuk, ipek, keten ve yün.",
+      "categories": "Fatin Tex kumaş kategorilerini keşfedin — lüks moda için özenle seçilmiş koleksiyonlar.",
       "contact": "Sorular, ortaklıklar ve özel kumaş çözümleri için Fatin Tex ile iletişime geçin.",
-      "media": "Fatin Tex medya galerisini keşfedin — tekstil üretimimizden fotoğraflar ve videolar.",
+      "media": "Fatin Tex galerisini keşfedin — tekstil üretimimizden fotoğraflar ve videolar.",
       "sondosDyeing": "Sondos Boyama'yı keşfedin — premium kalitede gelişmiş tekstil boyama hizmetleri."
     }
   },
@@ -25,7 +27,11 @@
     "home": "Ana Sayfa",
     "about": "Hakkımızda",
     "products": "Ürünler",
+    "categories": "Kategoriler",
     "media": "Medya",
+    "gallery": "Galeri",
+    "images": "Görseller",
+    "videos": "Videolar",
     "sondosDyeing": "Sondos Boyama",
     "blogs": "Blog",
     "contact": "İletişim",

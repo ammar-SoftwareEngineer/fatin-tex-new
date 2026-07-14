@@ -12,7 +12,7 @@ type SundusSectionProps = {
 };
 
 export default function SundusSection({ sundus }: SundusSectionProps) {
-  console.log("sundus", sundus);
+
   const params = useParams();
   const locale = typeof params.locale === "string" ? params.locale : undefined;
 
