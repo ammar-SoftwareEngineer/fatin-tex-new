@@ -11,9 +11,9 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
-import { ProductDetails } from "@/types/productTypes";
+import { ProductDetailsData } from "@/types/productTypes";
 
-export default function ProductDetails( { productData }: { productData: ProductDetails } ) {
+export default function ProductDetails( { productData }: { productData: ProductDetailsData } ) {
   console.log("productData", productData);
   const [open, setOpen] = useState(false);
   const [index, setIndex] = useState(0);

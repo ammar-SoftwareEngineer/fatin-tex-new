@@ -42,7 +42,7 @@ export type Product = {
   };
   category: ProductCategory;
 };
-export type ProductDetails = {
+export type ProductDetailsData = {
   id: number;
   name: string;
   short_description: string;
