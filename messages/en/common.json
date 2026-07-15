@@ -9,6 +9,8 @@
       "categories": "Categories",
       "contact": "Contact Us",
       "media": "Gallery",
+      "mediaImages": "Image Gallery",
+      "mediaVideos": "Video Gallery",
       "sondosDyeing": "Sondos Dyeing"
     },
     "description": {
@@ -20,6 +22,8 @@
       "categories": "Explore Fatin Tex fabric categories — curated collections for luxury fashion.",
       "contact": "Get in touch with Fatin Tex for inquiries, partnerships, and custom fabric solutions.",
       "media": "Explore Fatin Tex gallery — photos and videos from our textile production.",
+      "mediaImages": "Browse Fatin Tex image gallery — photos from our textile production and fabric collections.",
+      "mediaVideos": "Watch Fatin Tex video gallery — behind the scenes of textile production and dyeing.",
       "sondosDyeing": "Discover Sondos Dyeing — advanced textile dyeing services with premium quality."
     }
   },

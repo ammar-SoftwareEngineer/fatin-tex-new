@@ -8,7 +8,7 @@ export async function generateMetadata({
 }: {
   params: Promise<{ locale: string }>;
 }) {
-  return createPageMetadata(params, "media", { path: "/media/videos" });
+  return createPageMetadata(params, "mediaVideos");
 }
 
 export default async function MediaVideosPage({

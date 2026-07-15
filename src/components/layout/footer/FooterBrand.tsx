@@ -24,7 +24,7 @@ export default function FooterBrand({ logo, description }: FooterBrandProps) {
         whileHover={{ scale: 1.05, rotate: 2 }}
         transition={{ type: "spring", stiffness: 200 }}
         src={logo}
-        alt="Logo"
+        alt={tCommon("brandName")}
         className="h-24 sm:h-28 lg:h-32 mx-auto object-contain mb-4"
       />
 

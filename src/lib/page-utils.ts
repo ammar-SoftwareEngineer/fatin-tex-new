@@ -17,6 +17,8 @@ type PageKey =
   | "categories"
   | "contact"
   | "media"
+  | "mediaImages"
+  | "mediaVideos"
   | "sondosDyeing";
 
 const PAGE_PATHS: Record<PageKey, string> = {
@@ -27,6 +29,8 @@ const PAGE_PATHS: Record<PageKey, string> = {
   categories: "/categories",
   contact: "/contact",
   media: "/media",
+  mediaImages: "/media/images",
+  mediaVideos: "/media/videos",
   sondosDyeing: "/sondos-dyeing",
 };
 
@@ -46,6 +50,9 @@ export async function createPageMetadata(
   const favicon = !isApiError(layoutData)
     ? layoutData.data?.branding?.favicon
     : undefined;
+  const logo = !isApiError(layoutData)
+    ? layoutData.data?.branding?.logo
+    : undefined;
   const siteName = !isApiError(layoutData)
     ? layoutData.data?.branding?.site_name
     : undefined;
@@ -54,7 +61,7 @@ export async function createPageMetadata(
   const canonical = localeUrl(locale, path);
   const title = t(`title.${page}`);
   const description = t(`description.${page}`);
-  const ogImage = options.image || favicon;
+  const ogImage = options.image || logo || favicon;
 
   return {
     metadataBase: new URL(getSiteUrl()),
@@ -80,6 +87,12 @@ export async function createPageMetadata(
       locale,
       type: "website",
       images: ogImage ? [{ url: ogImage }] : undefined,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: ogImage ? [ogImage] : undefined,
     },
   };
 }

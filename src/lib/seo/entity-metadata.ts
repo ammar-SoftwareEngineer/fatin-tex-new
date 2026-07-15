@@ -37,6 +37,9 @@ export async function createEntityMetadata({
   const favicon = !isApiError(layoutData)
     ? layoutData.data?.branding?.favicon
     : undefined;
+  const logo = !isApiError(layoutData)
+    ? layoutData.data?.branding?.logo
+    : undefined;
   const siteName = !isApiError(layoutData)
     ? layoutData.data?.branding?.site_name
     : undefined;
@@ -44,7 +47,7 @@ export async function createEntityMetadata({
   const localSlug = getLocalizedSlug(slug, locale);
   const path = `/${collection}/${localSlug}`;
   const canonical = localeUrl(locale, path);
-  const ogImage = image || favicon;
+  const ogImage = image || logo || favicon;
   const desc = description?.trim() || undefined;
 
   return {
@@ -77,6 +80,12 @@ export async function createEntityMetadata({
             modifiedTime: modifiedAt || publishedAt || undefined,
           }
         : {}),
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description: desc,
+      images: ogImage ? [ogImage] : undefined,
     },
   };
 }

@@ -106,7 +106,7 @@ export default function ProductDetails({
             >
               <Image
                 src={img.url}
-                alt=""
+                alt={productData.name}
                 width={400}
                 height={400}
                 className="h-[280px] w-full object-cover"

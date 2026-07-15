@@ -9,6 +9,8 @@
       "categories": "Kategoriler",
       "contact": "İletişim",
       "media": "Galeri",
+      "mediaImages": "Fotoğraf Galerisi",
+      "mediaVideos": "Video Galerisi",
       "sondosDyeing": "Sondos Boyama"
     },
     "description": {
@@ -20,6 +22,8 @@
       "categories": "Fatin Tex kumaş kategorilerini keşfedin — lüks moda için özenle seçilmiş koleksiyonlar.",
       "contact": "Sorular, ortaklıklar ve özel kumaş çözümleri için Fatin Tex ile iletişime geçin.",
       "media": "Fatin Tex galerisini keşfedin — tekstil üretimimizden fotoğraflar ve videolar.",
+      "mediaImages": "Fatin Tex fotoğraf galerisine göz atın — tekstil üretimimizden ve kumaş koleksiyonlarımızdan görseller.",
+      "mediaVideos": "Fatin Tex video galerisini izleyin — tekstil üretimi ve boyama süreçlerinden sahneler.",
       "sondosDyeing": "Sondos Boyama'yı keşfedin — premium kalitede gelişmiş tekstil boyama hizmetleri."
     }
   },

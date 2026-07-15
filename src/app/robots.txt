@@ -1,6 +1,0 @@
-User-agent: *
-Allow: /
-Disallow: /admin/
-Disallow: /resources/
-
-Sitemap: https://fatin-tex.g-homes.net/sitemap.xml
