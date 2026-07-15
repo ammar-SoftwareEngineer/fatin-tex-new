@@ -51,7 +51,6 @@ export default function MediaPage({
             { label: tNav("gallery"), href: "/media" },
             {
               label: isVideos ? tNav("videos") : tNav("images"),
-              href: isVideos ? "/media/videos" : "/media/images",
             },
           ]}
         />
@@ -67,10 +66,10 @@ export default function MediaPage({
         <p className="text-[#e0bc80] tracking-[5px] uppercase text-xs mb-4">
           {t("subtitle")}
         </p>
-        <h1 className="text-4xl md:text-5xl font-bold">
+        <h2 className="text-4xl md:text-5xl font-bold">
           {t(titleKey)}{" "}
           <span className="text-[#e0bc80]">{t(highlightKey)}</span>
-        </h1>
+        </h2>
         <p className="text-gray-400 mt-4 max-w-2xl mx-auto">{t("description")}</p>
 
         <div className="mt-8 flex justify-center gap-3">
@@ -116,10 +115,12 @@ export default function MediaPage({
               >
                 <Image
                   src={item.thumbnail || "/product1.jpg"}
-                  alt={item.title || "video preview"}
+                  alt={item.title || t("playVideo")}
                   width={600}
                   height={400}
-                  className="w-full h-[400px] object-cover group-hover:scale-110 transition duration-700"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  className="w-full h-[400px] object-cover group-hover:scale-105 transition duration-500"
+                  loading="lazy"
                 />
                 <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
                   <div className="px-4 py-2 bg-[#e0bc80] text-black rounded-full font-medium">
@@ -139,10 +140,12 @@ export default function MediaPage({
               >
                 <Image
                   src={item.url}
-                  alt={item.title || "gallery image"}
+                  alt={item.title || t("imagesTitle")}
                   width={600}
                   height={400}
-                  className="w-full h-[400px] object-cover group-hover:scale-110 transition duration-700"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  className="w-full h-[400px] object-cover group-hover:scale-105 transition duration-500"
+                  loading="lazy"
                 />
               </motion.div>
             ),

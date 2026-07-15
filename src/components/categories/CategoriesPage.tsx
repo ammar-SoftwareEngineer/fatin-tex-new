@@ -16,7 +16,6 @@ export default function CategoriesPage({ categories }: CategoriesPageProps) {
   const locale = useLocale();
   const t = useTranslations("categories");
   const tNav = useTranslations("nav");
-  const tBreadcrumb = useTranslations("breadcrumb");
 
   const items = (categories ?? []).filter(
     (category) => category.is_active !== false,
@@ -25,12 +24,7 @@ export default function CategoriesPage({ categories }: CategoriesPageProps) {
   return (
     <section className="bg-[#0d0b09] text-white pb-28 overflow-hidden">
       <div className="bg-black/60 backdrop-blur-md border-b border-white/10">
-        <Breadcrumb
-          items={[
-            { label: tBreadcrumb("home"), href: "/" },
-            { label: tNav("categories"), href: "/categories" },
-          ]}
-        />
+        <Breadcrumb items={[{ label: tNav("categories") }]} />
       </div>
 
       <div className="max-w-7xl mx-auto px-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-8 pt-20">
@@ -55,7 +49,9 @@ export default function CategoriesPage({ categories }: CategoriesPageProps) {
                     src={category.image || "/product1.jpg"}
                     alt={category.alt_image || category.name}
                     fill
-                    className="object-cover transition duration-700 group-hover:scale-110"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="object-cover transition duration-500 group-hover:scale-105"
+                    loading="lazy"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
                 </div>

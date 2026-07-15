@@ -24,7 +24,10 @@ export async function generateMetadata({
   const response = await fetchBlogDetailsData(slug, locale);
 
   if (isApiError(response) || !(response as BlogDetailsApiResponse)?.data) {
-    return {};
+    return {
+      title: "Article Not Found",
+      robots: { index: false, follow: false },
+    };
   }
 
   const blog = (response as BlogDetailsApiResponse).data;

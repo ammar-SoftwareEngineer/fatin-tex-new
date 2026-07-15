@@ -15,6 +15,7 @@ import type { NavLink } from "./navTypes";
 import { mapMenuItem } from "./navUtils";
 import { useSlugAlternates } from "@/components/i18n/SlugAlternatesProvider";
 import { localizeSlugPathname } from "@/lib/localized-slug";
+import { getAvailableSlugLocales } from "@/lib/seo/site";
 
 type NavbarContentProps = {
   layoutData: Awaited<ReturnType<typeof fetchLayoutData>>;
@@ -70,8 +71,16 @@ export default function NavbarContent({
   }, []);
 
   const { slug: slugAlternates } = useSlugAlternates();
+  const isEntityPage =
+    pathname.startsWith("/products/") || pathname.startsWith("/blogs/");
+  const availableLocales = isEntityPage
+    ? slugAlternates
+      ? getAvailableSlugLocales(slugAlternates)
+      : [locale]
+    : undefined;
 
   const switchLocale = (code: string) => {
+    if (availableLocales && !availableLocales.includes(code)) return;
     const nextPath = localizeSlugPathname(pathname, code, slugAlternates);
     router.replace(nextPath, { locale: code });
   };
@@ -91,6 +100,7 @@ export default function NavbarContent({
         search={search}
         locale={locale}
         onSwitchLocale={switchLocale}
+        availableLocales={availableLocales}
       />
 
       <MobileNavbar
@@ -112,6 +122,7 @@ export default function NavbarContent({
         search={search}
         locale={locale}
         onSwitchLocale={switchLocale}
+        availableLocales={availableLocales}
       />
     </>
   );

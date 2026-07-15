@@ -1,10 +1,9 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
-import Link from "next/link";
-import { useParams } from "next/navigation";
-import { localizePath } from "@/lib/utils";
+import { Link } from "@/i18n/navigation";
 import type { HomeSection } from "@/types/homeTypes";
 import { ArrowRightIcon } from "lucide-react";
 
@@ -13,10 +12,6 @@ type SundusSectionProps = {
 };
 
 export default function SundusSection({ sundus }: SundusSectionProps) {
-
-  const params = useParams();
-  const locale = typeof params.locale === "string" ? params.locale : undefined;
-
   return (
     <section className="relative min-h-screen bg-[#0d0b09] overflow-hidden">
 
@@ -93,11 +88,14 @@ export default function SundusSection({ sundus }: SundusSectionProps) {
               <div className="absolute  ltr:left-0 rtl:right-0 top-0 h-full w-[2px] bg-[#e0bc80]" />
 
               {/* Logo */}
-              <div className="mb-5 sm:mb-6">
-                <img
+              <div className="mb-5 sm:mb-6 relative h-16 sm:h-20 md:h-24 w-40">
+                <Image
                   src="/sondos.png"
-                  alt="Sundus Logo"
-                  className="h-16 sm:h-20 md:h-24 w-auto object-contain drop-shadow-[0_0_20px_rgba(224,188,128,0.4)]"
+                  alt={sundus?.title || "Sondos Dyeing"}
+                  fill
+                  sizes="160px"
+                  className="object-contain drop-shadow-[0_0_20px_rgba(224,188,128,0.4)]"
+                  loading="lazy"
                 />
               </div>
 
@@ -122,39 +120,14 @@ export default function SundusSection({ sundus }: SundusSectionProps) {
               {/* CTA */}
               <div className="mt-8 flex flex-wrap items-center gap-4 sm:gap-6">
 
-                <Link href={localizePath(`/sondos-dyeing`, locale)}>
-                  <motion.div
-                    whileHover={{
-                      scale: 1.05,
-                      boxShadow: "0px 0px 25px rgba(224,188,128,0.5)",
-                    }}
-                    whileTap={{ scale: 0.95 }}
-                    className="
-                      bg-[#e0bc80]
-                      text-black
-                      px-5 sm:px-6
-                      py-2.5 sm:py-3
-                      rounded-full
-                      font-medium
-                      text-sm sm:text-base
-                      flex items-center justify-center text-center gap-2
-                    "
-                  >
-                    Explore Collection
-                    <div className="
-                  w-9 h-9 sm:w-10 sm:h-10
-                  flex items-center justify-center
-                  border border-black
-                  text-black
-                  rounded-full
-                  cursor-pointer
-                    hover:bg-black
-                  hover:text-white
-                  transition
-                ">
-                      <ArrowRightIcon className="w-5 h-5 ltr:rotate-0 rtl:rotate-180" />
-                    </div>
-                  </motion.div>
+                <Link
+                  href="/sondos-dyeing"
+                  className="bg-[#e0bc80] text-black px-5 sm:px-6 py-2.5 sm:py-3 rounded-full font-medium text-sm sm:text-base flex items-center justify-center text-center gap-2 transition-transform hover:scale-105"
+                >
+                  Explore Collection
+                  <span className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center border border-black text-black rounded-full hover:bg-black hover:text-white transition">
+                    <ArrowRightIcon className="w-5 h-5 ltr:rotate-0 rtl:rotate-180" />
+                  </span>
                 </Link>
 
 
@@ -175,9 +148,12 @@ export default function SundusSection({ sundus }: SundusSectionProps) {
             viewport={{ once: true }}
             className="absolute ltr:right-6 rtl:left-6 bottom-10 hidden lg:block"
           >
-            <h1 className="text-[80px] xl:text-[120px] font-bold tracking-[10px] xl:tracking-[20px] text-white">
+            <p
+              aria-hidden="true"
+              className="text-[80px] xl:text-[120px] font-bold tracking-[10px] xl:tracking-[20px] text-white"
+            >
               SUNDUS
-            </h1>
+            </p>
           </motion.div>
 
         </div>

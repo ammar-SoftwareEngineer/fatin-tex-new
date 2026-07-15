@@ -14,7 +14,12 @@ import {
   buildOrganizationJsonLd,
   buildWebSiteJsonLd,
 } from "@/lib/seo/json-ld";
-import { getIndexRobots, getSiteUrl, localeUrl } from "@/lib/seo/site";
+import {
+  buildLanguageAlternates,
+  getIndexRobots,
+  getSiteUrl,
+  localeUrl,
+} from "@/lib/seo/site";
 import { isApiError } from "@/types/layoutTypes";
 import "@/styles/globals.css";
 
@@ -71,6 +76,10 @@ export async function generateMetadata({
           apple: branding.favicon,
         }
       : undefined,
+    alternates: {
+      canonical,
+      languages: buildLanguageAlternates(""),
+    },
     openGraph: {
       title,
       description,

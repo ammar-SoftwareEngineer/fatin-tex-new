@@ -24,7 +24,6 @@ export default function AboutPage({ aboutData }: AboutPageProps) {
         items={[
           {
             label: breadcrumb?.title ?? t("story.title"),
-            href: "/about",
             image: breadcrumb?.image,
             alt_image: breadcrumb?.alt_image ?? undefined,
             title: breadcrumb?.title,
@@ -49,7 +48,9 @@ export default function AboutPage({ aboutData }: AboutPageProps) {
               }
               width={1000}
               height={1000}
+              sizes="(max-width: 1024px) 100vw, 50vw"
               className="rounded-[30px] w-full h-[450px] object-cover border border-white/10 shadow-2xl"
+              loading="lazy"
             />
             <div className="absolute -bottom-8 -right-8 w-[200px] h-[200px] bg-[#e0bc80] blur-3xl opacity-20 rounded-full" />
           </motion.div>

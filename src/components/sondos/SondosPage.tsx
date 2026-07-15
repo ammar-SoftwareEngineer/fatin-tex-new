@@ -1,16 +1,39 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useMemo } from "react";
 import { useTranslations } from "next-intl";
+import type { Blog } from "@/types/blogTypes";
 import type { SondosData } from "@/types/sondosTypes";
-import Breadcrumb from "../layout/hero/Breadcrumb";
-import { fadeUp, transitionBase, viewportOnce } from "@/lib/motion";
+import Breadcrumb from "@/components/layout/hero/Breadcrumb";
+import FaqSection from "@/components/seo/FaqSection";
+import PageContactSection from "@/components/seo/PageContactSection";
+import RelatedArticles from "@/components/seo/RelatedArticles";
 
-export default function SondosPage({ data }: { data: SondosData | null }) {
+type SondosPageProps = {
+  data: SondosData | null;
+  relatedArticles?: Blog[];
+};
+
+export default function SondosPage({
+  data,
+  relatedArticles = [],
+}: SondosPageProps) {
   const t = useTranslations("sondos.page");
+  const tFaq = useTranslations("sondos.faq");
+  const tContact = useTranslations("sondos.contact");
+  const tRelated = useTranslations("sondos.related");
 
   const videoUrl =
     data?.content?.button_link_url || data?.content?.image || null;
+
+  const faqItems = useMemo(
+    () =>
+      [0, 1, 2].map((index) => ({
+        question: tFaq(`items.${index}.question`),
+        answer: tFaq(`items.${index}.answer`),
+      })),
+    [tFaq],
+  );
 
   return (
     <div className="bg-background text-white overflow-hidden">
@@ -18,7 +41,6 @@ export default function SondosPage({ data }: { data: SondosData | null }) {
         items={[
           {
             label: data?.breadcrumb?.title ?? t("heroTitle"),
-            href: "/sondos-dyeing",
             image: data?.breadcrumb?.image,
             alt_image: data?.breadcrumb?.alt_image ?? undefined,
             title: data?.breadcrumb?.title,
@@ -29,52 +51,29 @@ export default function SondosPage({ data }: { data: SondosData | null }) {
 
       <section className="px-6 md:px-16 py-24">
         <div className="max-w-4xl mx-auto text-center">
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={transitionBase}
-            viewport={viewportOnce}
-            className="text-[#e0bc80] tracking-[6px] text-xs mb-4"
-          >
+          <p className="text-[#e0bc80] tracking-[6px] text-xs mb-4">
             {data?.content?.sub_title ?? t("sectionSubtitle")}
-          </motion.p>
-          <motion.h2
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={transitionBase}
-            viewport={viewportOnce}
-            className="text-4xl md:text-6xl font-bold font-playfair"
-          >
+          </p>
+          <h2 className="text-4xl md:text-6xl font-bold font-playfair">
             {data?.content?.title ?? t("sectionTitle")}
-          </motion.h2>
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ ...transitionBase, delay: 0.1 }}
-            viewport={viewportOnce}
+          </h2>
+          <div
             className="text-gray-300 mt-6 leading-relaxed"
             dangerouslySetInnerHTML={{
               __html:
-                data?.content?.text ||
-                `<p>${t("sectionDescription")}</p>`,
+                data?.content?.text || `<p>${t("sectionDescription")}</p>`,
             }}
           />
         </div>
 
         {videoUrl ? (
-          <motion.section
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="show"
-            viewport={viewportOnce}
-            className="w-full mt-20"
-          >
+          <div className="w-full mt-20">
             <div className="relative w-full overflow-hidden border-y border-white/10">
-              <div className="w-full h-[500px] md:h-[650px] relative rounded-2xl">
+              <div className="w-full h-[320px] sm:h-[500px] md:h-[650px] relative rounded-2xl">
                 <div className="absolute inset-0 bg-linear-to-tr from-black/60 via-transparent to-black/40 z-10 pointer-events-none" />
                 <iframe
                   src={videoUrl}
-                  title="Sondos Dyeing Video"
+                  title={data?.content?.title ?? t("sectionTitle")}
                   className="w-full h-full rounded-2xl"
                   allowFullScreen
                   loading="lazy"
@@ -82,9 +81,20 @@ export default function SondosPage({ data }: { data: SondosData | null }) {
                 />
               </div>
             </div>
-          </motion.section>
+          </div>
         ) : null}
       </section>
+
+      <RelatedArticles articles={relatedArticles} title={tRelated("title")} />
+      <FaqSection
+        title={tFaq("title")}
+        subtitle={tFaq("subtitle")}
+        items={faqItems}
+      />
+      <PageContactSection
+        title={tContact("title")}
+        description={tContact("description")}
+      />
     </div>
   );
 }

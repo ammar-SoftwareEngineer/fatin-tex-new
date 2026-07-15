@@ -1,12 +1,14 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import { getLocalizedSlug } from "@/lib/localized-slug";
 import "swiper/css";
 import type { CategoriesSection } from "@/types/homeTypes";
 
@@ -20,6 +22,7 @@ export default function Categories({ categories }: CategoriesProps) {
   const categoriesData = categories?.categories;
   const t = useTranslations("home.categories");
   const tCommon = useTranslations("common");
+  const locale = useLocale();
   const [activeTab, setActiveTab] = useState(0);
 
   return (
@@ -88,18 +91,21 @@ export default function Categories({ categories }: CategoriesProps) {
               {categoriesData?.[activeTab]?.products.map((item, i) => (
                 <SwiperSlide key={item.id}>
                   <Link
-                    href={`/products/${item.slug.en}`}
+                    href={`/products/${getLocalizedSlug(item.slug, locale)}`}
                     className="block"
                   >
                     <motion.div
-                      whileHover={{ y: -14 }}
+                      whileHover={{ y: -6 }}
                       className="group relative h-[420px] rounded-[34px] overflow-hidden"
                     >
                       <div className="absolute inset-0 overflow-hidden rounded-[34px]">
-                        <img
+                        <Image
                           src={item.main_image}
                           alt={item.name}
-                          className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110"
+                          fill
+                          sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+                          className="object-cover transition-transform duration-500 group-hover:scale-105"
+                          loading="lazy"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
                       </div>

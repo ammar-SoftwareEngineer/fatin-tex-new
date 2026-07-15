@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
@@ -52,18 +53,20 @@ export default function BlogSection({ blogSection }: BlogSectionProps) {
         {blogs.map((blog, i) => (
           <motion.div
             key={blog.id}
-            initial={{ opacity: 0, y: 80 }}
+            initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: i * 0.15 }}
+            transition={{ duration: 0.5, delay: Math.min(i * 0.05, 0.3) }}
             viewport={{ once: true }}
-            whileHover={{ y: -12 }}
             className="group relative rounded-[30px] overflow-hidden bg-white/3 border border-white/10 backdrop-blur-xl"
           >
             <div className="relative h-[260px] overflow-hidden">
-              <img
+              <Image
                 src={blog.image}
                 alt={blog.alt_image ?? blog.title}
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                loading="lazy"
               />
               <div className="absolute top-5 left-5 bg-[#e0bc80] text-black text-xs font-semibold px-4 py-2 rounded-full shadow-lg">
                 {blog.published_at}

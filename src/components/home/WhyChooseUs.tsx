@@ -62,7 +62,15 @@ export default function WhyChooseUs({ whyChooseUs }: WhyChooseUsProps) {
           >
             <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-500 bg-linear-to-br from-[#e0bc80]/10 to-transparent" />
             <div  className="relative z-10 w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-[#e0bc80]/10 border border-[#e0bc80]/20 flex items-center justify-center text-[#e0bc80] mb-5 sm:mb-6" >
-              <Image src={item.image} alt={item.title} width={40} height={40} className="icon-image"/>
+              <Image
+                src={item.image}
+                alt={item.title}
+                width={40}
+                height={40}
+                sizes="40px"
+                className="icon-image"
+                loading="lazy"
+              />
             </div>
             <h3 className="relative z-10 text-xl sm:text-2xl font-bold font-playfair mb-3 sm:mb-4">
               {item.title}

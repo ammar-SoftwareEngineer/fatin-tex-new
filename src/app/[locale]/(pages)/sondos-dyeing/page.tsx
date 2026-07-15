@@ -1,7 +1,9 @@
 import { createPageMetadata, setupPageLocale } from "@/lib/page-utils";
 import SondosPage from "@/components/sondos/SondosPage";
 import { fetchSondosData } from "@/api/sondosService";
+import { fetchBlogsData } from "@/api/blogsService";
 import type { SondosApiResponse } from "@/types/sondosTypes";
+import type { BlogsApiResponse } from "@/types/blogTypes";
 import { isApiError } from "@/types/layoutTypes";
 
 export async function generateMetadata({
@@ -18,11 +20,18 @@ export default async function SondosDyeingPage({
   params: Promise<{ locale: string }>;
 }) {
   const locale = await setupPageLocale(params);
-  const sondosResponse = await fetchSondosData(locale);
+  const [sondosResponse, blogsResponse] = await Promise.all([
+    fetchSondosData(locale),
+    fetchBlogsData(locale),
+  ]);
 
   const sondosData = isApiError(sondosResponse)
     ? null
     : ((sondosResponse as SondosApiResponse).data ?? null);
 
-  return <SondosPage data={sondosData} />;
+  const relatedArticles = isApiError(blogsResponse)
+    ? []
+    : ((blogsResponse as BlogsApiResponse).data ?? []).slice(0, 3);
+
+  return <SondosPage data={sondosData} relatedArticles={relatedArticles} />;
 }

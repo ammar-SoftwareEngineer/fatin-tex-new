@@ -1,11 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import Breadcrumb from "@/components/layout/hero/Breadcrumb";
+import FaqSection from "@/components/seo/FaqSection";
+import PageContactSection from "@/components/seo/PageContactSection";
 import type { BlogDetailsData } from "@/types/blogTypes";
 import { getLocalizedSlug } from "@/lib/localized-slug";
 import { useSlugAlternates } from "@/components/i18n/SlugAlternatesProvider";
@@ -23,19 +24,27 @@ export default function BlogDetail({ blog }: BlogDetailProps) {
   const relatedBlogs = blog.related_blogs ?? [];
   const hasRelated = relatedBlogs.length > 0;
 
+  const faqItems = useMemo(
+    () =>
+      [0, 1, 2].map((index) => ({
+        question: t(`faq.items.${index}.question`),
+        answer: t(`faq.items.${index}.answer`),
+      })),
+    [t],
+  );
+
   useEffect(() => {
     setSlug(blog.slug);
     return () => setSlug(null);
   }, [blog.slug, setSlug]);
 
   return (
-    <section className="bg-[#0f0f0f] text-white pb-20 sm:pb-28 overflow-hidden">
+    <section className="bg-[#0f0f0f] text-white pb-10 sm:pb-16 overflow-hidden">
       <Breadcrumb
         items={[
           { label: tNav("blogs"), href: "/blogs" },
           {
             label: blog.title,
-            href: `/blogs/${slug}`,
             image: blog.image,
             alt_image: blog.alt_image ?? undefined,
             description: blog.excerpt,
@@ -48,19 +57,15 @@ export default function BlogDetail({ blog }: BlogDetailProps) {
           hasRelated ? "lg:grid-cols-12" : ""
         }`}
       >
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
+        <article
           className={`py-12 sm:py-20 ${hasRelated ? "lg:col-span-8" : ""}`}
         >
           <p className="inline-flex items-center flex-wrap gap-2 sm:gap-3 bg-[#e0bd80b6] border border-white/10 backdrop-blur-2xl px-4 sm:px-6 py-2 rounded-2xl sm:rounded-full shadow-[0_10px_40px_rgba(0,0,0,0.35)] mb-5">
             {blog.published_at}
           </p>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold max-w-3xl mb-5 leading-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold max-w-3xl mb-5 leading-tight">
             {blog.title}
-          </h1>
+          </h2>
           {blog.excerpt ? (
             <p className="mt-4 text-gray-400 max-w-2xl mb-5">{blog.excerpt}</p>
           ) : null}
@@ -70,6 +75,7 @@ export default function BlogDetail({ blog }: BlogDetailProps) {
               src={blog.image}
               alt={blog.alt_image ?? blog.title}
               fill
+              sizes="(max-width: 1024px) 100vw, 66vw"
               className="object-cover"
               priority
             />
@@ -79,7 +85,7 @@ export default function BlogDetail({ blog }: BlogDetailProps) {
             className="prose prose-invert prose-p:text-gray-300 prose-headings:text-white text-2xl text-justify mt-10 max-w-none"
             dangerouslySetInnerHTML={{ __html: blog.content || "" }}
           />
-        </motion.div>
+        </article>
 
         {hasRelated ? (
           <aside className="lg:col-span-4 lg:sticky lg:top-28 lg:self-start py-12 sm:py-20">
@@ -87,46 +93,53 @@ export default function BlogDetail({ blog }: BlogDetailProps) {
               {t("relatedArticles")}
             </h2>
             <div className="flex flex-col gap-4 sm:gap-5">
-              {relatedBlogs.map((post, i) => {
-           
+              {relatedBlogs.map((post) => {
+                const postSlug = getLocalizedSlug(post.slug, locale);
+                if (!postSlug) return null;
+
                 return (
-                  <motion.div
+                  <Link
                     key={post.id}
-                    initial={{ opacity: 0, y: 40 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: i * 0.1 }}
-                    viewport={{ once: true }}
+                    href={`/blogs/${postSlug}`}
+                    className="group flex gap-3 bg-[#111] rounded-xl overflow-hidden border border-white/10 hover:border-[#e0bc80]/40 transition"
                   >
-                    <Link
-                      href={`/blogs/${post.slug[locale]}`}
-                      className="group flex gap-3 bg-[#111] rounded-xl overflow-hidden border border-white/10 hover:border-[#e0bc80]/40 transition"
-                    >
-                      <div className="relative w-[100px] sm:w-[110px] shrink-0 h-[90px] sm:h-[100px] overflow-hidden">
-                        <Image
-                          src={post.image}
-                          alt={post.alt_image ?? post.title}
-                          fill
-                          className="object-cover group-hover:scale-110 transition duration-700"
-                        />
-                      </div>
-                      <div className="py-3 pe-3 flex flex-col justify-center min-w-0 gap-1">
-                        <h3 className="text-sm sm:text-base font-semibold line-clamp-2 group-hover:text-[#e0bc80] transition">
-                          {post.title}
-                        </h3>
-                        {post.excerpt ? (
-                          <p className="text-xs text-gray-400 line-clamp-2">
-                            {post.excerpt}
-                          </p>
-                        ) : null}
-                      </div>
-                    </Link>
-                  </motion.div>
+                    <div className="relative w-[100px] sm:w-[110px] shrink-0 h-[90px] sm:h-[100px] overflow-hidden">
+                      <Image
+                        src={post.image}
+                        alt={post.alt_image ?? post.title}
+                        fill
+                        sizes="110px"
+                        className="object-cover group-hover:scale-105 transition duration-500"
+                        loading="lazy"
+                      />
+                    </div>
+                    <div className="py-3 pe-3 flex flex-col justify-center min-w-0 gap-1">
+                      <h3 className="text-sm sm:text-base font-semibold line-clamp-2 group-hover:text-[#e0bc80] transition">
+                        {post.title}
+                      </h3>
+                      {post.excerpt ? (
+                        <p className="text-xs text-gray-400 line-clamp-2">
+                          {post.excerpt}
+                        </p>
+                      ) : null}
+                    </div>
+                  </Link>
                 );
               })}
             </div>
           </aside>
         ) : null}
       </div>
+
+      <FaqSection
+        title={t("faq.title")}
+        subtitle={t("faq.subtitle")}
+        items={faqItems}
+      />
+      <PageContactSection
+        title={t("contact.title")}
+        description={t("contact.description")}
+      />
     </section>
   );
 }

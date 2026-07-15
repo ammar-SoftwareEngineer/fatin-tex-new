@@ -12,8 +12,7 @@ import "swiper/css/pagination";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 import type { ProductDetailsData } from "@/types/productTypes";
-import { useLocale, useTranslations } from "next-intl";
-import { getLocalizedSlug } from "@/lib/localized-slug";
+import { useTranslations } from "next-intl";
 import { useSlugAlternates } from "@/components/i18n/SlugAlternatesProvider";
 import {
   cardHover,
@@ -28,13 +27,10 @@ export default function ProductDetails({
 }: {
   productData: ProductDetailsData;
 }) {
-  const locale = useLocale();
   const tNav = useTranslations("nav");
   const { setSlug } = useSlugAlternates();
   const [open, setOpen] = useState(false);
   const [index, setIndex] = useState(0);
-  const productSlug = getLocalizedSlug(productData.slug, locale);
-
   useEffect(() => {
     setSlug(productData.slug);
     return () => setSlug(null);
@@ -48,7 +44,8 @@ export default function ProductDetails({
             { label: tNav("products"), href: "/products" },
             {
               label: productData.name,
-              href: `/products/${productSlug}`,
+              image: productData.main_image,
+              description: productData.short_description,
             },
           ]}
         />
@@ -73,10 +70,13 @@ export default function ProductDetails({
           >
             {productData.images.map((img, i) => (
               <SwiperSlide key={i}>
-                <div className="relative h-[700px]">
+                <div className="relative h-[420px] sm:h-[560px] lg:h-[700px]">
                   <Image
                     src={img.url}
-                    alt={productData.name}
+                    alt={`${productData.name} — ${i + 1}`}
+                    sizes="100vw"
+                    priority={i === 0}
+                    loading={i === 0 ? "eager" : "lazy"}
                     fill
                     className="object-cover"
                   />
@@ -106,10 +106,12 @@ export default function ProductDetails({
             >
               <Image
                 src={img.url}
-                alt={productData.name}
+                alt={`${productData.name} thumbnail ${i + 1}`}
                 width={400}
                 height={400}
+                sizes="(max-width: 640px) 100vw, 33vw"
                 className="h-[280px] w-full object-cover"
+                loading="lazy"
               />
             </motion.div>
           ))}

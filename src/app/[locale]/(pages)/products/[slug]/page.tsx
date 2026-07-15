@@ -24,7 +24,10 @@ export async function generateMetadata({
   const response = await fetchProductDetailsData(slug, locale);
 
   if (isApiError(response) || !(response as ProductDetailsApiResponse)?.data) {
-    return {};
+    return {
+      title: "Product Not Found",
+      robots: { index: false, follow: false },
+    };
   }
 
   const product = (response as ProductDetailsApiResponse).data;

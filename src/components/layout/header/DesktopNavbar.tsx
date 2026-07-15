@@ -20,6 +20,7 @@ type DesktopNavbarProps = {
   search: string;
   locale: string;
   onSwitchLocale: (code: string) => void;
+  availableLocales?: string[];
 };
 
 function DesktopLink({
@@ -141,6 +142,7 @@ export default function DesktopNavbar({
   search,
   locale,
   onSwitchLocale,
+  availableLocales,
 }: DesktopNavbarProps) {
   return (
     <nav
@@ -171,7 +173,8 @@ export default function DesktopNavbar({
             width={100}
             height={70}
             className="object-contain"
-            loading="eager"
+            priority
+            sizes="100px"
           />
         </Link>
 
@@ -195,6 +198,7 @@ export default function DesktopNavbar({
             locale={locale}
             onSwitch={onSwitchLocale}
             variant="desktop"
+            availableLocales={availableLocales}
           />
         </div>
       </div>

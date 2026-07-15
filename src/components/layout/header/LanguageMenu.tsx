@@ -8,21 +8,31 @@ type LanguageMenuProps = {
   locale: string;
   onSwitch: (code: string) => void;
   variant: "desktop" | "mobile";
+  availableLocales?: string[];
 };
 
 export default function LanguageMenu({
   locale,
   onSwitch,
   variant,
+  availableLocales,
 }: LanguageMenuProps) {
   const t = useTranslations("nav");
+
+  const languages = LANGUAGES.filter((lang) =>
+    availableLocales ? availableLocales.includes(lang.code) : true,
+  );
+
+  if (languages.length <= 1) {
+    return null;
+  }
 
   if (variant === "mobile") {
     return (
       <div className="pt-6">
         <p className="text-[#e0bc80] text-lg mb-4">{t("language")}</p>
         <div className="flex gap-3 flex-wrap">
-          {LANGUAGES.map((lang) => (
+          {languages.map((lang) => (
             <button
               key={lang.code}
               type="button"
@@ -52,7 +62,7 @@ export default function LanguageMenu({
         opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 p-3
         ${locale === "ar" ? "text-right" : "text-left"}`}
       >
-        {LANGUAGES.map((lang) => (
+        {languages.map((lang) => (
           <li key={lang.code}>
             <button
               type="button"

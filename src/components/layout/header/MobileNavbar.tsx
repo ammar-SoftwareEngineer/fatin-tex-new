@@ -21,6 +21,7 @@ type MobileNavbarProps = {
   search: string;
   locale: string;
   onSwitchLocale: (code: string) => void;
+  availableLocales?: string[];
 };
 
 function MobileLink({
@@ -125,6 +126,7 @@ export default function MobileNavbar({
   search,
   locale,
   onSwitchLocale,
+  availableLocales,
 }: MobileNavbarProps) {
   return (
     <>
@@ -141,7 +143,8 @@ export default function MobileNavbar({
               width={90}
               height={60}
               className="object-contain"
-              loading="eager"
+              priority
+              sizes="90px"
             />
           </Link>
 
@@ -202,6 +205,7 @@ export default function MobileNavbar({
               onClose();
             }}
             variant="mobile"
+            availableLocales={availableLocales}
           />
         </div>
       </div>

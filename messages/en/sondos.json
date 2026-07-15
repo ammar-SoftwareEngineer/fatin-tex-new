@@ -26,5 +26,30 @@
     "sectionSubtitle": "LUXURY TEXTILE ENGINEERING",
     "sectionTitle": "Where Color Meets Precision",
     "sectionDescription": "Sondos Dyeing Factory specializes in high-precision textile dyeing, combining German technology, eco-friendly processes, and strict quality control. Every fabric passes through advanced finishing stages to ensure luxury-grade results suitable for international fashion standards."
+  },
+  "related": {
+    "title": "Related Articles"
+  },
+  "faq": {
+    "title": "Sondos Dyeing FAQ",
+    "subtitle": "SERVICE FAQ",
+    "items": [
+      {
+        "question": "What fabrics can Sondos Dyeing process?",
+        "answer": "We dye a wide range of textiles including cotton, blends, and specialty fabrics for fashion and industrial applications."
+      },
+      {
+        "question": "Do you support custom color matching?",
+        "answer": "Yes. Our lab matches target shades with precision and validates consistency across production batches."
+      },
+      {
+        "question": "How do I request a dyeing quote?",
+        "answer": "Use the contact form below with fabric type, quantity, and color requirements. Our team will respond with next steps."
+      }
+    ]
+  },
+  "contact": {
+    "title": "Request a Dyeing Consultation",
+    "description": "Tell us about your fabric and color goals — we will help you plan the right dyeing process."
   }
 }

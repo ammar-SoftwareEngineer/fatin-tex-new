@@ -1,9 +1,11 @@
 "use client";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import type { HomeSection } from "@/types/homeTypes";
 import CountUp from "react-countup";
+import { externalLinkProps, isExternalHref } from "@/lib/links";
 import {
   cardHover,
   fadeLeft,
@@ -39,11 +41,14 @@ export default function AboutSection({ about }: AboutSectionProps) {
             className="relative"
           >
             <div className="absolute -top-5 -left-5 w-full h-full border border-[#e0bc80]/20 rounded-[35px]" />
-            <div className="relative rounded-[30px] overflow-hidden shadow-[0_20px_80px_rgba(0,0,0,0.5)] group">
-              <img
+            <div className="relative rounded-[30px] overflow-hidden shadow-[0_20px_80px_rgba(0,0,0,0.5)] group h-[350px] sm:h-[500px] lg:h-[650px]">
+              <Image
                 src={about?.image || "/about1.jpg"}
-                alt={about?.alt_image || "About Image"}
-                className="w-full h-[350px] sm:h-[500px] lg:h-[650px] object-cover transition-transform duration-700 group-hover:scale-110"
+                alt={about?.alt_image || about?.title || tCommon("brandName")}
+                fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                loading="lazy"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
               <div className="absolute bottom-6 left-6 sm:bottom-8 sm:left-8 bg-white/10 backdrop-blur-2xl border border-white/10 rounded-3xl px-5 sm:px-6 py-4 shadow-2xl">
@@ -62,9 +67,12 @@ export default function AboutSection({ about }: AboutSectionProps) {
             viewport={viewportOnce}
             className="relative lg:pl-6"
           >
-            <h1 className="absolute top-[-50px] sm:top-[-70px] ltr:left-0 rtl:right-0 text-[55px] sm:text-[90px] lg:text-[150px] font-black text-white/[0.03] tracking-[10px] sm:tracking-[18px] uppercase pointer-events-none select-none">
+            <p
+              aria-hidden="true"
+              className="absolute top-[-50px] sm:top-[-70px] ltr:left-0 rtl:right-0 text-[55px] sm:text-[90px] lg:text-[150px] font-black text-white/[0.03] tracking-[10px] sm:tracking-[18px] uppercase pointer-events-none select-none"
+            >
               {t("bgTitle")}
-            </h1>
+            </p>
             <motion.p
               variants={fadeUp}
               initial="hidden"
@@ -129,17 +137,26 @@ export default function AboutSection({ about }: AboutSectionProps) {
               })}
             </motion.div>
 
-            <Link href={about?.button_link_url || "/about"}>
-              <motion.div
-                whileHover={{ scale: 1.03, y: -2 }}
-                whileTap={{ scale: 0.97 }}
-                className="relative overflow-hidden bg-[#e0bc80] text-black px-8 sm:px-10 py-4 rounded-full font-semibold text-sm sm:text-base shadow-xl inline-block text-center"
-              >
-                <span className="relative z-10">
-                  {about?.button_text || tCommon("exploreMore")}
-                </span>
-              </motion.div>
-            </Link>
+            {(() => {
+              const href = about?.button_link_url || "/about";
+              const label = about?.button_text || tCommon("exploreMore");
+              const className =
+                "relative overflow-hidden bg-[#e0bc80] text-black px-8 sm:px-10 py-4 rounded-full font-semibold text-sm sm:text-base shadow-xl inline-block text-center transition-transform hover:scale-[1.03]";
+
+              if (isExternalHref(href)) {
+                return (
+                  <a href={href} {...externalLinkProps(href)} className={className}>
+                    {label}
+                  </a>
+                );
+              }
+
+              return (
+                <Link href={href} className={className}>
+                  {label}
+                </Link>
+              );
+            })()}
           </motion.div>
         </div>
       </div>

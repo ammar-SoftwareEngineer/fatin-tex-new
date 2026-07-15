@@ -52,7 +52,6 @@ export default function ContactPage({ contactData }: ContactPageProps) {
         items={[
           {
             label: contactData?.breadcrumb?.title,
-            href: "/contact",
             image: contactData?.breadcrumb?.image,
             alt_image: contactData?.breadcrumb?.alt_image,
             title: contactData?.breadcrumb?.title,
@@ -84,6 +83,7 @@ export default function ContactPage({ contactData }: ContactPageProps) {
                 <a
                   href={item.link}
                   target={item.target}
+                  rel={item.target === "_blank" ? "noopener noreferrer" : undefined}
                   dir={item.ltr ? "ltr" : undefined}
                   className={`text-gray-400 ${item.ltr ? "inline-block" : ""}`}
                 >

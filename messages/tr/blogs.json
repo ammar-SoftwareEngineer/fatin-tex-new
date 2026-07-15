@@ -1,4 +1,26 @@
 {
   "readMore": "Devamını Oku",
-  "relatedArticles": "İlgili Yazılar"
+  "relatedArticles": "İlgili Yazılar",
+  "faq": {
+    "title": "Sıkça Sorulan Sorular",
+    "subtitle": "BLOG SSS",
+    "items": [
+      {
+        "question": "Fatin Tex ne sıklıkla yeni yazılar yayınlar?",
+        "answer": "Tekstil, kumaş trendleri ve boyama inovasyonları hakkında düzenli olarak içerik yayınlayarak tasarımcıları ve iş ortaklarını bilgilendiriyoruz."
+      },
+      {
+        "question": "Gelecek bir yazı için konu önerebilir miyim?",
+        "answer": "Evet. Aşağıdaki iletişim formundan talebinizi iletin; ekibimiz önerinizi gelecek içerikler için değerlendirecektir."
+      },
+      {
+        "question": "Yazıda geçen bir ürün hakkında nasıl bilgi alabilirim?",
+        "answer": "Yazı başlığı ve ilgilendiğiniz kumaşla bize ulaşın. Sizi uygun koleksiyona veya özel çözüme yönlendirelim."
+      }
+    ]
+  },
+  "contact": {
+    "title": "Kumaşlar hakkında yardıma mı ihtiyacınız var?",
+    "description": "Koleksiyonlar, numuneler veya iş ortaklıkları için yazın — genellikle bir iş günü içinde yanıt veririz."
+  }
 }

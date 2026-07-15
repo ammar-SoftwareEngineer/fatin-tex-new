@@ -1,4 +1,26 @@
 {
   "readMore": "Read More",
-  "relatedArticles": "Related Articles"
+  "relatedArticles": "Related Articles",
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "BLOG FAQ",
+    "items": [
+      {
+        "question": "How often does Fatin Tex publish new articles?",
+        "answer": "We regularly publish insights about textiles, fabric trends, and dyeing innovations to keep designers and partners informed."
+      },
+      {
+        "question": "Can I request a topic for a future article?",
+        "answer": "Yes. Share your request through the contact form below and our team will consider it for upcoming content."
+      },
+      {
+        "question": "How can I get product details mentioned in an article?",
+        "answer": "Contact our team with the article title and fabric interest. We will guide you to the matching collection or custom solution."
+      }
+    ]
+  },
+  "contact": {
+    "title": "Need Help With Fabrics?",
+    "description": "Ask about collections, samples, or partnerships — we typically respond within one business day."
+  }
 }
