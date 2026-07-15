@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { localizePath } from "@/lib/utils";
 import type { HomeSection } from "@/types/homeTypes";
+import { ArrowRightIcon } from "lucide-react";
 
 type SundusSectionProps = {
   sundus?: HomeSection;
@@ -47,14 +48,16 @@ export default function SundusSection({ sundus }: SundusSectionProps) {
               border border-white/10
             "
           >
-            <video
-              src="/vedio.mp4"
-              autoPlay
-              muted
-              loop
-              playsInline
+            <iframe
+              src={sundus?.button_link_url || "/vedio.mp4"}
+              width="100%"
+              height="100%"
               className="w-full h-[280px] sm:h-[380px] md:h-[520px] lg:h-[650px] object-cover"
-            />
+              title="Sundus Video"
+          allow="autoplay; encrypted-media"
+              allowFullScreen
+              loading="lazy"
+            ></iframe>
 
             <div className="absolute inset-0 bg-black/30"></div>
           </motion.div>
@@ -100,8 +103,8 @@ export default function SundusSection({ sundus }: SundusSectionProps) {
 
               {/* Title */}
               <h2 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-white leading-tight font-playfair">
-                Where Fabrics <br />
-                Become <span className="text-[#e0bc80]">Art</span>
+                {sundus?.title}
+             
               </h2>
 
               {/* Decorative line */}
@@ -111,9 +114,9 @@ export default function SundusSection({ sundus }: SundusSectionProps) {
               </div>
 
               {/* Description */}
-              <p className="text-gray-300 text-sm sm:text-base leading-relaxed max-w-md">
-                Premium textile dyeing and finishing crafted with innovation,
-                precision, and luxury craftsmanship that defines modern fabrics.
+              <p className="text-gray-300 text-sm sm:text-base leading-relaxed max-w-md" dangerouslySetInnerHTML={{ __html: sundus?.text || "" }}>
+            
+  
               </p>
 
               {/* CTA */}
@@ -134,26 +137,27 @@ export default function SundusSection({ sundus }: SundusSectionProps) {
                       rounded-full
                       font-medium
                       text-sm sm:text-base
-                      inline-block text-center
+                      flex items-center justify-center text-center gap-2
                     "
                   >
                     Explore Collection
+                    <div className="
+                  w-9 h-9 sm:w-10 sm:h-10
+                  flex items-center justify-center
+                  border border-black
+                  text-black
+                  rounded-full
+                  cursor-pointer
+                    hover:bg-black
+                  hover:text-white
+                  transition
+                ">
+                  <ArrowRightIcon className="w-5 h-5" />
+                </div>
                   </motion.div>
                 </Link>
 
-                <div className="
-                  w-9 h-9 sm:w-10 sm:h-10
-                  flex items-center justify-center
-                  border border-[#e0bc80]
-                  text-[#e0bc80]
-                  rounded-full
-                  cursor-pointer
-                  hover:bg-[#e0bc80]
-                  hover:text-black
-                  transition
-                ">
-                  →
-                </div>
+                
 
               </div>
 

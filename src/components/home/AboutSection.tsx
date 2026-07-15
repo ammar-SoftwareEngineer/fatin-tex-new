@@ -3,20 +3,17 @@ import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import type { HomeSection } from "@/types/homeTypes";
-
+import CountUp from "react-countup";
 type AboutSectionProps = {
   about?: HomeSection;
 };
 
 export default function AboutSection({ about }: AboutSectionProps) {
 
+
   const t = useTranslations("home.aboutSection");
   const tCommon = useTranslations("common");
 
-  const stats = [0, 1, 2].map((i) => ({
-    num: t(`stats.${i}.num`),
-    label: t(`stats.${i}.label`),
-  }));
 
   const titleWords = about?.title?.trim().split(/\s+/).filter(Boolean) ?? [];
   const titleStart = titleWords.slice(0, -1).join(" ");
@@ -56,7 +53,7 @@ export default function AboutSection({ about }: AboutSectionProps) {
                 transition={{ duration: 4, repeat: Infinity }}
                 className="absolute bottom-6 left-6 sm:bottom-8 sm:left-8 bg-white/10 backdrop-blur-2xl border border-white/10 rounded-3xl px-5 sm:px-6 py-4 shadow-2xl"
               >
-                
+
                 <h4 className="text-[#e0bc80] text-xl font-bold mb-1">{t("cardTitle")}</h4>
                 <p className="text-gray-300 text-sm">{t("cardDesc")}</p>
               </motion.div>
@@ -70,15 +67,15 @@ export default function AboutSection({ about }: AboutSectionProps) {
             viewport={{ once: true }}
             className="relative lg:pl-6"
           >
-                    <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
-          viewport={{ once: true }}
-          className="absolute top-[-50px] sm:top-[-70px] ltr:left-0 rtl:right-0 text-[55px] sm:text-[90px] lg:text-[150px] font-black text-white/[0.03] tracking-[10px] sm:tracking-[18px] uppercase pointer-events-none select-none"
-        >
-          {t("bgTitle")}
-        </motion.h1>
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1 }}
+              viewport={{ once: true }}
+              className="absolute top-[-50px] sm:top-[-70px] ltr:left-0 rtl:right-0 text-[55px] sm:text-[90px] lg:text-[150px] font-black text-white/[0.03] tracking-[10px] sm:tracking-[18px] uppercase pointer-events-none select-none"
+            >
+              {t("bgTitle")}
+            </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -110,22 +107,36 @@ export default function AboutSection({ about }: AboutSectionProps) {
               transition={{ delay: 0.5 }}
               className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-12"
             >
-              {stats.map((item, i) => (
-                <motion.div
-                  key={i}
-                  whileHover={{ y: -10, scale: 1.03 }}
-                  className="bg-white/5 border border-white/10 backdrop-blur-xl rounded-3xl p-6 text-center transition-all duration-300"
-                >
-                  <motion.h3
-                    animate={{ opacity: [0.8, 1, 0.8] }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                    className="text-[#e0bc80] text-3xl sm:text-4xl font-bold mb-2"
+              {about?.statistics?.map((item, i) => {
+                const number = parseInt(item.title);
+                const suffix = item.title.replace(/[0-9]/g, "");
+
+                return (
+                  <motion.div
+                    key={i}
+                    whileHover={{ y: -10, scale: 1.03 }}
+                    className="bg-white/5 border border-white/10 backdrop-blur-xl rounded-3xl p-6 text-center transition-all duration-300"
                   >
-                    {item.num}
-                  </motion.h3>
-                  <p className="text-gray-400 text-sm">{item.label}</p>
-                </motion.div>
-              ))}
+                    <motion.h3
+                      animate={{ opacity: [0.8, 1, 0.8] }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                      className="text-[#e0bc80] text-3xl sm:text-4xl font-bold mb-2"
+                    >
+                      <CountUp
+                        end={number}
+                        duration={2.5}
+                        enableScrollSpy
+                        scrollSpyOnce
+                      />
+                      {suffix}
+                    </motion.h3>
+
+                    <p className="text-gray-400 text-sm">
+                      {item.sub_title}
+                    </p>
+                  </motion.div>
+                );
+              })}
             </motion.div>
 
             <Link href={about?.button_link_url || "/about"}>
@@ -138,7 +149,7 @@ export default function AboutSection({ about }: AboutSectionProps) {
                 whileTap={{ scale: 0.95 }}
                 className="relative overflow-hidden bg-[#e0bc80] text-black px-8 sm:px-10 py-4 rounded-full font-semibold text-sm sm:text-base shadow-xl inline-block text-center"
               >
-                <span className="relative z-10">{about?.button_text ||  tCommon("exploreMore")}</span>
+                <span className="relative z-10">{about?.button_text || tCommon("exploreMore")}</span>
               </motion.div>
             </Link>
           </motion.div>

@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { Sparkles, ShieldCheck, Palette, Clock3 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import type { HomeSection } from "@/types/homeTypes";
-
+import Image from "next/image";
 const icons = [
   <Sparkles key="sparkles" size={30} />,
   <Palette key="palette" size={30} />,
@@ -18,7 +18,7 @@ type WhyChooseUsProps = {
 };
 
 export default function WhyChooseUs({ whyChooseUs }: WhyChooseUsProps) {
-
+console.log("whyChooseUs", whyChooseUs);
   const t = useTranslations("home.whyChooseUs");
   const titleWords = whyChooseUs?.title?.trim().split(/\s+/).filter(Boolean) ?? [];
   const titleStart = titleWords.slice(0, -1).join(" ");
@@ -65,7 +65,7 @@ export default function WhyChooseUs({ whyChooseUs }: WhyChooseUsProps) {
         viewport={{ once: true }}
         className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 sm:gap-8 max-w-7xl mx-auto"
       >
-        {features.map((item, i) => (
+        {whyChooseUs?.benefits?.map((item, i) => (
           <motion.div
             key={i}
             variants={card}
@@ -78,17 +78,17 @@ export default function WhyChooseUs({ whyChooseUs }: WhyChooseUsProps) {
             className="group relative overflow-hidden rounded-[24px] sm:rounded-[30px] border border-white/10 bg-white/5 backdrop-blur-xl p-6 sm:p-8"
           >
             <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-500 bg-gradient-to-br from-[#e0bc80]/10 to-transparent" />
-            <div className="relative z-10 w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-[#e0bc80]/10 border border-[#e0bc80]/20 flex items-center justify-center text-[#e0bc80] mb-5 sm:mb-6">
-              {item.icon}
+            <div className="">
+              <Image src={item.image} alt={item.title} width={40} height={40} className="relative z-10 w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-[#e0bc80]/10 border border-[#e0bc80]/20 flex items-center justify-center text-[#e0bc80] mb-5 sm:mb-6" />
             </div>
             <h3 className="relative z-10 text-xl sm:text-2xl font-bold font-playfair mb-3 sm:mb-4">
               {item.title}
             </h3>
             <p className="relative z-10 text-gray-400 text-sm sm:text-base leading-relaxed">
-              {item.desc}
+              {item.sub_title}
             </p>
             <span className="absolute top-4 sm:top-6 right-4 sm:right-6 text-4xl sm:text-5xl font-bold text-white/5">
-              0{i + 1}
+              0{item.order}
             </span>
           </motion.div>
         ))}
