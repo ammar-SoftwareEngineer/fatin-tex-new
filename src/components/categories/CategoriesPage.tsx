@@ -7,6 +7,7 @@ import { Link } from "@/i18n/navigation";
 import Breadcrumb from "@/components/layout/hero/Breadcrumb";
 import type { ProductCategory } from "@/types/productTypes";
 import { getLocalizedSlug } from "@/lib/localized-slug";
+import { cardHover, fadeUp, staggerDelay, transitionBase, viewportOnce } from "@/lib/motion";
 
 type CategoriesPageProps = {
   categories?: ProductCategory[] | null;
@@ -27,7 +28,21 @@ export default function CategoriesPage({ categories }: CategoriesPageProps) {
         <Breadcrumb items={[{ label: tNav("categories") }]} />
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-8 pt-20">
+      <div className="max-w-7xl mx-auto px-6 pt-20">
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="show"
+          viewport={viewportOnce}
+          className="text-center mb-12"
+        >
+          <h2 className="text-3xl sm:text-4xl font-bold font-playfair">
+            {t("title")}{" "}
+            <span className="text-[#e0bc80]">{t("titleHighlight")}</span>
+          </h2>
+        </motion.div>
+
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
         {items.map((category, i) => {
           const slug = getLocalizedSlug(category.slug, locale);
           const href = slug
@@ -37,11 +52,11 @@ export default function CategoriesPage({ categories }: CategoriesPageProps) {
           return (
             <Link key={category.id} href={href}>
               <motion.div
-                initial={{ opacity: 0, y: 60 }}
+                initial={{ opacity: 0, y: 18 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: i * 0.08 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -14 }}
+                transition={{ ...transitionBase, delay: staggerDelay(i) }}
+                viewport={viewportOnce}
+                whileHover={cardHover}
                 className="group relative h-[420px] rounded-[34px] overflow-hidden"
               >
                 <div className="absolute inset-0 overflow-hidden rounded-[34px]">
@@ -72,6 +87,7 @@ export default function CategoriesPage({ categories }: CategoriesPageProps) {
             </Link>
           );
         })}
+        </div>
       </div>
     </section>
   );

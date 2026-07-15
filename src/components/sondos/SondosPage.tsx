@@ -1,8 +1,15 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import type { SondosData } from "@/types/sondosTypes";
 import Breadcrumb from "@/components/layout/hero/Breadcrumb";
+import {
+  fadeUp,
+  staggerContainer,
+  transitionBase,
+  viewportOnce,
+} from "@/lib/motion";
 
 export default function SondosPage({ data }: { data: SondosData | null }) {
   const t = useTranslations("sondos.page");
@@ -25,24 +32,43 @@ export default function SondosPage({ data }: { data: SondosData | null }) {
       />
 
       <section className="px-6 md:px-16 py-24">
-        <div className="max-w-4xl mx-auto text-center">
-          <p className="text-[#e0bc80] tracking-[6px] text-xs mb-4">
+        <motion.div
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="show"
+          viewport={viewportOnce}
+          className="max-w-4xl mx-auto text-center"
+        >
+          <motion.p
+            variants={fadeUp}
+            className="text-[#e0bc80] tracking-[6px] text-xs mb-4"
+          >
             {data?.content?.sub_title ?? t("sectionSubtitle")}
-          </p>
-          <h2 className="text-4xl md:text-6xl font-bold font-playfair">
+          </motion.p>
+          <motion.h2
+            variants={fadeUp}
+            className="text-4xl md:text-6xl font-bold font-playfair"
+          >
             {data?.content?.title ?? t("sectionTitle")}
-          </h2>
-          <div
+          </motion.h2>
+          <motion.div
+            variants={fadeUp}
             className="text-gray-300 mt-6 leading-relaxed"
             dangerouslySetInnerHTML={{
               __html:
                 data?.content?.text || `<p>${t("sectionDescription")}</p>`,
             }}
           />
-        </div>
+        </motion.div>
 
         {videoUrl ? (
-          <div className="w-full mt-20">
+          <motion.div
+            initial={{ opacity: 0, y: 40, scale: 0.98 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ ...transitionBase, delay: 0.1 }}
+            viewport={viewportOnce}
+            className="w-full mt-20"
+          >
             <div className="relative w-full overflow-hidden border-y border-white/10">
               <div className="w-full h-[320px] sm:h-[500px] md:h-[650px] relative rounded-2xl">
                 <div className="absolute inset-0 bg-linear-to-tr from-black/60 via-transparent to-black/40 z-10 pointer-events-none" />
@@ -56,7 +82,7 @@ export default function SondosPage({ data }: { data: SondosData | null }) {
                 />
               </div>
             </div>
-          </div>
+          </motion.div>
         ) : null}
       </section>
     </div>

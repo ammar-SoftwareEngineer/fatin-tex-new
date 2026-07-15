@@ -6,9 +6,9 @@ export default function FooterBackground() {
   return (
     <>
       <motion.div
-        initial={{ scale: 1.1 }}
+        initial={{ scale: 1.04 }}
         whileInView={{ scale: 1 }}
-        transition={{ duration: 1.5 }}
+        transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
         className="absolute inset-0"
       >
         <div
@@ -34,7 +34,7 @@ export default function FooterBackground() {
           opacity: [0.1, 0.25, 0.1],
           scale: [1, 1.15, 1],
         }}
-        transition={{ duration: 6, repeat: Infinity }}
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
         className="
           absolute top-[-100px] left-[10%]
           w-[250px] h-[250px]
@@ -47,7 +47,7 @@ export default function FooterBackground() {
           opacity: [0.08, 0.18, 0.08],
           scale: [1, 1.2, 1],
         }}
-        transition={{ duration: 7, repeat: Infinity, delay: 1 }}
+        transition={{ duration: 9, repeat: Infinity, delay: 1, ease: "easeInOut" }}
         className="
           absolute bottom-[-120px] right-[10%]
           w-[300px] h-[300px]

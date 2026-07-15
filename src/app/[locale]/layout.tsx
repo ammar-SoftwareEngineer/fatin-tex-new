@@ -22,18 +22,23 @@ const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
   display: "swap",
+  preload: true,
 });
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
   variable: "--font-playfair",
   display: "swap",
+  preload: false,
+  weight: ["400", "700"],
 });
 
 const cairo = Cairo({
-  subsets: ["latin", "arabic"],
+  subsets: ["arabic"],
   variable: "--font-cairo",
   display: "swap",
+  preload: false,
+  weight: ["400", "600", "700"],
 });
 
 export function generateStaticParams() {

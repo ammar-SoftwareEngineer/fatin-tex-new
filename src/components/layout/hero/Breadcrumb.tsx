@@ -1,10 +1,19 @@
 "use client";
 
 import Image from "next/image";
+import { motion } from "framer-motion";
 import { HiHome } from "react-icons/hi2";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import {
+  easeSmooth,
+  fadeUp,
+  staggerContainer,
+  staggerItem,
+  transitionBase,
+  transitionSlow,
+} from "@/lib/motion";
 
 export type BreadcrumbItem = {
   label?: string;
@@ -30,7 +39,12 @@ export default function Breadcrumb({ items }: { items: BreadcrumbItem[] }) {
 
   return (
     <section className="relative overflow-hidden pt-36 sm:pt-44 lg:pt-52 pb-16 sm:pb-20 lg:pb-24 px-4 sm:px-6 lg:px-16">
-      <div className="absolute inset-0">
+      <motion.div
+        initial={{ scale: 1.04, opacity: 0.9 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ ...transitionSlow, ease: easeSmooth }}
+        className="absolute inset-0"
+      >
         <Image
           src={heroImage}
           alt={heroAlt}
@@ -39,21 +53,33 @@ export default function Breadcrumb({ items }: { items: BreadcrumbItem[] }) {
           sizes="100vw"
           className="object-cover"
         />
-      </div>
+      </motion.div>
 
       <div className="absolute inset-0 bg-black/70" />
       <div className="absolute inset-0 bg-gradient-to-r from-[#0b0f19]/95 via-black/40 to-[#0b0f19]/80" />
 
-      <div className="relative z-10 max-w-7xl mx-auto">
-        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold font-playfair text-white leading-tight mb-5">
+      <motion.div
+        variants={staggerContainer}
+        initial="hidden"
+        animate="show"
+        className="relative z-10 max-w-7xl mx-auto"
+      >
+        <motion.h1
+          variants={fadeUp}
+          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold font-playfair text-white leading-tight mb-5"
+        >
           {current?.label}
-        </h1>
+        </motion.h1>
 
-        <p className="text-sm sm:text-base md:text-lg text-gray-300 max-w-2xl leading-7 mb-8">
+        <motion.p
+          variants={fadeUp}
+          className="text-sm sm:text-base md:text-lg text-gray-300 max-w-2xl leading-7 mb-8"
+        >
           {current?.description || t("description")}
-        </p>
+        </motion.p>
 
-        <nav
+        <motion.nav
+          variants={staggerItem}
           aria-label="Breadcrumb"
           className="inline-flex items-center flex-wrap gap-2 sm:gap-3 bg-white/10 border border-white/10 backdrop-blur-2xl px-4 sm:px-6 py-3 sm:py-4 rounded-2xl sm:rounded-full shadow-[0_10px_40px_rgba(0,0,0,0.35)]"
         >
@@ -70,7 +96,13 @@ export default function Breadcrumb({ items }: { items: BreadcrumbItem[] }) {
             const label = item.title || item.label;
 
             return (
-              <div key={`${label}-${i}`} className="flex items-center gap-2">
+              <motion.div
+                key={`${label}-${i}`}
+                initial={{ opacity: 0, x: 8 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ ...transitionBase, delay: 0.15 + i * 0.06 }}
+                className="flex items-center gap-2"
+              >
                 <MdKeyboardArrowRight className="text-gray-400 text-lg" />
                 {!isLast && item.href ? (
                   <Link
@@ -87,11 +119,11 @@ export default function Breadcrumb({ items }: { items: BreadcrumbItem[] }) {
                     {label}
                   </span>
                 )}
-              </div>
+              </motion.div>
             );
           })}
-        </nav>
-      </div>
+        </motion.nav>
+      </motion.div>
     </section>
   );
 }

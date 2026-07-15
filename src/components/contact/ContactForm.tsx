@@ -62,7 +62,7 @@ export default function ContactForm() {
       onSubmit={handleSubmit(onSubmit)}
       initial={{ opacity: 0, scale: 0.95 }}
       whileInView={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.7 }}
+      transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
       viewport={{ once: true }}
       className="bg-white/5 border border-white/10 backdrop-blur-xl rounded-[28px] p-6 sm:p-10 grid grid-cols-1 md:grid-cols-2 gap-5"
     >

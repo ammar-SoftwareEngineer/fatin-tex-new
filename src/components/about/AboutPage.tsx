@@ -35,10 +35,10 @@ export default function AboutPage({ aboutData }: AboutPageProps) {
       <section className="px-6 md:px-16 py-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
           <motion.div
-            initial={{ opacity: 0, x: -40 }}
+            initial={{ opacity: 0, x: -18 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={transitionBase}
-            viewport={{ once: true }}
+            viewport={{ once: true, amount: 0.2 }}
             className="relative"
           >
             <Image
@@ -56,10 +56,10 @@ export default function AboutPage({ aboutData }: AboutPageProps) {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, x: 40 }}
+            initial={{ opacity: 0, x: 18 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={transitionBase}
-            viewport={{ once: true }}
+            viewport={{ once: true, amount: 0.2 }}
           >
             <p className="text-[#e0bc80] tracking-[6px] text-xs mb-3">
               {aboutData?.about_us_section?.sub_title || t("story.subtitle")}
@@ -97,12 +97,12 @@ export default function AboutPage({ aboutData }: AboutPageProps) {
             return (
               <motion.div
                 key={item.id ?? i}
-                initial={{ opacity: 0, y: 40 }}
+                initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ ...transitionBase, delay: staggerDelay(i) }}
-                viewport={{ once: true }}
+                viewport={{ once: true, amount: 0.2 }}
                 whileHover={cardHover}
-                className="bg-white/5 border border-white/10 backdrop-blur-xl rounded-3xl p-6 text-center transition-all duration-300"
+                className="bg-white/5 border border-white/10 backdrop-blur-xl rounded-3xl p-6 text-center transition-all duration-500"
               >
                 <h3 className="text-[#e0bc80] text-3xl sm:text-4xl font-bold mb-2">
                   <CountUp
@@ -127,10 +127,10 @@ export default function AboutPage({ aboutData }: AboutPageProps) {
           {aboutData?.values_section?.map((item, i) => (
             <motion.div
               key={item.id ?? i}
-              initial={{ opacity: 0, y: 40 }}
+              initial={{ opacity: 0, y: 18 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ ...transitionBase, delay: staggerDelay(i) }}
-              viewport={{ once: true }}
+              viewport={{ once: true, amount: 0.15 }}
               className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center border border-white/10 bg-white/5 backdrop-blur-xl rounded-[40px] overflow-hidden p-6 md:p-8"
             >
               <div className="relative overflow-hidden rounded-[30px] h-[350px] lg:col-span-6">

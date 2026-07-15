@@ -1,7 +1,9 @@
 "use client";
 
 import Image from "next/image";
+import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
+import { fadeUp, viewportOnce } from "@/lib/motion";
 
 type FooterBrandProps = {
   logo: string;
@@ -13,7 +15,13 @@ export default function FooterBrand({ logo, description }: FooterBrandProps) {
   const tCommon = useTranslations("common");
 
   return (
-    <div className="mb-8">
+    <motion.div
+      variants={fadeUp}
+      initial="hidden"
+      whileInView="show"
+      viewport={viewportOnce}
+      className="mb-8"
+    >
       <div className="relative h-24 sm:h-28 lg:h-32 w-40 mx-auto mb-4">
         <Image
           src={logo}
@@ -32,6 +40,6 @@ export default function FooterBrand({ logo, description }: FooterBrandProps) {
       <p className="text-gray-300 text-sm sm:text-base max-w-md leading-7 whitespace-pre-line">
         {description || t("description")}
       </p>
-    </div>
+    </motion.div>
   );
 }

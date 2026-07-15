@@ -47,7 +47,7 @@ export default function ProductDetails({
 
       <div className="max-w-7xl mx-auto px-6 mt-16 space-y-20">
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={transitionBase}
           viewport={viewportOnce}
@@ -87,7 +87,7 @@ export default function ProductDetails({
           {productData?.images?.map((img, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 40 }}
+              initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ ...transitionBase, delay: staggerDelay(i) }}
               viewport={viewportOnce}
@@ -143,7 +143,7 @@ export default function ProductDetails({
             {productData?.videos?.map((video, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 40 }}
+                initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ ...transitionBase, delay: staggerDelay(i) }}
                 viewport={viewportOnce}

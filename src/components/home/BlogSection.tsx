@@ -26,19 +26,19 @@ export default function BlogSection({ blogSection }: BlogSectionProps) {
     <section className="relative py-20 sm:py-28 lg:py-36 px-4 sm:px-6 lg:px-16 bg-background text-white overflow-hidden">
       <div className="text-center mb-14 sm:mb-20">
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-          viewport={{ once: true }}
+          transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
+          viewport={{ once: true, amount: 0.2 }}
           className="text-[#e0bc80] tracking-[5px] uppercase text-xs sm:text-sm mb-4"
         >
           {blogSection?.sub_title}
         </motion.p>
         <motion.h2
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9 }}
-          viewport={{ once: true }}
+          transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+          viewport={{ once: true, amount: 0.2 }}
           className="text-3xl sm:text-4xl lg:text-6xl font-bold leading-tight"
         >
           {titleStart}{" "}
@@ -52,10 +52,11 @@ export default function BlogSection({ blogSection }: BlogSectionProps) {
         {blogs.map((blog, i) => (
           <motion.div
             key={blog.id}
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: Math.min(i * 0.05, 0.3) }}
-            viewport={{ once: true }}
+            transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1], delay: Math.min(i * 0.08, 0.4) }}
+            viewport={{ once: true, amount: 0.15 }}
+            whileHover={{ y: -6, transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] } }}
             className="group relative rounded-[30px] overflow-hidden bg-white/3 border border-white/10 backdrop-blur-xl"
           >
             <div className="relative h-[260px] overflow-hidden">
@@ -64,7 +65,7 @@ export default function BlogSection({ blogSection }: BlogSectionProps) {
                 alt={blog.alt_image ?? blog.title}
                 fill
                 sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
-                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                 loading="lazy"
               />
               <div className="absolute top-5 left-5 bg-[#e0bc80] text-black text-xs font-semibold px-4 py-2 rounded-full shadow-lg">

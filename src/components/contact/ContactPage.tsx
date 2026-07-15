@@ -11,6 +11,7 @@ import { useTranslations } from "next-intl";
 import Breadcrumb from "@/components/layout/hero/Breadcrumb";
 import ContactForm from "@/components/contact/ContactForm";
 import type { ContactData } from "@/types/contactTypes";
+import { cardHover, staggerDelay, transitionBase, transitionSlow } from "@/lib/motion";
 
 type ContactPageProps = {
   contactData?: ContactData | null;
@@ -65,11 +66,11 @@ export default function ContactPage({ contactData }: ContactPageProps) {
           {contactItems.map((item, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 50 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: i * 0.15 }}
-              whileHover={{ y: -10, scale: 1.02 }}
-              viewport={{ once: true }}
+              transition={{ ...transitionBase, delay: staggerDelay(i) }}
+              whileHover={cardHover}
+              viewport={{ once: true, amount: 0.2 }}
               className="relative p-8 rounded-[28px] bg-white/5 border border-white/10 backdrop-blur-xl text-center overflow-hidden group"
             >
               <div className="flex justify-center mb-5">
@@ -97,10 +98,10 @@ export default function ContactPage({ contactData }: ContactPageProps) {
 
       <section className=" px-4 sm:px-6 md:px-16 pb-28">
         <motion.div
-          initial={{ opacity: 0, y: 60 }}
+          initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
+          transition={transitionSlow}
+          viewport={{ once: true, amount: 0.2 }}
           className="text-center mb-10"
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold">
@@ -109,11 +110,23 @@ export default function ContactPage({ contactData }: ContactPageProps) {
           <p className="text-gray-400 mt-3">{t("form.responseTime")}</p>
         </motion.div>
         <div className="grid grid-cols-12 gap-6 items-stretch">
-          <div className=" col-span-12 lg:col-span-6">
+          <motion.div
+            initial={{ opacity: 0, x: -16 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={transitionBase}
+            viewport={{ once: true, amount: 0.2 }}
+            className="col-span-12 lg:col-span-6"
+          >
             <ContactForm />
-          </div>
-          <div className=" col-span-12 lg:col-span-6">
-            <div className="bg-white/5 border border-white/10 backdrop-blur-xl rounded-[28px] p-6  h-full">
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, x: 16 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ ...transitionBase, delay: 0.12 }}
+            viewport={{ once: true, amount: 0.2 }}
+            className="col-span-12 lg:col-span-6"
+          >
+            <div className="bg-white/5 border border-white/10 backdrop-blur-xl rounded-[28px] p-6 h-full">
               <iframe
                 src={contactData?.map_iframe?.split('"')[1] || ""}
                 width="100%"
@@ -123,9 +136,10 @@ export default function ContactPage({ contactData }: ContactPageProps) {
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
                 className="rounded-[28px]"
-              ></iframe>
+                title="map"
+              />
             </div>
-          </div>
+          </motion.div>
         </div>
         
       </section>

@@ -1,11 +1,13 @@
 "use client";
 
 import Image from "next/image";
+import { AnimatePresence, motion } from "framer-motion";
 import { FaChevronDown } from "react-icons/fa";
 import { Link } from "@/i18n/navigation";
 import LanguageMenu from "./LanguageMenu";
 import type { NavItem } from "./navTypes";
 import { isLinkActive, isParentActive } from "./navUtils";
+import { transitionFast } from "@/lib/motion";
 
 type DesktopNavbarProps = {
   scrolled: boolean;
@@ -96,34 +98,39 @@ function DesktopLink({
         </button>
       </div>
 
-      <div
-        className={`absolute top-full left-0 pt-3 transition-all duration-300 ${
-          isOpen
-            ? "opacity-100 visible pointer-events-auto"
-            : "opacity-0 invisible pointer-events-none"
-        }`}
-      >
-        <ul className="w-56 bg-black/90 backdrop-blur-xl rounded-2xl shadow-2xl p-3">
-          {item.dropdown.map((sub) => {
-            const subActive = isLinkActive(pathname, search, sub.href);
-            return (
-              <li key={sub.href}>
-                <Link
-                  href={sub.href}
-                  onClick={onClose}
-                  className={`block px-4 py-3 rounded-xl transition ${
-                    subActive
-                      ? "bg-[#e0bc80] text-black"
-                      : "text-white hover:bg-[#e0bc80] hover:text-black"
-                  }`}
-                >
-                  {sub.name}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
+      <AnimatePresence>
+        {isOpen ? (
+          <motion.div
+            key={`${item.name}-dropdown`}
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 6 }}
+            transition={transitionFast}
+            className="absolute top-full left-0 pt-3"
+          >
+            <ul className="w-56 bg-black/90 backdrop-blur-xl rounded-2xl shadow-2xl p-3">
+              {item.dropdown.map((sub) => {
+                const subActive = isLinkActive(pathname, search, sub.href);
+                return (
+                  <li key={sub.href}>
+                    <Link
+                      href={sub.href}
+                      onClick={onClose}
+                      className={`block px-4 py-3 rounded-xl transition ${
+                        subActive
+                          ? "bg-[#e0bc80] text-black"
+                          : "text-white hover:bg-[#e0bc80] hover:text-black"
+                      }`}
+                    >
+                      {sub.name}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
     </li>
   );
 }

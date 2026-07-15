@@ -1,11 +1,13 @@
 "use client";
 
 import Image from "next/image";
+import { AnimatePresence, motion } from "framer-motion";
 import { FaBars, FaChevronDown, FaTimes } from "react-icons/fa";
 import { Link } from "@/i18n/navigation";
 import LanguageMenu from "./LanguageMenu";
 import type { NavItem } from "./navTypes";
 import { isLinkActive, isParentActive } from "./navUtils";
+import { transitionBase } from "@/lib/motion";
 
 type MobileNavbarProps = {
   scrolled: boolean;
@@ -159,53 +161,71 @@ export default function MobileNavbar({
         <div className="absolute left-1/2 -translate-x-1/2 top-0 w-[350px] h-[180px] bg-[#e0bc80]/20 blur-3xl rounded-full pointer-events-none" />
       </nav>
 
-      <div
-        className={`fixed inset-0 z-[999] bg-black/95 backdrop-blur-xl transition-all duration-500 lg:hidden ${
-          isOpen ? "opacity-100 visible" : "opacity-0 invisible"
-        }`}
-      >
-        <div className="flex justify-between items-center px-6 py-6 border-b border-white/10">
-          <Image
-            src={logo}
-            alt={siteName}
-            width={90}
-            height={60}
-            className="object-contain"
-          />
-          <button
-            onClick={onClose}
-            className="text-white text-2xl"
-            type="button"
-            aria-label="Close menu"
+      <AnimatePresence>
+        {isOpen ? (
+          <motion.div
+            key="mobile-menu"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={transitionBase}
+            className="fixed inset-0 z-[999] bg-black/95 backdrop-blur-xl lg:hidden"
           >
-            <FaTimes />
-          </button>
-        </div>
+            <div className="flex justify-between items-center px-6 py-6 border-b border-white/10">
+              <Image
+                src={logo}
+                alt={siteName}
+                width={90}
+                height={60}
+                className="object-contain"
+              />
+              <button
+                onClick={onClose}
+                className="text-white text-2xl"
+                type="button"
+                aria-label="Close menu"
+              >
+                <FaTimes />
+              </button>
+            </div>
 
-        <div className="px-6 py-8 flex flex-col gap-5 overflow-y-auto max-h-[calc(100vh-100px)]">
-          {menuItems.map((item) => (
-            <MobileLink
-              key={item.name}
-              item={item}
-              parentActive={isParentActive(item, pathname, search)}
-              isOpen={openDropdown === item.name}
-              onToggle={() => onToggleDropdown(item.name)}
-              onNavigate={onClose}
-              pathname={pathname}
-              search={search}
-            />
-          ))}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ ...transitionBase, delay: 0.08 }}
+              className="px-6 py-8 flex flex-col gap-5 overflow-y-auto max-h-[calc(100vh-100px)]"
+            >
+              {menuItems.map((item, i) => (
+                <motion.div
+                  key={item.name}
+                  initial={{ opacity: 0, x: -12 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ ...transitionBase, delay: 0.05 + i * 0.04 }}
+                >
+                  <MobileLink
+                    item={item}
+                    parentActive={isParentActive(item, pathname, search)}
+                    isOpen={openDropdown === item.name}
+                    onToggle={() => onToggleDropdown(item.name)}
+                    onNavigate={onClose}
+                    pathname={pathname}
+                    search={search}
+                  />
+                </motion.div>
+              ))}
 
-          <LanguageMenu
-            locale={locale}
-            onSwitch={(code) => {
-              onSwitchLocale(code);
-              onClose();
-            }}
-            variant="mobile"
-          />
-        </div>
-      </div>
+              <LanguageMenu
+                locale={locale}
+                onSwitch={(code) => {
+                  onSwitchLocale(code);
+                  onClose();
+                }}
+                variant="mobile"
+              />
+            </motion.div>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
     </>
   );
 }

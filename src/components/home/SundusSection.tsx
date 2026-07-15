@@ -17,10 +17,10 @@ export default function SundusSection({ sundus }: SundusSectionProps) {
 
       {/* Background Image */}
       <motion.div
-        initial={{ scale: 1.2, opacity: 0 }}
+        initial={{ scale: 1.06, opacity: 0 }}
         whileInView={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 1.2 }}
-        viewport={{ once: true }}
+        transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+        viewport={{ once: true, amount: 0.2 }}
         className="absolute inset-0 bg-cover bg-center"
       />
 
@@ -31,10 +31,10 @@ export default function SundusSection({ sundus }: SundusSectionProps) {
 
           {/* VIDEO BIG FOCUS */}
           <motion.div
-            initial={{ scale: 0.95, opacity: 0 }}
+            initial={{ scale: 0.985, opacity: 0 }}
             whileInView={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 1 }}
-            viewport={{ once: true }}
+            transition={{ duration: 0.95, ease: [0.22, 1, 0.36, 1] }}
+            viewport={{ once: true, amount: 0.2 }}
             className="
               relative
               rounded-[24px] md:rounded-[40px]
@@ -59,10 +59,10 @@ export default function SundusSection({ sundus }: SundusSectionProps) {
 
           {/* FLOATING GLASS CARD */}
           <motion.div
-            initial={{ x: -60, opacity: 0 }}
+            initial={{ x: -20, opacity: 0 }}
             whileInView={{ x: 0, opacity: 1 }}
-            transition={{ duration: 1, delay: 0.3 }}
-            viewport={{ once: true }}
+            transition={{ duration: 0.95, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
+            viewport={{ once: true, amount: 0.2 }}
             className="
               w-full
               lg:absolute
@@ -142,10 +142,10 @@ export default function SundusSection({ sundus }: SundusSectionProps) {
 
           {/* SMALL TEXT */}
           <motion.div
-            initial={{ x: 40, opacity: 0 }}
+            initial={{ x: 16, opacity: 0 }}
             whileInView={{ x: 0, opacity: 0.15 }}
-            transition={{ duration: 1 }}
-            viewport={{ once: true }}
+            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+            viewport={{ once: true, amount: 0.2 }}
             className="absolute ltr:right-6 rtl:left-6 bottom-10 hidden lg:block"
           >
             <p

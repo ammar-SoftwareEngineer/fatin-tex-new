@@ -121,6 +121,30 @@
   animation: gradientMove 4s ease infinite;
 }
 
+/* Categories cards — CSS so Swiper transform does not kill Motion */
+@keyframes categoriesCardIn {
+  from {
+    opacity: 0;
+    transform: translateY(22px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.categories-card-in {
+  animation: categoriesCardIn 0.75s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.categories-card-hover {
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.categories-card-hover:hover {
+  transform: translateY(-8px);
+}
+
 iframe {
   filter: grayscale(1) brightness(0.55) contrast(1.3) saturate(0);
 }
@@ -154,8 +178,10 @@ filter: invert(1) brightness(1)  !important;
     scroll-behavior: auto;
   }
 
-  .animate-gradient {
+  .animate-gradient,
+  .categories-card-in {
     animation: none;
+    opacity: 1;
   }
 
   *,

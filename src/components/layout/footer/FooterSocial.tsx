@@ -7,6 +7,7 @@ import {
   FaLinkedinIn,
 } from "react-icons/fa";
 import type { SocialLink } from "@/types/layoutTypes";
+import { transitionBase, transitionHover, viewportOnce } from "@/lib/motion";
 
 const platformIcons = {
   facebook: FaFacebookF,
@@ -21,10 +22,10 @@ type FooterSocialProps = {
 export default function FooterSocial({ socialLinks }: FooterSocialProps) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 14 }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.5 }}
-      viewport={{ once: true }}
+      transition={{ ...transitionBase, delay: 0.18 }}
+      viewport={viewportOnce}
       className="flex justify-center gap-4 sm:gap-5 mb-10"
     >
       {socialLinks.map((link) => {
@@ -40,20 +41,14 @@ export default function FooterSocial({ socialLinks }: FooterSocialProps) {
             target="_blank"
             rel="noopener noreferrer"
             whileHover={{
-              scale: 1.15,
-              rotate: 8,
+              scale: 1.08,
+              y: -2,
               backgroundColor: "#e0bc80",
               color: "#000",
-              boxShadow: "0 10px 30px rgba(224,188,128,0.35)",
+              transition: transitionHover,
             }}
-            whileTap={{ scale: 0.92 }}
-            className="
-              w-11 h-11 sm:w-12 sm:h-12
-              flex items-center justify-center
-              rounded-full border border-white/10
-              bg-white/5 backdrop-blur-xl text-lg
-              transition-all duration-300
-            "
+            whileTap={{ scale: 0.96 }}
+            className="w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center rounded-full border border-white/10 bg-white/5 backdrop-blur-xl text-lg"
           >
             <Icon />
           </motion.a>
