@@ -6,8 +6,6 @@ import { notFound } from "next/navigation";
 import Navbar from "@/components/layout/header/Navbar";
 import Footer from "@/components/layout/footer/Footer";
 import FixedContactIcons from "@/components/layout/call-to-action/FixedContactIcons";
-import { SlugAlternatesProvider } from "@/components/i18n/SlugAlternatesProvider";
-
 import { fetchLayoutData } from "@/api/layoutService";
 import { routing } from "@/i18n/routing";
 import {
@@ -119,14 +117,12 @@ export default async function LocaleLayout({ children, params }: Props) {
     >
       <body className="min-h-screen bg-[#0b0f19] text-white font-inter antialiased">
         <NextIntlClientProvider messages={messages}>
-          <SlugAlternatesProvider>
-            <div className="flex flex-col min-h-screen">
-              <Navbar />
-              <FixedContactIcons />
-              <main className="flex-1">{children}</main>
-              <Footer />
-            </div>
-          </SlugAlternatesProvider>
+          <div className="flex flex-col min-h-screen">
+            <Navbar />
+            <FixedContactIcons />
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </div>
         </NextIntlClientProvider>
       </body>
     </html>

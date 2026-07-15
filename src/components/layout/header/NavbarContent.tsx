@@ -13,9 +13,6 @@ import DesktopNavbar from "./DesktopNavbar";
 import MobileNavbar from "./MobileNavbar";
 import type { NavLink } from "./navTypes";
 import { mapMenuItem } from "./navUtils";
-import { useSlugAlternates } from "@/components/i18n/SlugAlternatesProvider";
-import { localizeSlugPathname } from "@/lib/localized-slug";
-import { getAvailableSlugLocales } from "@/lib/seo";
 
 type NavbarContentProps = {
   layoutData: Awaited<ReturnType<typeof fetchLayoutData>>;
@@ -70,19 +67,8 @@ export default function NavbarContent({
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const { slug: slugAlternates } = useSlugAlternates();
-  const isEntityPage =
-    pathname.startsWith("/products/") || pathname.startsWith("/blogs/");
-  const availableLocales = isEntityPage
-    ? slugAlternates
-      ? getAvailableSlugLocales(slugAlternates)
-      : [locale]
-    : undefined;
-
   const switchLocale = (code: string) => {
-    if (availableLocales && !availableLocales.includes(code)) return;
-    const nextPath = localizeSlugPathname(pathname, code, slugAlternates);
-    router.replace(nextPath, { locale: code });
+    router.replace(pathname, { locale: code });
   };
 
   return (
@@ -100,7 +86,6 @@ export default function NavbarContent({
         search={search}
         locale={locale}
         onSwitchLocale={switchLocale}
-        availableLocales={availableLocales}
       />
 
       <MobileNavbar
@@ -122,7 +107,6 @@ export default function NavbarContent({
         search={search}
         locale={locale}
         onSwitchLocale={switchLocale}
-        availableLocales={availableLocales}
       />
     </>
   );

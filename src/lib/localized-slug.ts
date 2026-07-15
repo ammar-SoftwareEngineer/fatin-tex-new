@@ -32,18 +32,3 @@ export function matchesLocalizedSlug(
     (entry) => entry === value || entry === decoded,
   );
 }
-
-/** When switching locale on product/blog detail URLs, swap the slug segment. */
-export function localizeSlugPathname(
-  pathname: string,
-  targetLocale: string,
-  alternates?: LocalizedSlug | null,
-): string {
-  if (!alternates) return pathname;
-
-  const match = pathname.match(/^\/(products|blogs)\/([^/]+)\/?$/);
-  if (!match) return pathname;
-
-  const nextSlug = getLocalizedSlug(alternates, targetLocale);
-  return nextSlug ? `/${match[1]}/${nextSlug}` : pathname;
-}

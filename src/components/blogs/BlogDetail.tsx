@@ -1,13 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import Breadcrumb from "@/components/layout/hero/Breadcrumb";
 import type { BlogDetailsData } from "@/types/blogTypes";
 import { getLocalizedSlug } from "@/lib/localized-slug";
-import { useSlugAlternates } from "@/components/i18n/SlugAlternatesProvider";
 
 type BlogDetailProps = {
   blog: BlogDetailsData;
@@ -17,14 +15,8 @@ export default function BlogDetail({ blog }: BlogDetailProps) {
   const t = useTranslations("blogs");
   const tNav = useTranslations("nav");
   const locale = useLocale();
-  const { setSlug } = useSlugAlternates();
   const relatedBlogs = blog.related_blogs ?? [];
   const hasRelated = relatedBlogs.length > 0;
-
-  useEffect(() => {
-    setSlug(blog.slug);
-    return () => setSlug(null);
-  }, [blog.slug, setSlug]);
 
   return (
     <section className="bg-[#0f0f0f] text-white pb-20 sm:pb-28 overflow-hidden">

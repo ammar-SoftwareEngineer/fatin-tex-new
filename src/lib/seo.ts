@@ -141,17 +141,6 @@ export function buildSlugLanguageAlternates(
   return languages;
 }
 
-export function getAvailableSlugLocales(
-  slug?: LocalizedSlug | null,
-): string[] {
-  if (!slug) return [...routing.locales];
-
-  return routing.locales.filter((locale) => {
-    const raw = slug[locale as keyof LocalizedSlug];
-    return Boolean(raw && getLocalizedSlug(slug, locale));
-  });
-}
-
 type EntityMetaInput = {
   locale: string;
   collection: "blogs" | "products";

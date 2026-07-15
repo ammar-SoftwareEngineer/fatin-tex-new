@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import Breadcrumb from "@/components/layout/hero/Breadcrumb";
@@ -13,7 +13,6 @@ import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 import type { ProductDetailsData } from "@/types/productTypes";
 import { useTranslations } from "next-intl";
-import { useSlugAlternates } from "@/components/i18n/SlugAlternatesProvider";
 import {
   cardHover,
   fadeUp,
@@ -28,13 +27,8 @@ export default function ProductDetails({
   productData: ProductDetailsData;
 }) {
   const tNav = useTranslations("nav");
-  const { setSlug } = useSlugAlternates();
   const [open, setOpen] = useState(false);
   const [index, setIndex] = useState(0);
-  useEffect(() => {
-    setSlug(productData.slug);
-    return () => setSlug(null);
-  }, [productData.slug, setSlug]);
 
   return (
     <section className="bg-[#0f0f0f] text-white pb-28 overflow-hidden">
