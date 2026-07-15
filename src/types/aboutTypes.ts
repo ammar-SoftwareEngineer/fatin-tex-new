@@ -11,11 +11,15 @@ export type AboutSection = {
   button_link_url: string | null;
 };
 
+export type StatisticsSection = AboutSection;
+
+export type ValuesSection = AboutSection;
+
 export type AboutData = {
   breadcrumb_section: AboutSection;
   about_us_section: AboutSection | null;
-  statistics_section: unknown[];
-  values_section: unknown[];
+  statistics_section: StatisticsSection[];
+  values_section: ValuesSection[];
 };
 
 export type AboutApiResponse = {

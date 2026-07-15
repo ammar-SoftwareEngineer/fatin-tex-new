@@ -3,7 +3,7 @@ const NEXT_PUBLIC_BACKEND_BASE_URL = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
 export async function fetchSondosData(lang = "en") {
   try {
     const response = await fetch(
-      `${NEXT_PUBLIC_BACKEND_BASE_URL}/sondos`,
+      `${NEXT_PUBLIC_BACKEND_BASE_URL}/sondos-dyeing`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -14,6 +14,7 @@ export async function fetchSondosData(lang = "en") {
     );
 
     const data = await response.json();
+
 
     if (!response.ok) {
       console.error("Failed to fetch sondos data:", data);

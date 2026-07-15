@@ -1,5 +1,8 @@
 import { createPageMetadata, setupPageLocale } from "@/lib/page-utils";
 import SondosPage from "@/components/sondos/SondosPage";
+import { fetchSondosData } from "@/api/sondosService";
+import type { SondosApiResponse } from "@/types/sondosTypes";
+import { isApiError } from "@/types/layoutTypes";
 
 export async function generateMetadata({
   params,
@@ -14,6 +17,12 @@ export default async function SondosDyeingPage({
 }: {
   params: Promise<{ locale: string }>;
 }) {
-  await setupPageLocale(params);
-  return <SondosPage />;
+  const locale = await setupPageLocale(params);
+  const sondosResponse = await fetchSondosData(locale);
+
+  const sondosData = isApiError(sondosResponse)
+    ? null
+    : ((sondosResponse as SondosApiResponse).data ?? null);
+
+  return <SondosPage data={sondosData} />;
 }

@@ -54,7 +54,7 @@ export default function SundusSection({ sundus }: SundusSectionProps) {
               height="100%"
               className="w-full h-[280px] sm:h-[380px] md:h-[520px] lg:h-[650px] object-cover"
               title="Sundus Video"
-          allow="autoplay; encrypted-media"
+              allow="autoplay; encrypted-media"
               allowFullScreen
               loading="lazy"
             ></iframe>
@@ -71,7 +71,7 @@ export default function SundusSection({ sundus }: SundusSectionProps) {
             className="
               w-full
               lg:absolute
-              left-0
+              ltr:left-0 rtl:right-0
               lg:top-1/2
               lg:-translate-y-1/2
               lg:max-w-md
@@ -90,7 +90,7 @@ export default function SundusSection({ sundus }: SundusSectionProps) {
             ">
 
               {/* Accent Line */}
-              <div className="absolute left-0 top-0 h-full w-[2px] bg-[#e0bc80]" />
+              <div className="absolute  ltr:left-0 rtl:right-0 top-0 h-full w-[2px] bg-[#e0bc80]" />
 
               {/* Logo */}
               <div className="mb-5 sm:mb-6">
@@ -104,7 +104,7 @@ export default function SundusSection({ sundus }: SundusSectionProps) {
               {/* Title */}
               <h2 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-white leading-tight font-playfair">
                 {sundus?.title}
-             
+
               </h2>
 
               {/* Decorative line */}
@@ -115,8 +115,8 @@ export default function SundusSection({ sundus }: SundusSectionProps) {
 
               {/* Description */}
               <p className="text-gray-300 text-sm sm:text-base leading-relaxed max-w-md" dangerouslySetInnerHTML={{ __html: sundus?.text || "" }}>
-            
-  
+
+
               </p>
 
               {/* CTA */}
@@ -152,12 +152,12 @@ export default function SundusSection({ sundus }: SundusSectionProps) {
                   hover:text-white
                   transition
                 ">
-                  <ArrowRightIcon className="w-5 h-5" />
-                </div>
+                      <ArrowRightIcon className="w-5 h-5 ltr:rotate-0 rtl:rotate-180" />
+                    </div>
                   </motion.div>
                 </Link>
 
-                
+
 
               </div>
 
@@ -173,7 +173,7 @@ export default function SundusSection({ sundus }: SundusSectionProps) {
             whileInView={{ x: 0, opacity: 0.15 }}
             transition={{ duration: 1 }}
             viewport={{ once: true }}
-            className="absolute right-6 bottom-10 hidden lg:block"
+            className="absolute ltr:right-6 rtl:left-6 bottom-10 hidden lg:block"
           >
             <h1 className="text-[80px] xl:text-[120px] font-bold tracking-[10px] xl:tracking-[20px] text-white">
               SUNDUS

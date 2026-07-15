@@ -15,6 +15,13 @@ import type { ProductDetailsData } from "@/types/productTypes";
 import { useLocale, useTranslations } from "next-intl";
 import { getLocalizedSlug } from "@/lib/localized-slug";
 import { useSlugAlternates } from "@/components/i18n/SlugAlternatesProvider";
+import {
+  cardHover,
+  fadeUp,
+  staggerDelay,
+  transitionBase,
+  viewportOnce,
+} from "@/lib/motion";
 
 export default function ProductDetails({
   productData,
@@ -49,9 +56,10 @@ export default function ProductDetails({
 
       <div className="max-w-7xl mx-auto px-6 mt-16 space-y-20">
         <motion.div
-          initial={{ opacity: 0, y: 60 }}
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={transitionBase}
+          viewport={viewportOnce}
           className="relative rounded-[35px] overflow-hidden shadow-2xl border border-white/10"
         >
           <Swiper
@@ -72,7 +80,7 @@ export default function ProductDetails({
                     fill
                     className="object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                  <div className="absolute inset-0 bg-linear-to-t from-black/40 to-transparent" />
                 </div>
               </SwiperSlide>
             ))}
@@ -85,7 +93,11 @@ export default function ProductDetails({
           {productData?.images?.map((img, i) => (
             <motion.div
               key={i}
-              whileHover={{ scale: 1.05 }}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ ...transitionBase, delay: staggerDelay(i) }}
+              viewport={viewportOnce}
+              whileHover={cardHover}
               onClick={() => {
                 setIndex(i);
                 setOpen(true);
@@ -103,29 +115,43 @@ export default function ProductDetails({
           ))}
         </div>
 
-        <div className="text-center">
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="show"
+          viewport={viewportOnce}
+          className="text-center"
+        >
           <h2 className="text-3xl font-bold text-[#e0bc80] mb-6">
             About This Fabric
           </h2>
-          <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          className="text-gray-300 text-lg leading-9 text-center max-w-6xl mx-auto"
-          dangerouslySetInnerHTML={{ __html: productData.short_description }}
-          >
-          
-        </motion.p>
-        </div>
+          <div
+            className="text-gray-300 text-lg leading-9 text-center max-w-6xl mx-auto"
+            dangerouslySetInnerHTML={{
+              __html: productData.short_description,
+            }}
+          />
+        </motion.div>
 
         <div>
-          <h2 className="text-4xl font-bold text-center mb-12">
+          <motion.h2
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={viewportOnce}
+            className="text-4xl font-bold text-center mb-12"
+          >
             Product Reels
-          </h2>
+          </motion.h2>
           <div className="grid md:grid-cols-3 gap-6">
             {productData?.videos?.map((video, i) => (
               <motion.div
                 key={i}
-                whileHover={{ scale: 1.03 }}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ ...transitionBase, delay: staggerDelay(i) }}
+                viewport={viewportOnce}
+                whileHover={cardHover}
                 className="rounded-2xl overflow-hidden bg-black border border-white/10"
               >
                 <video

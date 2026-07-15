@@ -36,7 +36,7 @@ export async function fetchContactData(lang = "en") {
 export async function sendContactData(formData: ContactFormData) {
   try {
     const response = await fetch(
-      `${NEXT_PUBLIC_BACKEND_BASE_URL}/save-contact-us`,
+      `${NEXT_PUBLIC_BACKEND_BASE_URL}/contact-us`,
       {
         method: "POST",
         headers: {

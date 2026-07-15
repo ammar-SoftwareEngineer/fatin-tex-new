@@ -1,17 +1,10 @@
 import { notFound } from "next/navigation";
 import BlogDetail from "@/components/blogs/BlogDetail";
-import {
-  fetchBlogDetailsData,
-  fetchBlogsData,
-} from "@/api/blogsService";
+import { fetchBlogDetailsData } from "@/api/blogsService";
 import { createEntityMetadata } from "@/lib/seo/entity-metadata";
 import { setupPageLocale } from "@/lib/page-utils";
 import { isApiError } from "@/types/layoutTypes";
-import type {
-  Blog,
-  BlogDetailsApiResponse,
-  BlogsApiResponse,
-} from "@/types/blogTypes";
+import type { BlogDetailsApiResponse } from "@/types/blogTypes";
 
 export async function generateMetadata({
   params,
@@ -48,10 +41,7 @@ export default async function BlogDetailPage({
   const locale = await setupPageLocale(params);
   const { slug } = await params;
 
-  const [detailsResponse, listResponse] = await Promise.all([
-    fetchBlogDetailsData(slug, locale),
-    fetchBlogsData(locale),
-  ]);
+  const detailsResponse = await fetchBlogDetailsData(slug, locale);
 
   if (
     isApiError(detailsResponse) ||
@@ -61,13 +51,6 @@ export default async function BlogDetailPage({
   }
 
   const blog = (detailsResponse as BlogDetailsApiResponse).data;
-  const allBlogs: Blog[] = isApiError(listResponse)
-    ? []
-    : ((listResponse as BlogsApiResponse).data ?? []);
 
-  const relatedBlogs = allBlogs
-    .filter((item) => item.id !== blog.id)
-    .slice(0, 3);
-
-  return <BlogDetail blog={blog} relatedBlogs={relatedBlogs} />;
+  return <BlogDetail blog={blog} />;
 }

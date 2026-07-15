@@ -7,6 +7,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import type { GalleryItem } from "@/lib/gallery";
+import {
+  cardHover,
+  fadeUp,
+  staggerDelay,
+  transitionBase,
+  viewportOnce,
+} from "@/lib/motion";
 
 type MediaType = "images" | "videos";
 
@@ -50,7 +57,13 @@ export default function MediaPage({
         />
       </div>
 
-      <div className="text-center py-16 px-6">
+      <motion.div
+        variants={fadeUp}
+        initial="hidden"
+        whileInView="show"
+        viewport={viewportOnce}
+        className="text-center py-16 px-6"
+      >
         <p className="text-[#e0bc80] tracking-[5px] uppercase text-xs mb-4">
           {t("subtitle")}
         </p>
@@ -82,17 +95,22 @@ export default function MediaPage({
             {tNav("videos")}
           </Link>
         </div>
-      </div>
+      </motion.div>
 
       {items.length === 0 ? (
         <p className="text-center text-gray-500 px-6">{t(emptyKey)}</p>
       ) : (
         <div className="max-w-6xl mx-auto px-4 sm:px-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
-          {items.map((item) =>
+          {items.map((item, i) =>
             isVideos ? (
-              <button
+              <motion.button
                 key={item.id}
                 type="button"
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ ...transitionBase, delay: staggerDelay(i) }}
+                viewport={viewportOnce}
+                whileHover={cardHover}
                 onClick={() => setActiveVideo(item.url)}
                 className="cursor-pointer rounded-2xl overflow-hidden bg-black group relative text-left"
               >
@@ -101,17 +119,22 @@ export default function MediaPage({
                   alt={item.title || "video preview"}
                   width={600}
                   height={400}
-                  className="w-full h-[400px] object-cover group-hover:scale-105 transition duration-500"
+                  className="w-full h-[400px] object-cover group-hover:scale-110 transition duration-700"
                 />
                 <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
                   <div className="px-4 py-2 bg-[#e0bc80] text-black rounded-full font-medium">
                     {t("playVideo")}
                   </div>
                 </div>
-              </button>
+              </motion.button>
             ) : (
-              <div
+              <motion.div
                 key={item.id}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ ...transitionBase, delay: staggerDelay(i) }}
+                viewport={viewportOnce}
+                whileHover={cardHover}
                 className="rounded-2xl overflow-hidden bg-black group relative"
               >
                 <Image
@@ -119,9 +142,9 @@ export default function MediaPage({
                   alt={item.title || "gallery image"}
                   width={600}
                   height={400}
-                  className="w-full h-[400px] object-cover group-hover:scale-105 transition duration-500"
+                  className="w-full h-[400px] object-cover group-hover:scale-110 transition duration-700"
                 />
-              </div>
+              </motion.div>
             ),
           )}
         </div>
@@ -133,7 +156,7 @@ export default function MediaPage({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[9999] bg-black/90 flex items-center justify-center p-6"
+            className="fixed inset-0 z-9999 bg-black/90 flex items-center justify-center p-6"
             onClick={() => setActiveVideo(null)}
           >
             <motion.video

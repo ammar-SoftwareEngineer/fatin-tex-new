@@ -1,89 +1,89 @@
 "use client";
 
-import React from "react";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/navigation";
-import VideoSection from "@/components/home/VideoSection";
+import type { SondosData } from "@/types/sondosTypes";
+import Breadcrumb from "../layout/hero/Breadcrumb";
+import { fadeUp, transitionBase, viewportOnce } from "@/lib/motion";
 
-export default function SondosPage() {
+export default function SondosPage({ data }: { data: SondosData | null }) {
   const t = useTranslations("sondos.page");
 
+  const videoUrl =
+    data?.content?.button_link_url || data?.content?.image || null;
+
   return (
-    <div className="bg-(--background) text-white overflow-hidden">
-      <section className="relative min-h-[90vh] flex items-center px-6 md:px-16">
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: "url('/sondos.png')" }}
-        />
-        <div className="absolute inset-0 bg-black/70" />
-        <div className="relative z-10 max-w-5xl">
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-[#e0bc80] tracking-[6px] text-xs mb-4"
-          >
-            {t("heroSubtitle")}
-          </motion.p>
-          <motion.h1
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-5xl md:text-7xl font-bold font-playfair leading-tight"
-          >
-            {t("heroTitle")}{" "}
-            <span className="text-[#e0bc80]">{t("heroTitleHighlight")}</span>
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="text-gray-300 mt-6 max-w-2xl leading-relaxed"
-          >
-            {t("heroDescription")}
-          </motion.p>
-          <Link href="/contact">
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              className="mt-8 px-6 py-3 rounded-full bg-[#e0bc80] text-black font-medium inline-block text-center"
-            >
-              {t("exploreProcess")}
-            </motion.div>
-          </Link>
-        </div>
-      </section>
+    <div className="bg-background text-white overflow-hidden">
+      <Breadcrumb
+        items={[
+          {
+            label: data?.breadcrumb?.title ?? t("heroTitle"),
+            href: "/sondos-dyeing",
+            image: data?.breadcrumb?.image,
+            alt_image: data?.breadcrumb?.alt_image ?? undefined,
+            title: data?.breadcrumb?.title,
+            description: data?.breadcrumb?.sub_title,
+          },
+        ]}
+      />
 
       <section className="px-6 md:px-16 py-24">
         <div className="max-w-4xl mx-auto text-center">
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
+            transition={transitionBase}
+            viewport={viewportOnce}
             className="text-[#e0bc80] tracking-[6px] text-xs mb-4"
           >
-            {t("sectionSubtitle")}
+            {data?.content?.sub_title ?? t("sectionSubtitle")}
           </motion.p>
           <motion.h2
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
+            transition={transitionBase}
+            viewport={viewportOnce}
             className="text-4xl md:text-6xl font-bold font-playfair"
           >
-            {t("sectionTitle")}
+            {data?.content?.title ?? t("sectionTitle")}
           </motion.h2>
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ ...transitionBase, delay: 0.1 }}
+            viewport={viewportOnce}
             className="text-gray-300 mt-6 leading-relaxed"
-          >
-            {t("sectionDescription")}
-          </motion.p>
+            dangerouslySetInnerHTML={{
+              __html:
+                data?.content?.text ||
+                `<p>${t("sectionDescription")}</p>`,
+            }}
+          />
         </div>
 
-        <section className="w-full mt-20">
-          <div className="relative w-full overflow-hidden border-y border-white/10">
-            <div className="w-full h-[500px] md:h-[650px] relative">
-              {/* <VideoSection /> */}
-              <div className="absolute inset-0 bg-gradient-to-tr from-black/60 via-transparent to-black/40" />
+        {videoUrl ? (
+          <motion.section
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={viewportOnce}
+            className="w-full mt-20"
+          >
+            <div className="relative w-full overflow-hidden border-y border-white/10">
+              <div className="w-full h-[500px] md:h-[650px] relative rounded-2xl">
+                <div className="absolute inset-0 bg-linear-to-tr from-black/60 via-transparent to-black/40 z-10 pointer-events-none" />
+                <iframe
+                  src={videoUrl}
+                  title="Sondos Dyeing Video"
+                  className="w-full h-full rounded-2xl"
+                  allowFullScreen
+                  loading="lazy"
+                  allow="autoplay; encrypted-media; gyroscope; picture-in-picture"
+                />
+              </div>
             </div>
-          </div>
-        </section>
+          </motion.section>
+        ) : null}
       </section>
     </div>
   );
