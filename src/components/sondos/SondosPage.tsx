@@ -1,39 +1,14 @@
 "use client";
 
-import { useMemo } from "react";
 import { useTranslations } from "next-intl";
-import type { Blog } from "@/types/blogTypes";
 import type { SondosData } from "@/types/sondosTypes";
 import Breadcrumb from "@/components/layout/hero/Breadcrumb";
-import RelatedArticles from "@/components/blogs/RelatedArticles";
-import PageContactSection from "@/components/contact/PageContactSection";
-import FaqSection from "@/components/shared/FaqSection";
 
-type SondosPageProps = {
-  data: SondosData | null;
-  relatedArticles?: Blog[];
-};
-
-export default function SondosPage({
-  data,
-  relatedArticles = [],
-}: SondosPageProps) {
+export default function SondosPage({ data }: { data: SondosData | null }) {
   const t = useTranslations("sondos.page");
-  const tFaq = useTranslations("sondos.faq");
-  const tContact = useTranslations("sondos.contact");
-  const tRelated = useTranslations("sondos.related");
 
   const videoUrl =
     data?.content?.button_link_url || data?.content?.image || null;
-
-  const faqItems = useMemo(
-    () =>
-      [0, 1, 2].map((index) => ({
-        question: tFaq(`items.${index}.question`),
-        answer: tFaq(`items.${index}.answer`),
-      })),
-    [tFaq],
-  );
 
   return (
     <div className="bg-background text-white overflow-hidden">
@@ -84,17 +59,6 @@ export default function SondosPage({
           </div>
         ) : null}
       </section>
-
-      <RelatedArticles articles={relatedArticles} title={tRelated("title")} />
-      <FaqSection
-        title={tFaq("title")}
-        subtitle={tFaq("subtitle")}
-        items={faqItems}
-      />
-      <PageContactSection
-        title={tContact("title")}
-        description={tContact("description")}
-      />
     </div>
   );
 }

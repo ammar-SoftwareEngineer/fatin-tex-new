@@ -26,30 +26,5 @@
     "sectionSubtitle": "LÜKS TEKSTİL MÜHENDİSLİĞİ",
     "sectionTitle": "Rengin Hassasiyetle Buluştuğu Yer",
     "sectionDescription": "Sondos Boyama Fabrikası, Alman teknolojisi, çevre dostu süreçler ve sıkı kalite kontrolü birleştiren yüksek hassasiyetli tekstil boyamada uzmanlaşmıştır."
-  },
-  "related": {
-    "title": "İlgili Yazılar"
-  },
-  "faq": {
-    "title": "Sondos Boyama SSS",
-    "subtitle": "HİZMET SSS",
-    "items": [
-      {
-        "question": "Sondos Boyama hangi kumaşları işleyebilir?",
-        "answer": "Pamuk, karışımlar ve özel kumaşlar dahil moda ile endüstriyel uygulamalar için geniş bir tekstil yelpazesini boyuyoruz."
-      },
-      {
-        "question": "Özel renk eşleştirme destekliyor musunuz?",
-        "answer": "Evet. Laboratuvarımız hedef tonları hassas şekilde eşleştirir ve üretim partilerinde tutarlılığı doğrular."
-      },
-      {
-        "question": "Boyama teklifi nasıl talep ederim?",
-        "answer": "Aşağıdaki iletişim formunda kumaş tipi, miktar ve renk gereksinimlerini paylaşın; ekibimiz sonraki adımlarla dönüş yapacaktır."
-      }
-    ]
-  },
-  "contact": {
-    "title": "Boyama Danışmanlığı Talep Edin",
-    "description": "Kumaşınızı ve renk hedeflerinizi anlatın — doğru boyama sürecini planlamanıza yardımcı olalım."
   }
 }

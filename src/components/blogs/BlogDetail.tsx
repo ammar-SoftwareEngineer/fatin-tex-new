@@ -1,12 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import Breadcrumb from "@/components/layout/hero/Breadcrumb";
-import FaqSection from "@/components/shared/FaqSection";
-import PageContactSection from "@/components/contact/PageContactSection";
 import type { BlogDetailsData } from "@/types/blogTypes";
 import { getLocalizedSlug } from "@/lib/localized-slug";
 import { useSlugAlternates } from "@/components/i18n/SlugAlternatesProvider";
@@ -20,18 +18,8 @@ export default function BlogDetail({ blog }: BlogDetailProps) {
   const tNav = useTranslations("nav");
   const locale = useLocale();
   const { setSlug } = useSlugAlternates();
-  const slug = getLocalizedSlug(blog.slug, locale);
   const relatedBlogs = blog.related_blogs ?? [];
   const hasRelated = relatedBlogs.length > 0;
-
-  const faqItems = useMemo(
-    () =>
-      [0, 1, 2].map((index) => ({
-        question: t(`faq.items.${index}.question`),
-        answer: t(`faq.items.${index}.answer`),
-      })),
-    [t],
-  );
 
   useEffect(() => {
     setSlug(blog.slug);
@@ -39,7 +27,7 @@ export default function BlogDetail({ blog }: BlogDetailProps) {
   }, [blog.slug, setSlug]);
 
   return (
-    <section className="bg-[#0f0f0f] text-white pb-10 sm:pb-16 overflow-hidden">
+    <section className="bg-[#0f0f0f] text-white pb-20 sm:pb-28 overflow-hidden">
       <Breadcrumb
         items={[
           { label: tNav("blogs"), href: "/blogs" },
@@ -130,16 +118,6 @@ export default function BlogDetail({ blog }: BlogDetailProps) {
           </aside>
         ) : null}
       </div>
-
-      <FaqSection
-        title={t("faq.title")}
-        subtitle={t("faq.subtitle")}
-        items={faqItems}
-      />
-      <PageContactSection
-        title={t("contact.title")}
-        description={t("contact.description")}
-      />
     </section>
   );
 }
