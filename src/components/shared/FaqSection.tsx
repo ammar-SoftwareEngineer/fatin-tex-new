@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaChevronDown } from "react-icons/fa";
-import JsonLd from "@/components/seo/JsonLd";
 
 export type FaqItem = {
   question: string;
@@ -21,22 +20,8 @@ export default function FaqSection({ title, subtitle, items }: FaqSectionProps) 
 
   if (!items.length) return null;
 
-  const faqJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: items.map((item) => ({
-      "@type": "Question",
-      name: item.question,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: item.answer,
-      },
-    })),
-  };
-
   return (
     <section className="px-4 sm:px-6 md:px-16 py-16 sm:py-20">
-      <JsonLd data={faqJsonLd} />
       <div className="max-w-3xl mx-auto">
         <div className="text-center mb-10">
           {subtitle ? (

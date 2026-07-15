@@ -5,9 +5,9 @@ import { useTranslations } from "next-intl";
 import type { Blog } from "@/types/blogTypes";
 import type { SondosData } from "@/types/sondosTypes";
 import Breadcrumb from "@/components/layout/hero/Breadcrumb";
-import FaqSection from "@/components/seo/FaqSection";
-import PageContactSection from "@/components/seo/PageContactSection";
-import RelatedArticles from "@/components/seo/RelatedArticles";
+import RelatedArticles from "@/components/blogs/RelatedArticles";
+import PageContactSection from "@/components/contact/PageContactSection";
+import FaqSection from "@/components/shared/FaqSection";
 
 type SondosPageProps = {
   data: SondosData | null;

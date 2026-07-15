@@ -53,11 +53,11 @@ export default function BlogsPage({ blogs }: { blogs: Blog[] }) {
                 href={`/blogs/${getLocalizedSlug(blog.slug, locale)}`}
                 className="text-[#e0bc80] font-medium inline-flex items-center gap-2"
               >
-                {t("readMore")}{" "}
+                {t("readMore", { title: blog.title })}{" "}
                 {isRtl ? (
-                  <FaLongArrowAltLeft className="w-4 h-4" />
+                  <FaLongArrowAltLeft className="w-4 h-4" aria-hidden />
                 ) : (
-                  <FaLongArrowAltRight className="w-4 h-4" />
+                  <FaLongArrowAltRight className="w-4 h-4" aria-hidden />
                 )}
               </Link>
             </div>

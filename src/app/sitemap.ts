@@ -7,7 +7,7 @@ import {
   buildLanguageAlternates,
   buildSlugLanguageAlternates,
   localeUrl,
-} from "@/lib/seo/site";
+} from "@/lib/seo";
 import { isApiError } from "@/types/layoutTypes";
 import type { BlogsApiResponse } from "@/types/blogTypes";
 import type { ProductsApiResponse } from "@/types/productTypes";

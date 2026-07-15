@@ -1,5 +1,6 @@
 {
-  "readMore": "Read More",
+  "readMore": "Read more about {title}",
+  "viewAllArticles": "View all textile articles and blog posts",
   "relatedArticles": "Related Articles",
   "faq": {
     "title": "Frequently Asked Questions",

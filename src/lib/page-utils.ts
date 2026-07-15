@@ -6,8 +6,9 @@ import {
   buildLanguageAlternates,
   getIndexRobots,
   getSiteUrl,
+  localePath,
   localeUrl,
-} from "@/lib/seo/site";
+} from "@/lib/seo";
 
 type PageKey =
   | "home"
@@ -58,7 +59,8 @@ export async function createPageMetadata(
     : undefined;
 
   const path = options.path ?? PAGE_PATHS[page];
-  const canonical = localeUrl(locale, path);
+  const canonical = localePath(locale, path);
+  const absoluteUrl = localeUrl(locale, path);
   const title = t(`title.${page}`);
   const description = t(`description.${page}`);
   const ogImage = options.image || logo || favicon;
@@ -82,7 +84,7 @@ export async function createPageMetadata(
     openGraph: {
       title,
       description,
-      url: canonical,
+      url: absoluteUrl,
       siteName,
       locale,
       type: "website",

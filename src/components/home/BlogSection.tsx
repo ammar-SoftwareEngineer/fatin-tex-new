@@ -13,7 +13,6 @@ type BlogSectionProps = {
 
 export default function BlogSection({ blogSection }: BlogSectionProps) {
   const t = useTranslations("blogs");
-  const tHome = useTranslations("home.blogSection");
   const locale = useLocale();
   const titleWords =
     blogSection?.title?.trim().split(/\s+/).filter(Boolean) ?? [];
@@ -85,7 +84,7 @@ export default function BlogSection({ blogSection }: BlogSectionProps) {
                 href={`/blogs/${getLocalizedSlug(blog.slug, locale)}`}
                 className="inline-flex items-center gap-3 text-[#e0bc80] font-medium"
               >
-                {tHome("readMore") || t("readMore")} →
+                {t("readMore", { title: blog.title })} →
               </Link>
             </div>
           </motion.div>
@@ -93,14 +92,11 @@ export default function BlogSection({ blogSection }: BlogSectionProps) {
       </div>
 
       <div className="flex justify-center mt-14 sm:mt-16">
-        <Link href={blogSection?.button_link_url || "/blogs"}>
-          <motion.div
-            whileHover={{ scale: 1.05, y: -3 }}
-            whileTap={{ scale: 0.95 }}
-            className="bg-[#e0bc80] text-black px-8 sm:px-10 py-4 rounded-full font-semibold shadow-xl inline-block text-center"
-          >
-            {blogSection?.button_text || t("readMore")}
-          </motion.div>
+        <Link
+          href={blogSection?.button_link_url || "/blogs"}
+          className="bg-[#e0bc80] text-black px-8 sm:px-10 py-4 rounded-full font-semibold shadow-xl inline-block text-center transition-transform hover:scale-105"
+        >
+          {blogSection?.button_text || t("viewAllArticles")}
         </Link>
       </div>
     </section>

@@ -1,5 +1,6 @@
 {
-  "readMore": "اقرأ المزيد",
+  "readMore": "اقرأ المزيد عن {title}",
+  "viewAllArticles": "عرض كل مقالات وأخبار المنسوجات",
   "relatedArticles": "مقالات ذات صلة",
   "faq": {
     "title": "الأسئلة الشائعة",

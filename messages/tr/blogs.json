@@ -1,5 +1,6 @@
 {
-  "readMore": "Devamını Oku",
+  "readMore": "{title} hakkında devamını oku",
+  "viewAllArticles": "Tüm tekstil makalelerini ve blog yazılarını görüntüle",
   "relatedArticles": "İlgili Yazılar",
   "faq": {
     "title": "Sıkça Sorulan Sorular",

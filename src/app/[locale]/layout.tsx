@@ -7,19 +7,16 @@ import Navbar from "@/components/layout/header/Navbar";
 import Footer from "@/components/layout/footer/Footer";
 import FixedContactIcons from "@/components/layout/call-to-action/FixedContactIcons";
 import { SlugAlternatesProvider } from "@/components/i18n/SlugAlternatesProvider";
-import JsonLd from "@/components/seo/JsonLd";
+
 import { fetchLayoutData } from "@/api/layoutService";
 import { routing } from "@/i18n/routing";
-import {
-  buildOrganizationJsonLd,
-  buildWebSiteJsonLd,
-} from "@/lib/seo/json-ld";
 import {
   buildLanguageAlternates,
   getIndexRobots,
   getSiteUrl,
+  localePath,
   localeUrl,
-} from "@/lib/seo/site";
+} from "@/lib/seo";
 import { isApiError } from "@/types/layoutTypes";
 import "@/styles/globals.css";
 
@@ -59,7 +56,8 @@ export async function generateMetadata({
   const title = t("title.default");
   const description = t("description.default");
   const ogImage = branding?.logo || branding?.favicon;
-  const canonical = localeUrl(locale);
+  const canonical = localePath(locale);
+  const absoluteUrl = localeUrl(locale);
 
   return {
     metadataBase: new URL(getSiteUrl()),
@@ -83,7 +81,7 @@ export async function generateMetadata({
     openGraph: {
       title,
       description,
-      url: canonical,
+      url: absoluteUrl,
       siteName: branding?.site_name || title,
       locale,
       type: "website",
@@ -112,9 +110,6 @@ export default async function LocaleLayout({ children, params }: Props) {
 
   setRequestLocale(locale);
   const messages = await getMessages();
-  const layoutData = await fetchLayoutData(locale);
-  const layout = !isApiError(layoutData) ? layoutData.data : null;
-  const siteName = layout?.branding?.site_name;
 
   return (
     <html
@@ -123,8 +118,6 @@ export default async function LocaleLayout({ children, params }: Props) {
       className={`${inter.variable} ${playfair.variable} ${cairo.variable}`}
     >
       <body className="min-h-screen bg-[#0b0f19] text-white font-inter antialiased">
-        <JsonLd data={buildOrganizationJsonLd(locale, layout)} />
-        <JsonLd data={buildWebSiteJsonLd(locale, siteName)} />
         <NextIntlClientProvider messages={messages}>
           <SlugAlternatesProvider>
             <div className="flex flex-col min-h-screen">

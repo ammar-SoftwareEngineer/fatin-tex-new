@@ -15,7 +15,7 @@ import type { NavLink } from "./navTypes";
 import { mapMenuItem } from "./navUtils";
 import { useSlugAlternates } from "@/components/i18n/SlugAlternatesProvider";
 import { localizeSlugPathname } from "@/lib/localized-slug";
-import { getAvailableSlugLocales } from "@/lib/seo/site";
+import { getAvailableSlugLocales } from "@/lib/seo";
 
 type NavbarContentProps = {
   layoutData: Awaited<ReturnType<typeof fetchLayoutData>>;

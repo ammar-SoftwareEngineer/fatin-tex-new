@@ -1,16 +1,7 @@
 import { notFound } from "next/navigation";
-import { getTranslations } from "next-intl/server";
 import BlogDetail from "@/components/blogs/BlogDetail";
-import JsonLd from "@/components/seo/JsonLd";
 import { fetchBlogDetailsData } from "@/api/blogsService";
-import { fetchLayoutData } from "@/api/layoutService";
-import { createEntityMetadata } from "@/lib/seo/entity-metadata";
-import {
-  buildArticleJsonLd,
-  buildBreadcrumbJsonLd,
-} from "@/lib/seo/json-ld";
-import { getLocalizedSlug } from "@/lib/localized-slug";
-import { localeUrl } from "@/lib/seo/site";
+import { createEntityMetadata } from "@/lib/seo";
 import { setupPageLocale } from "@/lib/page-utils";
 import { isApiError } from "@/types/layoutTypes";
 import type { BlogDetailsApiResponse } from "@/types/blogTypes";
@@ -52,12 +43,7 @@ export default async function BlogDetailPage({
 }) {
   const locale = await setupPageLocale(params);
   const { slug } = await params;
-
-  const [detailsResponse, layoutData, tNav] = await Promise.all([
-    fetchBlogDetailsData(slug, locale),
-    fetchLayoutData(locale),
-    getTranslations({ locale, namespace: "nav" }),
-  ]);
+  const detailsResponse = await fetchBlogDetailsData(slug, locale);
 
   if (
     isApiError(detailsResponse) ||
@@ -66,26 +52,7 @@ export default async function BlogDetailPage({
     notFound();
   }
 
-  const blog = (detailsResponse as BlogDetailsApiResponse).data;
-  const siteName = !isApiError(layoutData)
-    ? layoutData.data?.branding?.site_name
-    : undefined;
-  const blogSlug = getLocalizedSlug(blog.slug, locale);
-
   return (
-    <>
-      <JsonLd data={buildArticleJsonLd(locale, blog, siteName)} />
-      <JsonLd
-        data={buildBreadcrumbJsonLd([
-          { name: tNav("home"), url: localeUrl(locale) },
-          { name: tNav("blogs"), url: localeUrl(locale, "/blogs") },
-          {
-            name: blog.title,
-            url: localeUrl(locale, `/blogs/${blogSlug}`),
-          },
-        ])}
-      />
-      <BlogDetail blog={blog} />
-    </>
+    <BlogDetail blog={(detailsResponse as BlogDetailsApiResponse).data} />
   );
 }
