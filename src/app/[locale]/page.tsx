@@ -2,7 +2,7 @@ import { setRequestLocale } from "next-intl/server";
 import { fetchHomeData } from "@/api/homeService";
 import HomePage from "@/components/home/HomePage";
 import { isApiError } from "@/types/layoutTypes";
-import { createPageMetadata } from "@/lib/page-utils";
+import { createPageMetadata } from "@/lib/seo";
 
 export async function generateMetadata({
   params,

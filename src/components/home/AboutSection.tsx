@@ -5,7 +5,6 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import type { HomeSection } from "@/types/homeTypes";
 import CountUp from "react-countup";
-import { externalLinkProps, isExternalHref } from "@/lib/links";
 import {
   cardHover,
   fadeLeft,
@@ -137,26 +136,12 @@ export default function AboutSection({ about }: AboutSectionProps) {
               })}
             </motion.div>
 
-            {(() => {
-              const href = about?.button_link_url || "/about";
-              const label = about?.button_text || tCommon("exploreMore");
-              const className =
-                "relative overflow-hidden bg-[#e0bc80] text-black px-8 sm:px-10 py-4 rounded-full font-semibold text-sm sm:text-base shadow-xl inline-block text-center transition-transform hover:scale-[1.03]";
-
-              if (isExternalHref(href)) {
-                return (
-                  <a href={href} {...externalLinkProps(href)} className={className}>
-                    {label}
-                  </a>
-                );
-              }
-
-              return (
-                <Link href={href} className={className}>
-                  {label}
-                </Link>
-              );
-            })()}
+            <Link
+              href={about?.button_link_url || "/about"}
+              className="relative overflow-hidden bg-[#e0bc80] text-black px-8 sm:px-10 py-4 rounded-full font-semibold text-sm sm:text-base shadow-xl inline-block text-center transition-transform hover:scale-[1.03]"
+            >
+              {about?.button_text || tCommon("exploreMore")}
+            </Link>
           </motion.div>
         </div>
       </div>

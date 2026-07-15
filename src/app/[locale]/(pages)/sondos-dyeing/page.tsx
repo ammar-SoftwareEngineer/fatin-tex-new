@@ -1,4 +1,4 @@
-import { createPageMetadata, setupPageLocale } from "@/lib/page-utils";
+import { createPageMetadata, setupPageLocale } from "@/lib/seo";
 import SondosPage from "@/components/sondos/SondosPage";
 import { fetchSondosData } from "@/api/sondosService";
 import type { SondosApiResponse } from "@/types/sondosTypes";

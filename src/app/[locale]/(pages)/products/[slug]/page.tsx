@@ -1,8 +1,7 @@
 import { notFound } from "next/navigation";
 import ProductDetails from "@/components/products/details/ProductDetails";
 import { fetchProductDetailsData } from "@/api/productsService";
-import { createEntityMetadata } from "@/lib/seo";
-import { setupPageLocale } from "@/lib/page-utils";
+import { createEntityMetadata, setupPageLocale } from "@/lib/seo";
 import { isApiError } from "@/types/layoutTypes";
 import type { ProductDetailsApiResponse } from "@/types/productTypes";
 

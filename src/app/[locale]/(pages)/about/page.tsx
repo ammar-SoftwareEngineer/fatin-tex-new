@@ -1,4 +1,4 @@
-import { createPageMetadata, setupPageLocale } from "@/lib/page-utils";
+import { createPageMetadata, setupPageLocale } from "@/lib/seo";
 import AboutPageView from "@/components/about/AboutPage";
 import { fetchAboutData } from "@/api/aboutService";
 import { isApiError } from "@/types/layoutTypes";

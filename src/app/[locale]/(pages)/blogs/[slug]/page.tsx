@@ -1,8 +1,7 @@
 import { notFound } from "next/navigation";
 import BlogDetail from "@/components/blogs/BlogDetail";
 import { fetchBlogDetailsData } from "@/api/blogsService";
-import { createEntityMetadata } from "@/lib/seo";
-import { setupPageLocale } from "@/lib/page-utils";
+import { createEntityMetadata, setupPageLocale } from "@/lib/seo";
 import { isApiError } from "@/types/layoutTypes";
 import type { BlogDetailsApiResponse } from "@/types/blogTypes";
 

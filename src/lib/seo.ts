@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { fetchLayoutData } from "@/api/layoutService";
 import { routing } from "@/i18n/routing";
 import type { LocalizedSlug } from "@/lib/localized-slug";
@@ -220,4 +221,95 @@ export async function createEntityMetadata({
       images: ogImage ? [ogImage] : undefined,
     },
   };
+}
+
+type PageKey =
+  | "home"
+  | "about"
+  | "blogs"
+  | "products"
+  | "categories"
+  | "contact"
+  | "media"
+  | "mediaImages"
+  | "mediaVideos"
+  | "sondosDyeing";
+
+const PAGE_PATHS: Record<PageKey, string> = {
+  home: "",
+  about: "/about",
+  blogs: "/blogs",
+  products: "/products",
+  categories: "/categories",
+  contact: "/contact",
+  media: "/media",
+  mediaImages: "/media/images",
+  mediaVideos: "/media/videos",
+  sondosDyeing: "/sondos-dyeing",
+};
+
+/** Metadata للصفحات الثابتة (title / description / canonical / OG) */
+export async function createPageMetadata(
+  params: Promise<{ locale: string }>,
+  page: PageKey,
+  options: { path?: string; image?: string | null } = {},
+): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "metadata" });
+  const layoutData = await fetchLayoutData(locale);
+  const favicon = !isApiError(layoutData)
+    ? layoutData.data?.branding?.favicon
+    : undefined;
+  const logo = !isApiError(layoutData)
+    ? layoutData.data?.branding?.logo
+    : undefined;
+  const siteName = !isApiError(layoutData)
+    ? layoutData.data?.branding?.site_name
+    : undefined;
+
+  const path = options.path ?? PAGE_PATHS[page];
+  const canonical = localePath(locale, path);
+  const absoluteUrl = localeUrl(locale, path);
+  const title = t(`title.${page}`);
+  const description = t(`description.${page}`);
+  const ogImage = options.image || logo || favicon;
+
+  return {
+    metadataBase: new URL(getSiteUrl()),
+    title,
+    description,
+    robots: getIndexRobots(),
+    icons: favicon
+      ? {
+          icon: [{ url: favicon, type: "image/webp" }],
+          shortcut: favicon,
+          apple: favicon,
+        }
+      : undefined,
+    alternates: {
+      canonical,
+      languages: buildLanguageAlternates(path),
+    },
+    openGraph: {
+      title,
+      description,
+      url: absoluteUrl,
+      siteName,
+      locale,
+      type: "website",
+      images: ogImage ? [{ url: ogImage }] : undefined,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: ogImage ? [ogImage] : undefined,
+    },
+  };
+}
+
+export async function setupPageLocale(params: Promise<{ locale: string }>) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  return locale;
 }

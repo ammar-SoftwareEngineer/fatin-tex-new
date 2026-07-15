@@ -1,7 +1,9 @@
-import { createPageMetadata, setupPageLocale } from "@/lib/page-utils";
+import { createPageMetadata, setupPageLocale } from "@/lib/seo";
 import MediaPageView from "@/components/media/MediaPage";
-import { fetchGalleryImagesData } from "@/api/galleryService";
-import { normalizeGalleryItems } from "@/lib/gallery";
+import {
+  fetchGalleryImagesData,
+  normalizeGalleryItems,
+} from "@/api/galleryService";
 
 export async function generateMetadata({
   params,

@@ -1,5 +1,5 @@
 import { redirect } from "@/i18n/navigation";
-import { setupPageLocale } from "@/lib/page-utils";
+import { setupPageLocale } from "@/lib/seo";
 
 export default async function MediaIndexPage({
   params,

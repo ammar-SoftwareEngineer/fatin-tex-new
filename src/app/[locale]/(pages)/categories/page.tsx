@@ -1,4 +1,4 @@
-import { createPageMetadata, setupPageLocale } from "@/lib/page-utils";
+import { createPageMetadata, setupPageLocale } from "@/lib/seo";
 import CategoriesPage from "@/components/categories/CategoriesPage";
 import { fetchCategoriesData } from "@/api/categoriesService";
 import { isApiError } from "@/types/layoutTypes";

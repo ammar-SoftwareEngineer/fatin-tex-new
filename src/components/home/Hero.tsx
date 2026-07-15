@@ -6,7 +6,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, EffectFade } from "swiper/modules";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
-import { externalLinkProps, isExternalHref } from "@/lib/links";
 import "swiper/css";
 import "swiper/css/effect-fade";
 
@@ -45,7 +44,8 @@ export default function Hero({ slides }: HeroProps) {
       >
         {displaySlides.map((slide, index) => {
           const ctaHref = slide.buttonLink || "/contact";
-          const external = isExternalHref(ctaHref);
+          const ctaClassName =
+            "inline-block px-8 py-4 rounded-full font-medium text-black bg-gradient-to-r from-[#e0bc80] to-[#f5e6a8] transition-transform duration-300 hover:scale-105";
 
           return (
             <SwiperSlide key={index}>
@@ -88,22 +88,9 @@ export default function Hero({ slides }: HeroProps) {
                           : "opacity-0 pointer-events-none"
                       }`}
                     >
-                      {external ? (
-                        <a
-                          href={ctaHref}
-                          {...externalLinkProps(ctaHref)}
-                          className="inline-block px-8 py-4 rounded-full font-medium text-black bg-gradient-to-r from-[#e0bc80] to-[#f5e6a8] transition-transform duration-300 hover:scale-105"
-                        >
-                          {slide.buttonText || t("exploreMore")}
-                        </a>
-                      ) : (
-                        <Link
-                          href={ctaHref}
-                          className="inline-block px-8 py-4 rounded-full font-medium text-black bg-gradient-to-r from-[#e0bc80] to-[#f5e6a8] transition-transform duration-300 hover:scale-105"
-                        >
-                          {slide.buttonText || t("exploreMore")}
-                        </Link>
-                      )}
+                      <Link href={ctaHref} className={ctaClassName}>
+                        {slide.buttonText || t("exploreMore")}
+                      </Link>
                     </div>
                   </div>
                 </div>
