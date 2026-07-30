@@ -60,6 +60,7 @@ export async function fetchGalleryImagesData(lang = "en") {
           "Accept-Language": lang,
         },
         method: "GET",
+        next: { revalidate: 60 },
       },
     );
 
@@ -89,6 +90,7 @@ export async function fetchGalleryVideosData(lang = "en") {
           "Accept-Language": lang,
         },
         method: "GET",
+        next: { revalidate: 60 },
       },
     );
 

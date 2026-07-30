@@ -8,6 +8,7 @@ export async function fetchProductsData(lang = "en") {
         "Accept-Language": lang,
       },
       method: "GET",
+      next: { revalidate: 60 },
     });
 
     const data = await response.json();
@@ -36,6 +37,7 @@ export async function fetchProductDetailsData(slug: string, lang = "en") {
           "Accept-Language": lang,
         },
         method: "GET",
+        next: { revalidate: 60 },
       },
     );
 

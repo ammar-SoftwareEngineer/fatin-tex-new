@@ -15,6 +15,7 @@ export async function fetchContactData(lang = "en") {
         "Accept-Language": lang,
       },
       method: "GET",
+      next: { revalidate: 60 },
     });
 
     const data = await response.json();

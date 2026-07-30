@@ -45,6 +45,9 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
+/** تحديث محتوى الداشبورد على Vercel بدون انتظار redeploy */
+export const revalidate = 60;
+
 export async function generateMetadata({
   params,
 }: {

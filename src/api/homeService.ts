@@ -8,6 +8,7 @@ export async function fetchHomeData(lang = "en") {
         "Accept-Language": lang,
       },
       method: "GET",
+      next: { revalidate: 60 },
     });
 
     const data = await response.json();
