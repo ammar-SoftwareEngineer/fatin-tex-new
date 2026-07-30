@@ -6,12 +6,14 @@ import SundusSection from "@/components/home/SundusSection";
 import BlogSection from "@/components/home/BlogSection";
 import type { HomeData } from "@/types/homeTypes";
 import { stripHtml } from "@/lib/utils";
+import type { AboutData } from "@/types/aboutTypes";
 
 type HomePageProps = {
   data?: HomeData | null;
+  aboutData?: AboutData | null;
 };
 
-export default function HomePage({ data }: HomePageProps) {
+export default function HomePage({ data, aboutData }: HomePageProps) {
   const heroSlides = data?.hero?.map((slide) => ({
     image: slide.image || "/hero1.jpg",
     title: slide.title,
@@ -24,9 +26,9 @@ export default function HomePage({ data }: HomePageProps) {
   return (
     <>
       <Hero slides={heroSlides} />
-      <AboutSection about={data?.about_us} />
+      <AboutSection about={data?.about_us} aboutImages={aboutData?.about_images || []} />
       <Categories categories={data?.categories_section} />
-      <SundusSection sundus={data?.video_section} />
+      <SundusSection  />
       <WhyChooseUs whyChooseUs={data?.why_choose_us_section} />
       <BlogSection blogSection={data?.blogs_section} />
     </>

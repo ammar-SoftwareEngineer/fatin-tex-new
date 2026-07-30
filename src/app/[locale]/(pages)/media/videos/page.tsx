@@ -1,9 +1,6 @@
 import { createPageMetadata, setupPageLocale } from "@/lib/seo";
 import MediaPageView from "@/components/media/MediaPage";
-import {
-  fetchGalleryVideosData,
-  normalizeGalleryItems,
-} from "@/api/galleryService";
+import { fetchGalleryVideosData } from "@/api/galleryService";
 
 export async function generateMetadata({
   params,
@@ -20,7 +17,7 @@ export default async function MediaVideosPage({
 }) {
   const locale = await setupPageLocale(params);
   const response = await fetchGalleryVideosData(locale);
-  const items = normalizeGalleryItems(response);
+  const items = Array.isArray(response?.data) ? response.data : [];
 
   return <MediaPageView type="videos" items={items} />;
 }

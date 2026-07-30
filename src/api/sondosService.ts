@@ -16,7 +16,6 @@ export async function fetchSondosData(lang = "en") {
 
     const data = await response.json();
 
-
     if (!response.ok) {
       console.error("Failed to fetch sondos data:", data);
       return { success: false, message: "Failed To Fetch Sondos Data" };

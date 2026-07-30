@@ -10,7 +10,6 @@ import {
   staggerItem,
   viewportOnce,
 } from "@/lib/motion";
-import "../../styles/globals.css";
 
 type WhyChooseUsProps = {
   whyChooseUs?: HomeSection;
@@ -40,7 +39,7 @@ export default function WhyChooseUs({ whyChooseUs }: WhyChooseUsProps) {
             <span className="text-[#e0bc80]">{titleHighlight}</span>
           ) : null}
         </h2>
-        <p
+        <div
           className="text-gray-400 mt-5 sm:mt-6 leading-relaxed text-sm sm:text-base"
           dangerouslySetInnerHTML={{ __html: whyChooseUs?.text ?? "" }}
         />
@@ -55,13 +54,13 @@ export default function WhyChooseUs({ whyChooseUs }: WhyChooseUsProps) {
       >
         {whyChooseUs?.benefits?.map((item, i) => (
           <motion.div
-            key={i}
+            key={item.id ?? i}
             variants={staggerItem}
             whileHover={cardHover}
             className="group relative overflow-hidden rounded-[24px] sm:rounded-[30px] border border-white/10 bg-white/5 backdrop-blur-xl p-6 sm:p-8"
           >
             <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-500 bg-linear-to-br from-[#e0bc80]/10 to-transparent" />
-            <div  className="relative z-10 w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-[#e0bc80]/10 border border-[#e0bc80]/20 flex items-center justify-center text-[#e0bc80] mb-5 sm:mb-6" >
+            <div className="relative z-10 w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-[#e0bc80]/10 border border-[#e0bc80]/20 flex items-center justify-center text-[#e0bc80] mb-5 sm:mb-6">
               <Image
                 src={item.image}
                 alt={item.title}

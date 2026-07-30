@@ -9,6 +9,12 @@ export type AboutSection = {
   is_active: number;
   button_text: string;
   button_link_url: string | null;
+
+};
+
+export type ImageItem = {
+  id: number;
+  url: string;
 };
 
 export type StatisticsSection = AboutSection;
@@ -16,6 +22,7 @@ export type StatisticsSection = AboutSection;
 export type ValuesSection = AboutSection;
 
 export type AboutData = {
+  about_images?: ImageItem[];
   breadcrumb_section: AboutSection;
   about_us_section: AboutSection | null;
   statistics_section: StatisticsSection[];

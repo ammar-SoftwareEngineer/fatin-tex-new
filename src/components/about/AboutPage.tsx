@@ -6,7 +6,11 @@ import Breadcrumb from "@/components/layout/hero/Breadcrumb";
 import type { AboutData } from "@/types/aboutTypes";
 import Image from "next/image";
 import CountUp from "react-countup";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Pagination } from "swiper/modules";
 import { cardHover, staggerDelay, transitionBase } from "@/lib/motion";
+import "swiper/css";
+import "swiper/css/pagination";
 
 type AboutPageProps = {
   aboutData: AboutData | null;
@@ -17,6 +21,12 @@ export default function AboutPage({ aboutData }: AboutPageProps) {
   const tCommon = useTranslations("common");
   const breadcrumb = aboutData?.breadcrumb_section;
   const aboutUs = aboutData?.about_us_section;
+
+  const fromApi = aboutData?.about_images?.filter((item) => item.url) ?? [];
+  const sliderImages =
+    fromApi.length > 0
+      ? fromApi
+      : [{ id: 0, url: aboutUs?.image || "/about1.jpg" }];
 
   return (
     <div className="bg-background text-white overflow-hidden">
@@ -41,18 +51,28 @@ export default function AboutPage({ aboutData }: AboutPageProps) {
             viewport={{ once: true, amount: 0.2 }}
             className="relative"
           >
-            <Image
-              src={aboutData?.about_us_section?.image || "/about1.jpg"}
-              alt={
-                aboutData?.about_us_section?.alt_image || tCommon("brandName")
-              }
-              width={1000}
-              height={1000}
-              sizes="(max-width: 1024px) 100vw, 50vw"
-              className="rounded-[30px] w-full h-[450px] object-cover border border-white/10 shadow-2xl"
-              loading="lazy"
-            />
-            <div className="absolute -bottom-8 -right-8 w-[200px] h-[200px] bg-[#e0bc80] blur-3xl opacity-20 rounded-full" />
+            <Swiper
+              modules={[Autoplay, Pagination]}
+              autoplay={{ delay: 3500, disableOnInteraction: false }}
+              pagination={{ clickable: true }}
+              loop={sliderImages.length > 1}
+              className="about-image-swiper rounded-[30px] overflow-hidden border border-white/10 shadow-2xl"
+            >
+              {sliderImages.map((item) => (
+                <SwiperSlide key={item.id}>
+                  <Image
+                    src={item.url}
+                    alt={aboutUs?.alt_image || tCommon("brandName")}
+                    width={1000}
+                    height={1000}
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    className="w-full h-[450px] object-cover"
+                    loading="lazy"
+                  />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+            <div className="absolute -bottom-8 -right-8 w-[200px] h-[200px] bg-[#e0bc80] blur-3xl opacity-20 rounded-full pointer-events-none" />
           </motion.div>
 
           <motion.div

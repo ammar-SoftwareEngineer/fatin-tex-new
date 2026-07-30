@@ -4,7 +4,10 @@ import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import type { HomeSection } from "@/types/homeTypes";
+import type { ImageItem } from "@/types/aboutTypes";
 import CountUp from "react-countup";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Pagination } from "swiper/modules";
 import {
   cardHover,
   fadeLeft,
@@ -15,18 +18,26 @@ import {
   transitionBase,
   viewportOnce,
 } from "@/lib/motion";
+import "swiper/css";
+import "swiper/css/pagination";
 
 type AboutSectionProps = {
   about?: HomeSection;
+  aboutImages?:ImageItem[];
 };
 
-export default function AboutSection({ about }: AboutSectionProps) {
+export default function AboutSection({ about, aboutImages }: AboutSectionProps) {
   const t = useTranslations("home.aboutSection");
   const tCommon = useTranslations("common");
 
   const titleWords = about?.title?.trim().split(/\s+/).filter(Boolean) ?? [];
   const titleStart = titleWords.slice(0, -1).join(" ");
   const titleHighlight = titleWords.at(-1) ?? "";
+
+  const images =
+    aboutImages.filter((item) => item.url).length > 0
+      ? aboutImages.filter((item) => item.url)
+      : [{ id: 0, url: about?.image || "/about1.jpg" }];
 
   return (
     <section className="relative py-20 sm:py-28 lg:py-36 px-4 sm:px-6 lg:px-16 bg-[#0d0b09] text-white overflow-hidden">
@@ -41,16 +52,30 @@ export default function AboutSection({ about }: AboutSectionProps) {
           >
             <div className="absolute -top-5 -left-5 w-full h-full border border-[#e0bc80]/20 rounded-[35px]" />
             <div className="relative rounded-[30px] overflow-hidden shadow-[0_20px_80px_rgba(0,0,0,0.5)] group h-[350px] sm:h-[500px] lg:h-[650px]">
-              <Image
-                src={about?.image || "/about1.jpg"}
-                alt={about?.alt_image || about?.title || tCommon("brandName")}
-                fill
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
-                loading="lazy"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
-              <div className="absolute bottom-6 left-6 sm:bottom-8 sm:left-8 bg-white/10 backdrop-blur-2xl border border-white/10 rounded-3xl px-5 sm:px-6 py-4 shadow-2xl">
+              <Swiper
+                modules={[Autoplay, Pagination]}
+                autoplay={{ delay: 3500, disableOnInteraction: false }}
+                pagination={{ clickable: true }}
+                loop={images.length > 1}
+                className="h-full w-full"
+              >
+                {images.map((item) => (
+                  <SwiperSlide key={item.id} className="!h-full">
+                    <div className="relative h-full w-full">
+                      <Image
+                        src={item.url}
+                        alt={about?.alt_image || about?.title || tCommon("brandName")}
+                        fill
+                        sizes="(max-width: 1024px) 100vw, 50vw"
+                        className="object-cover transition-transform duration-700 group-hover:scale-105"
+                        loading="lazy"
+                      />
+                    </div>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+              <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+              <div className="absolute bottom-6 left-6 sm:bottom-8 sm:left-8 z-20 bg-white/10 backdrop-blur-2xl border border-white/10 rounded-3xl px-5 sm:px-6 py-4 shadow-2xl">
                 <h4 className="text-[#e0bc80] text-xl font-bold mb-1">
                   {t("cardTitle")}
                 </h4>

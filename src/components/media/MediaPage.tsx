@@ -6,7 +6,6 @@ import Breadcrumb from "@/components/layout/hero/Breadcrumb";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
-import type { GalleryItem } from "@/api/galleryService";
 import {
   cardHover,
   fadeUp,
@@ -16,6 +15,13 @@ import {
 } from "@/lib/motion";
 
 type MediaType = "images" | "videos";
+
+type GalleryItem = {
+  id: number | string;
+  url: string;
+  thumbnail?: string;
+  title?: string;
+};
 
 type MediaPageProps = {
   type?: MediaType;

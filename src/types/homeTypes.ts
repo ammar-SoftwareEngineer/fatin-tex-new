@@ -88,6 +88,16 @@ export type HomeData = {
   about_us: HomeSection;
   categories_section: CategoriesSection;
   video_section: HomeSection;
-  why_choose_us_section: HomeSection & { benefits: unknown[] };
+  why_choose_us_section: HomeSection & {
+    benefits: {
+      id: number;
+      title: string;
+      sub_title: string;
+      image: string;
+      alt_image: string;
+      order: number;
+      is_active: number;
+    }[];
+  };
   blogs_section: HomeSection & { blogs: HomeBlog[] };
 };
