@@ -44,7 +44,7 @@ export default function SundusSection({ sundus }: SundusSectionProps) {
             "
           >
             <iframe
-              src={sundus?.button_link_url || "/vedio.mp4"}
+              src={"/vedio.mp4"}
               width="100%"
               height="100%"
               className="w-full h-[280px] sm:h-[380px] md:h-[520px] lg:h-[650px] object-cover"

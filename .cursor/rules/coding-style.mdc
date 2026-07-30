@@ -1,0 +1,81 @@
+﻿---
+description: Coding style based on Keramica â€” HTML/Bootstrap static sites; match existing project patterns
+alwaysApply: true
+---
+
+# Coding Style (Keramica Pattern)
+
+Reference project: `keramica`. Match this writing style on HTML/Bootstrap sites. On Next.js/React apps, follow that project's existing patterns instead â€” do not force Keramica HTML structure onto React.
+
+## Stack (static HTML)
+
+- Bootstrap + Font Awesome + Swiper + AOS
+- Partials in `app/` (`header.html`, `footer.html`, `loader.html`, modals)
+- Load with jQuery: `$("#header").load("app/header.html")` (inline at page bottom or in `main.js`)
+- CSS only: `assets/css/style.css` + `assets/css/media.css`
+- Never add parallel CSS files (`theme.css`, `custom.css`, etc.)
+
+## HTML structure
+
+```html
+<!-- Section banners like Keramica -->
+<!-- 
+##################################################
+#                   Header                       #
+##################################################
+-->
+<header class="header" id="header"></header>
+
+<div class="hero d-md-block d-none">
+  <div class="hero-slider position-relative">
+    <div class="swiper heroSwiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide position-relative">
+          <img ... />
+          <div class="overlay"></div>
+          <div class="hero-content">
+            <span class="hero-slogan">...</span>
+            <h1>...</h1>
+            <p>...</p>
+            <a href="..." class="btn-contact">...</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+- Reuse existing classes: `.btn-send`, `.btn-contact`, `.header`, `.hero`, `.hero-content`, `.header-section`
+- Keep the project's real nav links â€” do not rename to a third-party template's menu
+- Prefer clear comments for major blocks
+
+## CSS (`style.css`)
+
+- TOC + section markers: `/* ========== N. SECTION NAME START/END ========== */`
+- `:root` variables at top (`--main-color`, `--second-color`, `--radius`, â€¦)
+- Nested CSS (`.header { .navbar { ... } }`, `&:hover`)
+- Edit the matching section in place â€” do not append a fighting override block at the end
+- Responsive only in `media.css`, grouped by breakpoint (`992px`, `768px`, `576px`)
+
+## JS
+
+- Simple, readable: jQuery IIFE for loader; `DOMContentLoaded` for scroll/header
+- Sticky header: toggle `.fixed-top` on `.header` when `scrollY > navHeight`
+- Swipers live in `slider.js`
+- Prefer small clear functions over clever abstractions
+
+## Change discipline
+
+- Read the file first; continue from what exists
+- Small request â†’ small diff
+- Restyle by updating existing `.header` / `.hero` / `.btn-send` â€” not new class families
+- Brand colors come from that project's `:root` â€” never invent a second palette file
+
+## âŒ Avoid
+
+- Parallel hero/header systems (`hero-renax`, `hero-home` beside `.hero`)
+- Extra theme CSS files
+- Rewriting menu labels to match a demo template
+- Large end-of-file override dumps that override earlier sections
+

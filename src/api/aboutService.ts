@@ -11,7 +11,7 @@ export async function fetchAboutData(lang = "en") {
     });
 
     const data = await response.json();
-
+console.log("data",data);
     if (!response.ok) {
       console.error("Failed to fetch about data:", data);
       return { success: false, message: "Failed To Fetch About Data" };
