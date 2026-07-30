@@ -25,9 +25,18 @@
     "cardTitle": "Lüks Kumaşlar",
     "cardDesc": "Modern tekstil inovasyonu",
     "stats": [
-      { "num": "10+", "label": "Yıllık Deneyim" },
-      { "num": "500+", "label": "Lüks Tasarım" },
-      { "num": "100%", "label": "Premium Kalite" }
+      {
+        "num": "10+",
+        "label": "Yıllık Deneyim"
+      },
+      {
+        "num": "500+",
+        "label": "Lüks Tasarım"
+      },
+      {
+        "num": "100%",
+        "label": "Premium Kalite"
+      }
     ]
   },
   "categories": {
@@ -41,16 +50,44 @@
       "wool": "Yün"
     },
     "items": {
-      "softCotton": { "name": "Yumuşak Pamuk", "desc": "Nefes alabilen kumaş" },
-      "pureCotton": { "name": "Saf Pamuk", "desc": "Doğal konfor" },
-      "cottonBlend": { "name": "Pamuk Karışım", "desc": "Dayanıklı ve yumuşak" },
-      "warmWool": { "name": "Sıcak Yün", "desc": "Kış vazgeçilmezi" },
-      "royalSilk": { "name": "Kraliyet İpeği", "desc": "Lüks parlaklık" },
-      "smoothSilk": { "name": "Pürüzsüz İpek", "desc": "Zarif doku" },
-      "naturalLinen": { "name": "Doğal Keten", "desc": "Hafif ve ferah" },
-      "softWool": { "name": "Yumuşak Yün", "desc": "Rahat his" },
-      "premiumWool": { "name": "Premium Yün", "desc": "Yüksek dayanıklılık" }
-    }
+      "softCotton": {
+        "name": "Yumuşak Pamuk",
+        "desc": "Nefes alabilen kumaş"
+      },
+      "pureCotton": {
+        "name": "Saf Pamuk",
+        "desc": "Doğal konfor"
+      },
+      "cottonBlend": {
+        "name": "Pamuk Karışım",
+        "desc": "Dayanıklı ve yumuşak"
+      },
+      "warmWool": {
+        "name": "Sıcak Yün",
+        "desc": "Kış vazgeçilmezi"
+      },
+      "royalSilk": {
+        "name": "Kraliyet İpeği",
+        "desc": "Lüks parlaklık"
+      },
+      "smoothSilk": {
+        "name": "Pürüzsüz İpek",
+        "desc": "Zarif doku"
+      },
+      "naturalLinen": {
+        "name": "Doğal Keten",
+        "desc": "Hafif ve ferah"
+      },
+      "softWool": {
+        "name": "Yumuşak Yün",
+        "desc": "Rahat his"
+      },
+      "premiumWool": {
+        "name": "Premium Yün",
+        "desc": "Yüksek dayanıklılık"
+      }
+    },
+    "viewMore": "Daha Fazla"
   },
   "whyChooseUs": {
     "subtitle": "NEDEN BİZİ SEÇMELİSİNİZ",
