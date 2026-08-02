@@ -12,6 +12,7 @@ type SundusSectionProps = {
 };
 
 export default function SundusSection({ sundus }: SundusSectionProps) {
+  console.log(sundus);
   return (
     <section className="relative min-h-screen bg-[#0d0b09] overflow-hidden">
 
@@ -43,16 +44,16 @@ export default function SundusSection({ sundus }: SundusSectionProps) {
               border border-white/10
             "
           >
-            <iframe
-              src={"/vedio.mp4"}
-              width="100%"
-              height="100%"
+            <video
+     
               className="w-full h-[280px] sm:h-[380px] md:h-[520px] lg:h-[650px] object-cover"
-              title="Sundus Video"
-              allow="autoplay; encrypted-media"
-              allowFullScreen
-              loading="lazy"
-            ></iframe>
+              autoPlay
+              loop
+              muted
+              playsInline
+            >
+              <source src={ "/vedio.mp4"} type="video/mp4" />
+            </video>
 
             <div className="absolute inset-0 bg-black/30"></div>
           </motion.div>

@@ -28,7 +28,7 @@ export default function HomePage({ data, aboutData }: HomePageProps) {
       <Hero slides={heroSlides} />
       <AboutSection about={data?.about_us} aboutImages={aboutData?.about_images || []} />
       <Categories categories={data?.categories_section} />
-      <SundusSection  />
+      <SundusSection sundus={data?.video_section} />
       <WhyChooseUs whyChooseUs={data?.why_choose_us_section} />
       <BlogSection blogSection={data?.blogs_section} />
     </>
