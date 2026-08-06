@@ -1,10 +1,15 @@
 "use client";
 
+/**
+ * Home page hero slider.
+ * Auto-rotates slides every 5 seconds when more than one slide exists.
+ */
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import Container from "@/components/common/Container";
 import { easeSmooth, transitionBase, transitionSlow } from "@/lib/motion";
 
 export type HeroSlideView = {
@@ -25,6 +30,7 @@ export default function Hero({ slides }: HeroProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const active = displaySlides[activeIndex];
 
+  // Auto-advance slides
   useEffect(() => {
     if (displaySlides.length <= 1) return;
 
@@ -35,6 +41,7 @@ export default function Hero({ slides }: HeroProps) {
     return () => window.clearInterval(id);
   }, [displaySlides.length]);
 
+  // Empty placeholder while data is loading / missing
   if (!active) {
     return (
       <section className="relative w-full min-h-[520px] h-screen bg-[#0b0f19]" />
@@ -45,6 +52,7 @@ export default function Hero({ slides }: HeroProps) {
     <section className="relative w-full min-h-[520px] h-screen overflow-hidden">
       <h1 className="sr-only">{displaySlides[0]?.title}</h1>
 
+      {/* Background images stacked; only the active one is visible */}
       {displaySlides.map((slide, index) => (
         <motion.div
           key={`${slide.image}-${index}`}
@@ -72,8 +80,9 @@ export default function Hero({ slides }: HeroProps) {
 
       <div className="absolute inset-0 bg-black/60" />
 
+      {/* Slide text + CTA */}
       <div className="relative z-10 h-full flex items-center">
-        <div className="max-w-7xl mx-auto px-6 md:px-20 w-full">
+        <Container>
           <AnimatePresence mode="wait">
             <motion.div
               key={activeIndex}
@@ -112,7 +121,7 @@ export default function Hero({ slides }: HeroProps) {
               </motion.div>
             </motion.div>
           </AnimatePresence>
-        </div>
+        </Container>
       </div>
     </section>
   );

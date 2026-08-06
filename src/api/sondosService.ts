@@ -1,21 +1,25 @@
+/**
+ * Fetch Sondos Dyeing page data from the backend API.
+ */
 const NEXT_PUBLIC_BACKEND_BASE_URL = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
 
 export async function fetchSondosData(lang = "en") {
   try {
     const response = await fetch(
-      `${NEXT_PUBLIC_BACKEND_BASE_URL}/sondos-dyeing`,
+      `${NEXT_PUBLIC_BACKEND_BASE_URL}/sondos-dyeing?lang=${lang}`,
       {
         headers: {
           "Content-Type": "application/json",
           "Accept-Language": lang,
         },
         method: "GET",
-        next: { revalidate: 60 },
+        next: { revalidate: 5 }
       },
     );
 
     const data = await response.json();
 
+  
     if (!response.ok) {
       console.error("Failed to fetch sondos data:", data);
       return { success: false, message: "Failed To Fetch Sondos Data" };

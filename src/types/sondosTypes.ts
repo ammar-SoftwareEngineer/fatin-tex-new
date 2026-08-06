@@ -1,3 +1,7 @@
+/**
+ * Types for the Sondos Dyeing page.
+ * The API returns this object directly (not wrapped in `{ data: ... }`).
+ */
 export type SondosSection = {
   id: number;
   title: string;
@@ -16,6 +20,5 @@ export type SondosData = {
   content: SondosSection;
 };
 
-export type SondosApiResponse = {
-  data: SondosData;
-};
+/** Same shape as the API body — returned as a top-level object. */
+export type SondosApiResponse = SondosData;

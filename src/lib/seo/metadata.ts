@@ -1,3 +1,6 @@
+/**
+ * SEO metadata helpers for static pages and entity pages (blogs / products).
+ */
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { fetchLayoutData } from "@/api/layoutService";
@@ -18,6 +21,7 @@ type Branding = {
   siteName?: string;
 };
 
+/** Read branding (favicon / logo / site name) from the layout API. */
 async function getBranding(locale: string): Promise<Branding> {
   const layoutData = await fetchLayoutData(locale);
   if (isApiError(layoutData)) return {};
@@ -158,7 +162,7 @@ const PAGE_PATHS: Record<PageKey, string> = {
   sondosDyeing: "/sondos-dyeing",
 };
 
-/** Metadata للصفحات الثابتة (title / description / canonical / OG) */
+/** Build metadata for static pages (title / description / canonical / OG). */
 export async function createPageMetadata(
   params: Promise<{ locale: string }>,
   page: PageKey,

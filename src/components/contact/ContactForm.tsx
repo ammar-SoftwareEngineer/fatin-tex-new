@@ -1,5 +1,9 @@
 "use client";
 
+/**
+ * Contact form with validation (react-hook-form + zod).
+ * Submits through the contact server action.
+ */
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";

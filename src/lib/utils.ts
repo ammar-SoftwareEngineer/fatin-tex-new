@@ -1,9 +1,35 @@
+/**
+ * Shared helper functions used across the app.
+ */
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 import { defaultLocale, isLocale } from "@/i18n/config"
 
+/** Merge Tailwind class names safely (handles conflicts). */
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
+}
+
+/**
+ * Split a title so the last word can be highlighted in gold.
+ * Example: "Our Story" -> { start: "Our", highlight: "Story" }
+ */
+export function splitTitleHighlight(title?: string | null) {
+  const words = title?.trim().split(/\s+/).filter(Boolean) ?? [];
+  return {
+    start: words.slice(0, -1).join(" "),
+    highlight: words.at(-1) ?? "",
+  };
+}
+
+/**
+ * Pull the number and suffix from a stats string.
+ * Example: "25+" -> { number: 25, suffix: "+" }
+ */
+export function parseStatTitle(title: string) {
+  const number = parseInt(title, 10) || 0;
+  const suffix = title.replace(/[0-9]/g, "");
+  return { number, suffix };
 }
 
 export function localizePath(

@@ -1,14 +1,16 @@
 "use client";
 
+/**
+ * Navbar state and layout logic.
+ * Builds menu items, tracks scroll, and renders desktop + mobile navbars.
+ */
 import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { usePathname, useRouter } from "@/i18n/navigation";
-
 import type { fetchLayoutData } from "@/api/layoutService";
 import { isApiError, type LayoutData } from "@/types/layoutTypes";
 import type { ProductCategory } from "@/types/productTypes";
-
 import DesktopNavbar from "./DesktopNavbar";
 import MobileNavbar from "./MobileNavbar";
 import type { NavLink } from "./navTypes";
@@ -34,12 +36,14 @@ export default function NavbarContent({
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
+  // Safely read layout data (API may return an error shape)
   const layout: LayoutData | null = isApiError(layoutData)
     ? null
     : layoutData.data;
   const logo = layout?.branding?.logo || "/logo.png";
   const siteName = layout?.branding?.site_name || "Logo";
 
+  // Static gallery submenu links
   const galleryLinks = useMemo<NavLink[]>(
     () => [
       { name: t("images"), href: "/media/images" },
@@ -48,6 +52,7 @@ export default function NavbarContent({
     [t],
   );
 
+  // Map API menu items into the nav shape used by Desktop/Mobile
   const menuItems = useMemo(
     () =>
       (layout?.menu ?? []).map((item) =>
@@ -56,10 +61,12 @@ export default function NavbarContent({
     [layout?.menu, navbarCategories, galleryLinks, locale],
   );
 
+  // Split menu in half so the logo can sit in the center on desktop
   const mid = Math.ceil(menuItems.length / 2);
   const leftLinks = menuItems.slice(0, mid);
   const rightLinks = menuItems.slice(mid);
 
+  // Add a blurred background when the user scrolls down
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
     onScroll();

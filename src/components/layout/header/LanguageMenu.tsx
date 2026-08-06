@@ -1,5 +1,8 @@
 "use client";
 
+/**
+ * Language switcher dropdown (desktop + mobile variants).
+ */
 import { FaChevronDown } from "react-icons/fa";
 import { useTranslations } from "next-intl";
 import { LANGUAGES } from "./navTypes";

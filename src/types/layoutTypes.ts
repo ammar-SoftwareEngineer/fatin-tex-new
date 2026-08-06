@@ -12,9 +12,12 @@ export type LayoutMenuItem = {
 };
 
 export type LayoutFooterLink = {
+  id?: number;
   title?: string;
-  url?: string;
-  href?: string;
+  /** Some API responses use url, others use href/link */
+  url?: string | null;
+  href?: string | null;
+  link?: string | null;
 };
 
 export type LayoutFooter = {

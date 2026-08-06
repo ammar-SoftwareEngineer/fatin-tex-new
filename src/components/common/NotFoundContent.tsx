@@ -1,5 +1,8 @@
 "use client";
 
+/**
+ * Shared 404 page content.
+ */
 import { motion } from "framer-motion";
 import { Link } from "@/i18n/navigation";
 import { fadeUp, staggerContainer, transitionBase } from "@/lib/motion";

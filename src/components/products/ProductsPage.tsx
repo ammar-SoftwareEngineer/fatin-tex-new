@@ -1,16 +1,22 @@
 "use client";
 
-import Image from "next/image";
+/**
+ * Products listing page with optional category filter.
+ */
 import { motion } from "framer-motion";
-import { useLocale, useTranslations } from "next-intl";
-import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 import Breadcrumb from "@/components/layout/hero/Breadcrumb";
+import ProductCard from "@/components/products/ProductCard";
+import Container from "@/components/common/Container";
 import type { Product } from "@/types/productTypes";
+import { matchesLocalizedSlug } from "@/lib/localized-slug";
 import {
-  getLocalizedSlug,
-  matchesLocalizedSlug,
-} from "@/lib/localized-slug";
-import { cardHover, fadeUp, staggerDelay, transitionBase, viewportOnce } from "@/lib/motion";
+  cardHover,
+  fadeUp,
+  staggerDelay,
+  transitionBase,
+  viewportOnce,
+} from "@/lib/motion";
 
 type ProductsPageProps = {
   productsData?: Product[] | null;
@@ -21,7 +27,6 @@ export default function ProductsPage({
   productsData,
   categorySlug,
 }: ProductsPageProps) {
-  const locale = useLocale();
   const t = useTranslations("products");
   const tNav = useTranslations("nav");
 
@@ -33,12 +38,10 @@ export default function ProductsPage({
   return (
     <section className="bg-[#0d0b09] text-white pb-28 overflow-hidden">
       <div className="bg-black/60 backdrop-blur-md border-b border-white/10">
-        <Breadcrumb
-          items={[{ label: tNav("products") }]}
-        />
+        <Breadcrumb items={[{ label: tNav("products") }]} />
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 pt-24">
+      <Container className="pt-24">
         <motion.div
           variants={fadeUp}
           initial="hidden"
@@ -56,51 +59,27 @@ export default function ProductsPage({
         </motion.div>
 
         <div className="grid grid-cols-12 gap-8">
-          {products.map((product, i) => {
-            const slug = getLocalizedSlug(product.slug, locale);
-
-            return (
-              <Link
-                key={product.id}
-                href={`/products/${slug}`}
-                className="col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-4"
-              >
-                <motion.div
-                  initial={{ opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ ...transitionBase, delay: staggerDelay(i) }}
-                  viewport={viewportOnce}
-                  whileHover={cardHover}
-                  className="group relative h-[420px] rounded-[34px] overflow-hidden"
-                >
-                  <div className="absolute inset-0 overflow-hidden rounded-[34px]">
-                    <Image
-                      src={product.main_image || "/product1.jpg"}
-                      alt={product.name}
-                      fill
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                      className="object-cover transition duration-500 group-hover:scale-105"
-                      loading="lazy"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
-                  </div>
-                  <div className="absolute bottom-0 left-0 w-full p-6 z-10">
-                    <p className="text-[#e0bc80] text-xs tracking-[4px] uppercase mb-2">
-                      {product.category?.name}
-                    </p>
-                    <h3 className="text-2xl font-bold mb-5 group-hover:text-[#e0bc80] transition">
-                      {product.name}
-                    </h3>
-                    <div className="flex items-center gap-3 text-[#e0bc80] font-medium opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
-                      <span>{t("viewDetails")}</span>
-                    </div>
-                  </div>
-                </motion.div>
-              </Link>
-            );
-          })}
+          {products.map((product, i) => (
+            <motion.div
+              key={product.id}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ ...transitionBase, delay: staggerDelay(i) }}
+              viewport={viewportOnce}
+              whileHover={cardHover}
+              className="col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-4"
+            >
+              <ProductCard
+                name={product.name}
+                image={product.main_image}
+                slug={product.slug}
+                categoryLabel={product.category?.name}
+                ctaLabel={t("viewDetails")}
+              />
+            </motion.div>
+          ))}
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

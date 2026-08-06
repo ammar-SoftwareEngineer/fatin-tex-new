@@ -1,11 +1,15 @@
 "use client";
 
+/**
+ * Page breadcrumb with optional hero background image.
+ */
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { HiHome } from "react-icons/hi2";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import Container from "@/components/common/Container";
 import {
   easeSmooth,
   fadeUp,
@@ -38,7 +42,7 @@ export default function Breadcrumb({ items }: { items: BreadcrumbItem[] }) {
   const heroAlt = current?.alt_image || current?.label || t("home");
 
   return (
-    <section className="relative overflow-hidden pt-36 sm:pt-44 lg:pt-52 pb-16 sm:pb-20 lg:pb-24 px-4 sm:px-6 lg:px-16">
+    <section className="relative overflow-hidden pt-36 sm:pt-44 lg:pt-52 pb-16 sm:pb-20 lg:pb-24">
       <motion.div
         initial={{ scale: 1.04, opacity: 0.9 }}
         animate={{ scale: 1, opacity: 1 }}
@@ -58,12 +62,12 @@ export default function Breadcrumb({ items }: { items: BreadcrumbItem[] }) {
       <div className="absolute inset-0 bg-black/70" />
       <div className="absolute inset-0 bg-gradient-to-r from-[#0b0f19]/95 via-black/40 to-[#0b0f19]/80" />
 
-      <motion.div
-        variants={staggerContainer}
-        initial="hidden"
-        animate="show"
-        className="relative z-10 max-w-7xl mx-auto"
-      >
+      <Container className="relative z-10">
+        <motion.div
+          variants={staggerContainer}
+          initial="hidden"
+          animate="show"
+        >
         <motion.h1
           variants={fadeUp}
           className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold font-playfair text-white leading-tight mb-5"
@@ -123,7 +127,8 @@ export default function Breadcrumb({ items }: { items: BreadcrumbItem[] }) {
             );
           })}
         </motion.nav>
-      </motion.div>
+        </motion.div>
+      </Container>
     </section>
   );
 }

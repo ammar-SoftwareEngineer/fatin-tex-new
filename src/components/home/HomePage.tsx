@@ -1,3 +1,7 @@
+/**
+ * Home page composer.
+ * Assembles all home sections from API data.
+ */
 import Hero from "@/components/home/Hero";
 import AboutSection from "@/components/home/AboutSection";
 import WhyChooseUs from "@/components/home/WhyChooseUs";
@@ -14,6 +18,7 @@ type HomePageProps = {
 };
 
 export default function HomePage({ data, aboutData }: HomePageProps) {
+  // Map API hero slides into the shape expected by the Hero component
   const heroSlides = data?.hero?.map((slide) => ({
     image: slide.image || "/hero1.jpg",
     title: slide.title,
@@ -22,13 +27,15 @@ export default function HomePage({ data, aboutData }: HomePageProps) {
     buttonLink: slide.button_link_url || "/contact",
   }));
 
-
   return (
     <>
       <Hero slides={heroSlides} />
-      <AboutSection about={data?.about_us} aboutImages={aboutData?.about_images || []} />
+      <AboutSection
+        about={data?.about_us}
+        aboutImages={aboutData?.about_images || []}
+      />
       <Categories categories={data?.categories_section} />
-      <SundusSection sundus={data?.video_section} />
+      <SundusSection sundus={data?.video_section || undefined} />
       <WhyChooseUs whyChooseUs={data?.why_choose_us_section} />
       <BlogSection blogSection={data?.blogs_section} />
     </>

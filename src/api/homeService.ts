@@ -1,14 +1,18 @@
+/**
+ * Fetch home page data from the backend API.
+ * Cached for 60 seconds via Next.js revalidate.
+ */
 const NEXT_PUBLIC_BACKEND_BASE_URL = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
 
 export async function fetchHomeData(lang = "en") {
   try {
-    const response = await fetch(`${NEXT_PUBLIC_BACKEND_BASE_URL}/home`, {
+    const response = await fetch(`${NEXT_PUBLIC_BACKEND_BASE_URL}/home?lang=${lang}`, {
       headers: {
         "Content-Type": "application/json",
         "Accept-Language": lang,
       },
       method: "GET",
-      next: { revalidate: 60 },
+      next: { revalidate: 5 },
     });
 
     const data = await response.json();

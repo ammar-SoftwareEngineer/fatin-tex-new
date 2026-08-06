@@ -1,34 +1,36 @@
 "use client";
 
+/**
+ * Product details page content.
+ * Gallery, thumbnails (lightbox), description, and reels.
+ */
 import { useState } from "react";
-import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import Breadcrumb from "@/components/layout/hero/Breadcrumb";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Autoplay } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
+import ProductGallery from "@/components/products/details/ProductGallery";
+import ProductThumbnails from "@/components/products/details/ProductThumbnails";
+import ProductVideos from "@/components/products/details/ProductVideos";
+import Container from "@/components/common/Container";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 import type { ProductDetailsData } from "@/types/productTypes";
 import { useTranslations } from "next-intl";
-import {
-  cardHover,
-  fadeUp,
-  staggerDelay,
-  transitionBase,
-  viewportOnce,
-} from "@/lib/motion";
+import { fadeUp, viewportOnce } from "@/lib/motion";
 
-export default function ProductDetails({
-  productData,
-}: {
+type ProductDetailsProps = {
   productData: ProductDetailsData;
-}) {
+};
+
+export default function ProductDetails({ productData }: ProductDetailsProps) {
   const tNav = useTranslations("nav");
-  const [open, setOpen] = useState(false);
-  const [index, setIndex] = useState(0);
+  const t = useTranslations("products");
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
+
+  const openLightbox = (index: number) => {
+    setLightboxIndex(index);
+    setLightboxOpen(true);
+  };
 
   return (
     <section className="bg-[#0f0f0f] text-white pb-28 overflow-hidden">
@@ -45,72 +47,19 @@ export default function ProductDetails({
         />
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 mt-16 space-y-20">
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={transitionBase}
-          viewport={viewportOnce}
-          className="relative rounded-[35px] overflow-hidden shadow-2xl border border-white/10"
-        >
-          <Swiper
-            modules={[Navigation, Pagination, Autoplay]}
-            navigation
-            pagination={{ clickable: true }}
-            autoplay={{ delay: 3000, disableOnInteraction: false }}
-            loop
-            spaceBetween={20}
-            slidesPerView={1}
-          >
-            {productData.images.map((img, i) => (
-              <SwiperSlide key={i}>
-                <div className="relative h-[420px] sm:h-[560px] lg:h-[700px]">
-                  <Image
-                    src={img.url}
-                    alt={`${productData.name} — ${i + 1}`}
-                    sizes="100vw"
-                    priority={i === 0}
-                    loading={i === 0 ? "eager" : "lazy"}
-                    fill
-                    className="object-cover"
-                  />
-                  <div className="absolute inset-0 bg-linear-to-t from-black/40 to-transparent" />
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </motion.div>
+      <Container className="mt-16 space-y-20">
+        <ProductGallery
+          images={productData.images}
+          productName={productData.name}
+        />
 
-      
+        <ProductThumbnails
+          images={productData.images}
+          productName={productData.name}
+          onOpen={openLightbox}
+        />
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-          {productData?.images?.map((img, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ ...transitionBase, delay: staggerDelay(i) }}
-              viewport={viewportOnce}
-              whileHover={cardHover}
-              onClick={() => {
-                setIndex(i);
-                setOpen(true);
-              }}
-              className="rounded-2xl overflow-hidden cursor-pointer border border-white/10"
-            >
-              <Image
-                src={img.url}
-                alt={`${productData.name} thumbnail ${i + 1}`}
-                width={400}
-                height={400}
-                sizes="(max-width: 640px) 100vw, 33vw"
-                className="h-[280px] w-full object-cover"
-                loading="lazy"
-              />
-            </motion.div>
-          ))}
-        </div>
-
+        {/* Short description */}
         <motion.div
           variants={fadeUp}
           initial="hidden"
@@ -119,7 +68,7 @@ export default function ProductDetails({
           className="text-center"
         >
           <h2 className="text-3xl font-bold text-[#e0bc80] mb-6">
-            About This Fabric
+            {t("aboutTitle")}
           </h2>
           <div
             className="text-gray-300 text-lg leading-9 text-center max-w-6xl mx-auto"
@@ -129,48 +78,16 @@ export default function ProductDetails({
           />
         </motion.div>
 
-        <div>
-          <motion.h2
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="show"
-            viewport={viewportOnce}
-            className="text-4xl font-bold text-center mb-12"
-          >
-            Product Reels
-          </motion.h2>
-          <div className="grid md:grid-cols-3 gap-6">
-            {productData?.videos?.map((video, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ ...transitionBase, delay: staggerDelay(i) }}
-                viewport={viewportOnce}
-                whileHover={cardHover}
-                className="rounded-2xl overflow-hidden bg-black border border-white/10"
-              >
-                <video
-                  className="w-full h-[420px] object-cover"
-                  muted
-                  loop
-                  autoPlay
-                  playsInline
-                >
-                  <source src={video.url} type="video/mp4" />
-                </video>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </div>
+        <ProductVideos videos={productData.videos} />
+      </Container>
 
+      {/* Full-screen image lightbox */}
       <AnimatePresence>
         <Lightbox
-          open={open}
-          close={() => setOpen(false)}
-          index={index}
-          slides={productData?.images?.map((img) => ({ src: img.url }))}
+          open={lightboxOpen}
+          close={() => setLightboxOpen(false)}
+          index={lightboxIndex}
+          slides={productData.images?.map((img) => ({ src: img.url }))}
         />
       </AnimatePresence>
     </section>

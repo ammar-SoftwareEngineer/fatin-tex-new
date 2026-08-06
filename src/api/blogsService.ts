@@ -1,14 +1,17 @@
+/**
+ * Fetch blogs list and blog details from the backend API.
+ */
 const NEXT_PUBLIC_BACKEND_BASE_URL = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
 
 export async function fetchBlogsData(lang = "en") {
   try {
-    const response = await fetch(`${NEXT_PUBLIC_BACKEND_BASE_URL}/blogs`, {
+    const response = await fetch(`${NEXT_PUBLIC_BACKEND_BASE_URL}/blogs?lang=${lang}`, {
       headers: {
         "Content-Type": "application/json",
         "Accept-Language": lang,
       },
       method: "GET",
-      next: { revalidate: 60 },
+      next: { revalidate: 5 },
     });
 
     const data = await response.json();

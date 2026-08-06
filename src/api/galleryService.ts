@@ -1,16 +1,19 @@
+/**
+ * Fetch gallery images and videos from the backend API.
+ */
 const NEXT_PUBLIC_BACKEND_BASE_URL = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
 
 export async function fetchGalleryImagesData(lang = "en") {
   try {
     const response = await fetch(
-      `${NEXT_PUBLIC_BACKEND_BASE_URL}/gallery-images`,
+      `${NEXT_PUBLIC_BACKEND_BASE_URL}/gallery-images?lang=${lang}`,
       {
         headers: {
           "Content-Type": "application/json",
           "Accept-Language": lang,
         },
         method: "GET",
-        next: { revalidate: 60 },
+        next: { revalidate: 5 },
       },
     );
 

@@ -1,30 +1,24 @@
 "use client";
 
+/**
+ * Single blog post detail page.
+ * Shows article content and related posts sidebar when available.
+ */
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { useLocale, useTranslations } from "next-intl";
-import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 import Breadcrumb from "@/components/layout/hero/Breadcrumb";
+import RelatedBlogs from "@/components/blogs/RelatedBlogs";
+import Container from "@/components/common/Container";
 import type { BlogDetailsData } from "@/types/blogTypes";
-import { getLocalizedSlug } from "@/lib/localized-slug";
-import {
-  cardHover,
-  fadeUp,
-  staggerContainer,
-  staggerDelay,
-  staggerItem,
-  transitionBase,
-  viewportOnce,
-} from "@/lib/motion";
+import { fadeUp, staggerContainer, viewportOnce } from "@/lib/motion";
 
 type BlogDetailProps = {
   blog: BlogDetailsData;
 };
 
 export default function BlogDetail({ blog }: BlogDetailProps) {
-  const t = useTranslations("blogs");
   const tNav = useTranslations("nav");
-  const locale = useLocale();
   const relatedBlogs = blog.related_blogs ?? [];
   const hasRelated = relatedBlogs.length > 0;
 
@@ -42,11 +36,12 @@ export default function BlogDetail({ blog }: BlogDetailProps) {
         ]}
       />
 
-      <div
-        className={`max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 gap-10 lg:gap-12 ${
+      <Container
+        className={`grid grid-cols-1 gap-10 lg:gap-12 ${
           hasRelated ? "lg:grid-cols-12" : ""
         }`}
       >
+        {/* Main article */}
         <motion.article
           variants={staggerContainer}
           initial="hidden"
@@ -60,12 +55,14 @@ export default function BlogDetail({ blog }: BlogDetailProps) {
           >
             {blog.published_at}
           </motion.p>
+
           <motion.h2
             variants={fadeUp}
             className="text-3xl sm:text-4xl md:text-5xl font-bold max-w-3xl mb-5 leading-tight"
           >
             {blog.title}
           </motion.h2>
+
           {blog.excerpt ? (
             <motion.p
               variants={fadeUp}
@@ -96,64 +93,8 @@ export default function BlogDetail({ blog }: BlogDetailProps) {
           />
         </motion.article>
 
-        {hasRelated ? (
-          <motion.aside
-            initial={{ opacity: 0, x: 24 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={transitionBase}
-            viewport={viewportOnce}
-            className="lg:col-span-4 lg:sticky lg:top-28 lg:self-start py-12 sm:py-20"
-          >
-            <h2 className="text-xl sm:text-2xl font-bold mb-5 sm:mb-6">
-              {t("relatedArticles")}
-            </h2>
-            <div className="flex flex-col gap-4 sm:gap-5">
-              {relatedBlogs.map((post, i) => {
-                const postSlug = getLocalizedSlug(post.slug, locale);
-                if (!postSlug) return null;
-
-                return (
-                  <motion.div
-                    key={post.id}
-                    variants={staggerItem}
-                    initial="hidden"
-                    whileInView="show"
-                    viewport={viewportOnce}
-                    transition={{ delay: staggerDelay(i) }}
-                    whileHover={cardHover}
-                  >
-                    <Link
-                      href={`/blogs/${postSlug}`}
-                      className="group flex gap-3 bg-[#111] rounded-xl overflow-hidden border border-white/10 hover:border-[#e0bc80]/40 transition"
-                    >
-                      <div className="relative w-[100px] sm:w-[110px] shrink-0 h-[90px] sm:h-[100px] overflow-hidden">
-                        <Image
-                          src={post.image}
-                          alt={post.alt_image ?? post.title}
-                          fill
-                          sizes="110px"
-                          className="object-cover group-hover:scale-105 transition duration-500"
-                          loading="lazy"
-                        />
-                      </div>
-                      <div className="py-3 pe-3 flex flex-col justify-center min-w-0 gap-1">
-                        <h3 className="text-sm sm:text-base font-semibold line-clamp-2 group-hover:text-[#e0bc80] transition">
-                          {post.title}
-                        </h3>
-                        {post.excerpt ? (
-                          <p className="text-xs text-gray-400 line-clamp-2">
-                            {post.excerpt}
-                          </p>
-                        ) : null}
-                      </div>
-                    </Link>
-                  </motion.div>
-                );
-              })}
-            </div>
-          </motion.aside>
-        ) : null}
-      </div>
+        {hasRelated ? <RelatedBlogs posts={relatedBlogs} /> : null}
+      </Container>
     </section>
   );
 }

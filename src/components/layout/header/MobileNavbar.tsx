@@ -1,13 +1,15 @@
 "use client";
 
+/**
+ * Mobile top bar + full-screen menu overlay.
+ * Visible only below the `lg` breakpoint.
+ */
 import Image from "next/image";
-import { AnimatePresence, motion } from "framer-motion";
-import { FaBars, FaChevronDown, FaTimes } from "react-icons/fa";
+import { AnimatePresence } from "framer-motion";
+import { FaBars } from "react-icons/fa";
 import { Link } from "@/i18n/navigation";
-import LanguageMenu from "./LanguageMenu";
+import MobileMenuOverlay from "./MobileMenuOverlay";
 import type { NavItem } from "./navTypes";
-import { isLinkActive, isParentActive } from "./navUtils";
-import { transitionBase } from "@/lib/motion";
 
 type MobileNavbarProps = {
   scrolled: boolean;
@@ -24,94 +26,6 @@ type MobileNavbarProps = {
   locale: string;
   onSwitchLocale: (code: string) => void;
 };
-
-function MobileLink({
-  item,
-  parentActive,
-  isOpen,
-  onToggle,
-  onNavigate,
-  pathname,
-  search,
-}: {
-  item: NavItem;
-  parentActive: boolean;
-  isOpen: boolean;
-  onToggle: () => void;
-  onNavigate: () => void;
-  pathname: string;
-  search: string;
-}) {
-  if (!item.dropdown?.length) {
-    return (
-      <Link
-        href={item.href || "/"}
-        onClick={onNavigate}
-        className={`text-lg border-b border-white/10 pb-4 transition ${
-          parentActive
-            ? "text-[#e0bc80]"
-            : "text-white hover:text-[#e0bc80]"
-        }`}
-      >
-        {item.name}
-      </Link>
-    );
-  }
-
-  return (
-    <div className="border-b border-white/10 pb-4">
-      <div className="w-full flex items-center justify-between gap-3">
-        <Link
-          href={item.href || "/"}
-          onClick={onNavigate}
-          className={`text-lg transition ${
-            parentActive
-              ? "text-[#e0bc80]"
-              : "text-white hover:text-[#e0bc80]"
-          }`}
-        >
-          {item.name}
-        </Link>
-        <button
-          type="button"
-          onClick={onToggle}
-          aria-expanded={isOpen}
-          className="text-white p-1"
-          aria-label={`${item.name} menu`}
-        >
-          <FaChevronDown
-            className={`transition duration-300 ${isOpen ? "rotate-180" : ""}`}
-          />
-        </button>
-      </div>
-      <div
-        className={`overflow-hidden transition-all duration-300 ${
-          isOpen ? "max-h-60 mt-4" : "max-h-0"
-        }`}
-      >
-        <div className="flex flex-col gap-3 pl-3">
-          {item.dropdown.map((sub) => {
-            const subActive = isLinkActive(pathname, search, sub.href);
-            return (
-              <Link
-                key={sub.href}
-                href={sub.href}
-                onClick={onNavigate}
-                className={`transition ${
-                  subActive
-                    ? "text-[#e0bc80]"
-                    : "text-gray-300 hover:text-[#e0bc80]"
-                }`}
-              >
-                {sub.name}
-              </Link>
-            );
-          })}
-        </div>
-      </div>
-    </div>
-  );
-}
 
 export default function MobileNavbar({
   scrolled,
@@ -130,6 +44,7 @@ export default function MobileNavbar({
 }: MobileNavbarProps) {
   return (
     <>
+      {/* Sticky top bar */}
       <nav
         className={`lg:hidden fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
           scrolled ? "bg-black/40 backdrop-blur-xl shadow-lg" : "bg-transparent"
@@ -163,67 +78,18 @@ export default function MobileNavbar({
 
       <AnimatePresence>
         {isOpen ? (
-          <motion.div
-            key="mobile-menu"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={transitionBase}
-            className="fixed inset-0 z-[999] bg-black/95 backdrop-blur-xl lg:hidden"
-          >
-            <div className="flex justify-between items-center px-6 py-6 border-b border-white/10">
-              <Image
-                src={logo}
-                alt={siteName}
-                width={90}
-                height={60}
-                className="object-contain"
-              />
-              <button
-                onClick={onClose}
-                className="text-white text-2xl"
-                type="button"
-                aria-label="Close menu"
-              >
-                <FaTimes />
-              </button>
-            </div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ ...transitionBase, delay: 0.08 }}
-              className="px-6 py-8 flex flex-col gap-5 overflow-y-auto max-h-[calc(100vh-100px)]"
-            >
-              {menuItems.map((item, i) => (
-                <motion.div
-                  key={item.name}
-                  initial={{ opacity: 0, x: -12 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ ...transitionBase, delay: 0.05 + i * 0.04 }}
-                >
-                  <MobileLink
-                    item={item}
-                    parentActive={isParentActive(item, pathname, search)}
-                    isOpen={openDropdown === item.name}
-                    onToggle={() => onToggleDropdown(item.name)}
-                    onNavigate={onClose}
-                    pathname={pathname}
-                    search={search}
-                  />
-                </motion.div>
-              ))}
-
-              <LanguageMenu
-                locale={locale}
-                onSwitch={(code) => {
-                  onSwitchLocale(code);
-                  onClose();
-                }}
-                variant="mobile"
-              />
-            </motion.div>
-          </motion.div>
+          <MobileMenuOverlay
+            logo={logo}
+            siteName={siteName}
+            menuItems={menuItems}
+            openDropdown={openDropdown}
+            onClose={onClose}
+            onToggleDropdown={onToggleDropdown}
+            pathname={pathname}
+            search={search}
+            locale={locale}
+            onSwitchLocale={onSwitchLocale}
+          />
         ) : null}
       </AnimatePresence>
     </>
