@@ -78,7 +78,8 @@ export default function ContactForm() {
           <input
             type={field.type}
             placeholder={t(field.name)}
-            className={inputClass}
+            className={`${inputClass} ` }
+            dir="rtl"
             {...register(field.name)}
           />
           <FieldError message={errors[field.name]?.message} />
