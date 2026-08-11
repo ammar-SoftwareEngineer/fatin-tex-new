@@ -23,7 +23,7 @@ export default function SondosInfoCard({ sundus }: SondosInfoCardProps) {
       <div className="mb-5 sm:mb-6 relative h-16 sm:h-20 md:h-24 w-40">
         <Image
           src="/sondos.png"
-          alt={sundus?.title || "Sondos Dyeing"}
+          alt={sundus?.title || "Sondos Dyeing"} 
           fill
           sizes="160px"
           className="object-contain drop-shadow-[0_0_20px_rgba(224,188,128,0.4)]"
