@@ -8,7 +8,7 @@ import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion } from "framer-motion";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { contactAction } from "@/actions/contact";
 import {
   contactSchema,
@@ -35,7 +35,7 @@ export default function ContactForm() {
   const t = useTranslations("contact.form");
   const [status, setStatus] = useState<Status>("idle");
   const [isPending, startTransition] = useTransition();
-
+  const isArabic = useLocale() === "ar";
   const {
     register,
     handleSubmit,
@@ -70,21 +70,25 @@ export default function ContactForm() {
       viewport={{ once: true }}
       className="bg-white/5 border border-white/10 backdrop-blur-xl rounded-[28px] p-6 sm:p-10 grid grid-cols-1 md:grid-cols-2 gap-5"
     >
-      {FIELDS.map((field) => (
+      {FIELDS.map((field) => {
+      
+        const fieldDirection = isArabic ? "rtl" : "ltr";
+        return (
         <div
           key={field.name}
           className={field.fullWidth ? "md:col-span-2" : undefined}
         >
+
           <input
             type={field.type}
             placeholder={t(field.name)}
             className={`${inputClass} ` }
-            dir="rtl"
+            style={ { direction: fieldDirection } }
             {...register(field.name)}
           />
           <FieldError message={errors[field.name]?.message} />
         </div>
-      ))}
+      )})}
 
       <div className="md:col-span-2">
         <textarea
