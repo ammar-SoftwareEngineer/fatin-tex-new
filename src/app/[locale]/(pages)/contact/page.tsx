@@ -2,6 +2,7 @@ import { createPageMetadata, setupPageLocale } from "@/lib/seo";
 import { fetchContactData } from "@/api/contactService";
 import ContactPageView from "@/components/contact/ContactPage";
 import { isApiError } from "@/types/layoutTypes";
+import type { ContactApiResponse } from "@/types/contactTypes";
 
 export async function generateMetadata({
   params,
@@ -21,7 +22,11 @@ export default async function ContactPage({
 
   return (
     <ContactPageView
-      contactData={isApiError(contactApiData) ? null : contactApiData.data}
+      contactData={
+        isApiError(contactApiData)
+          ? null
+          : (contactApiData as ContactApiResponse).data
+      }
     />
   );
 }
