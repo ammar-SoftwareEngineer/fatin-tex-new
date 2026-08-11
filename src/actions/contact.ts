@@ -9,6 +9,7 @@ import {
   contactSchema,
   type ContactFormValues,
 } from "@/lib/validation/contact.schema";
+import { isApiError } from "@/types/layoutTypes";
 
 export type ContactActionResult =
   | { ok: true }
@@ -29,7 +30,7 @@ export async function contactAction(
   try {
     const result = await sendContactData(parsed.data);
 
-    if (!result.success) {
+    if (isApiError(result)) {
       console.error("contactAction: sendContactData failed", result.message);
       return { ok: false, error: "generic_error" };
     }
