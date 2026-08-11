@@ -6,7 +6,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { fetchLayoutData } from "@/api/layoutService";
 import type { LocalizedSlug } from "@/lib/localized-slug";
 import { getLocalizedSlug } from "@/lib/localized-slug";
-import { isApiError } from "@/types/layoutTypes";
+import { isApiError, type LayoutApiResponse } from "@/types/layoutTypes";
 import {
   buildLanguageAlternates,
   buildSlugLanguageAlternates,
@@ -25,7 +25,7 @@ type Branding = {
 async function getBranding(locale: string): Promise<Branding> {
   const layoutData = await fetchLayoutData(locale);
   if (isApiError(layoutData)) return {};
-  const branding = layoutData.data?.branding;
+  const branding = (layoutData as LayoutApiResponse).data?.branding;
   return {
     favicon: branding?.favicon,
     logo: branding?.logo,

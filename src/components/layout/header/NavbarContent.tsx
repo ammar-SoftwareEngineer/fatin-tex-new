@@ -9,7 +9,7 @@ import { useSearchParams } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { usePathname, useRouter } from "@/i18n/navigation";
 import type { fetchLayoutData } from "@/api/layoutService";
-import { isApiError, type LayoutData } from "@/types/layoutTypes";
+import { isApiError, type LayoutApiResponse, type LayoutData } from "@/types/layoutTypes";
 import type { ProductCategory } from "@/types/productTypes";
 import DesktopNavbar from "./DesktopNavbar";
 import MobileNavbar from "./MobileNavbar";
@@ -39,7 +39,7 @@ export default function NavbarContent({
   // Safely read layout data (API may return an error shape)
   const layout: LayoutData | null = isApiError(layoutData)
     ? null
-    : layoutData.data;
+    : (layoutData as LayoutApiResponse).data;
   const logo = layout?.branding?.logo || "/logo.png";
   const siteName = layout?.branding?.site_name || "Logo";
 

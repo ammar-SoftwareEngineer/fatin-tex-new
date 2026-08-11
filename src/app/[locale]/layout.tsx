@@ -16,6 +16,7 @@ import {
   localeUrl,
 } from "@/lib/seo";
 import { isApiError } from "@/types/layoutTypes";
+import type { LayoutApiResponse } from "@/types/layoutTypes";
 import "@/styles/globals.css";
 
 const inter = Inter({
@@ -57,7 +58,7 @@ export async function generateMetadata({
   const t = await getTranslations({ locale, namespace: "metadata" });
   const layoutData = await fetchLayoutData(locale);
   const branding = !isApiError(layoutData)
-    ? layoutData.data?.branding
+    ? (layoutData as LayoutApiResponse).data?.branding
     : undefined;
   const title = t("title.default");
   const description = t("description.default");

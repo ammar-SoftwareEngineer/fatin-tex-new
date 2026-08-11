@@ -1,6 +1,6 @@
 import { getLocale } from "next-intl/server";
 import { fetchLayoutData } from "@/api/layoutService";
-import { isApiError } from "@/types/layoutTypes";
+import { isApiError, type LayoutApiResponse } from "@/types/layoutTypes";
 import IconsAction from "./IconsAction";
 
 export default async function FixedContactIcons() {
@@ -9,7 +9,7 @@ export default async function FixedContactIcons() {
 
   const callToAction = isApiError(layoutData)
     ? null
-    : layoutData.data?.call_to_actions;
+    : (layoutData as LayoutApiResponse).data?.call_to_actions;
 
   return (
     <div

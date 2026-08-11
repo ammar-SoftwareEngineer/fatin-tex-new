@@ -9,6 +9,7 @@ import siteData from "@/lib/data/site.json";
 import {
   formatLayoutPhone,
   isApiError,
+  type LayoutApiResponse,
   type LayoutData,
 } from "@/types/layoutTypes";
 import { resolveLink } from "@/components/layout/header/navUtils";
@@ -28,7 +29,7 @@ type FooterClientProps = {
 export default function FooterClient({ layoutData }: FooterClientProps) {
   const layout: LayoutData | null = isApiError(layoutData)
     ? null
-    : layoutData.data;
+    : (layoutData as LayoutApiResponse).data;
 
   const contact = {
     address: layout?.contact?.address ?? siteData.contact.address,
