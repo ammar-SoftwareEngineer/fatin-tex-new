@@ -43,9 +43,10 @@ export default function SondosInfoCard({ sundus }: SondosInfoCardProps) {
       <p
         className="text-gray-300 text-sm sm:text-base leading-relaxed max-w-md"
         dangerouslySetInnerHTML={{ __html: sundus?.text || "" }}
+        suppressHydrationWarning
       />
 
-      <div className="mt-8 flex flex-wrap items-center gap-4 sm:gap-6">
+      <div className="mt-8 flex flex-wrap items-center gap-4 sm:gap-6" suppressHydrationWarning>
         <Link
           href={sundus?.button_link_url || "/sondos-dyeing"}
           className="bg-[#e0bc80] text-black px-5 sm:px-6 py-2.5 sm:py-3 rounded-full font-medium text-sm sm:text-base flex items-center justify-center text-center gap-2 transition-transform hover:scale-105"
