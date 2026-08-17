@@ -1,11 +1,11 @@
 import { setRequestLocale } from "next-intl/server";
 import { fetchHomeData } from "@/api/homeService";
+import { fetchAboutData } from "@/api/aboutService";
 import HomePage from "@/components/home/HomePage";
 import { isApiError } from "@/types/layoutTypes";
 import { createPageMetadata } from "@/lib/seo";
-import { fetchAboutData } from "@/api/aboutService";
 import type { AboutApiResponse } from "@/types/aboutTypes";
-import type { HomeData } from "@/types/homeTypes";
+import type { HomeApiResponse } from "@/types/homeTypes";
 
 export async function generateMetadata({
   params,
@@ -25,15 +25,12 @@ export default async function LocaleHome({
 
   const homeApiData = await fetchHomeData(locale);
   const aboutApiData = await fetchAboutData(locale);
+
   return (
     <HomePage
-      data={
-        isApiError(homeApiData) ? null : (homeApiData as { data: HomeData }).data
-      }
+      data={isApiError(homeApiData) ? null : (homeApiData as HomeApiResponse).data}
       aboutData={
-        isApiError(aboutApiData)
-          ? null
-          : (aboutApiData as AboutApiResponse).data
+        isApiError(aboutApiData) ? null : (aboutApiData as AboutApiResponse).data
       }
     />
   );

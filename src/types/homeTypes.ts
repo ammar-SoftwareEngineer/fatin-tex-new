@@ -101,3 +101,7 @@ export type HomeData = {
   };
   blogs_section: HomeSection & { blogs: HomeBlog[] };
 };
+
+export type HomeApiResponse = {
+  data: HomeData;
+};

@@ -48,6 +48,7 @@ export type Product = {
   };
   category: ProductCategory;
 };
+
 export type ProductDetailsData = {
   id: number;
   name: string;
@@ -76,4 +77,8 @@ export type ProductsApiResponse = {
 
 export type ProductDetailsApiResponse = {
   data: ProductDetailsData;
+};
+
+export type CategoriesApiResponse = {
+  data: ProductCategory[];
 };

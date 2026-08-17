@@ -23,11 +23,14 @@ export default async function Products({
   const { category } = await searchParams;
   const productsResponse = await fetchProductsData(locale);
 
-  const products = isApiError(productsResponse)
-    ? null
-    : (productsResponse as ProductsApiResponse).data;
-
   return (
-    <ProductsPage productsData={products} categorySlug={category ?? null} />
+    <ProductsPage
+      productsData={
+        isApiError(productsResponse)
+          ? null
+          : (productsResponse as ProductsApiResponse).data
+      }
+      categorySlug={category ?? null}
+    />
   );
 }

@@ -1,7 +1,7 @@
 import { Suspense } from "react";
+import { getLocale } from "next-intl/server";
 import { fetchLayoutData } from "@/api/layoutService";
 import { fetchCategoriesData } from "@/api/categoriesService";
-import { getLocale } from "next-intl/server";
 import { isApiError } from "@/types/layoutTypes";
 import type { ProductCategory } from "@/types/productTypes";
 import NavbarContent from "./NavbarContent";

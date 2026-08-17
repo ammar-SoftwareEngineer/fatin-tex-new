@@ -20,10 +20,9 @@ export default async function SondosDyeingPage({
   const locale = await setupPageLocale(params);
   const sondosResponse = await fetchSondosData(locale);
 
-  // API returns { breadcrumb, content } directly — not nested under .data
-  const sondosData = isApiError(sondosResponse)
-    ? null
-    : (sondosResponse as SondosData);
-
-  return <SondosPage data={sondosData} />;
+  return (
+    <SondosPage
+      data={isApiError(sondosResponse) ? null : (sondosResponse as SondosData)}
+    />
+  );
 }

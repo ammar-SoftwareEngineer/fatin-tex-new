@@ -1,7 +1,8 @@
 import { createPageMetadata, setupPageLocale } from "@/lib/seo";
 import MediaPageView from "@/components/media/MediaPage";
 import { fetchGalleryImagesData } from "@/api/galleryService";
-import type { GalleryItem } from "@/components/media/mediaTypes";
+import { isApiError } from "@/types/layoutTypes";
+import type { GalleryApiResponse } from "@/components/media/mediaTypes";
 
 export async function generateMetadata({
   params,
@@ -17,10 +18,10 @@ export default async function MediaImagesPage({
   params: Promise<{ locale: string }>;
 }) {
   const locale = await setupPageLocale(params);
-  const response = (await fetchGalleryImagesData(locale)) as {
-    data?: GalleryItem[];
-  };
-  const items = Array.isArray(response?.data) ? response.data : [];
+  const response = await fetchGalleryImagesData(locale);
+  const items = isApiError(response)
+    ? []
+    : ((response as GalleryApiResponse).data ?? []);
 
   return <MediaPageView type="images" items={items} />;
 }

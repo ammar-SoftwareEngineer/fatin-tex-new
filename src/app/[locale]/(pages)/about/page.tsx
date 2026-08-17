@@ -20,9 +20,13 @@ export default async function AboutPage({
   const locale = await setupPageLocale(params);
   const aboutResponse = await fetchAboutData(locale);
 
-  const aboutData = isApiError(aboutResponse)
-    ? null
-    : ((aboutResponse as AboutApiResponse).data ?? null);
-
-  return <AboutPageView aboutData={aboutData} />;
+  return (
+    <AboutPageView
+      aboutData={
+        isApiError(aboutResponse)
+          ? null
+          : (aboutResponse as AboutApiResponse).data
+      }
+    />
+  );
 }

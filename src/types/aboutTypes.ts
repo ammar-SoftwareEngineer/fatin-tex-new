@@ -9,7 +9,6 @@ export type AboutSection = {
   is_active: number;
   button_text: string;
   button_link_url: string | null;
-
 };
 
 export type ImageItem = {

@@ -20,9 +20,13 @@ export default async function BlogsPage({
   const locale = await setupPageLocale(params);
   const blogsResponse = await fetchBlogsData(locale);
 
-  const blogs = isApiError(blogsResponse)
-    ? []
-    : ((blogsResponse as BlogsApiResponse).data ?? []);
-
-  return <BlogsPageView blogs={blogs} />;
+  return (
+    <BlogsPageView
+      blogs={
+        isApiError(blogsResponse)
+          ? []
+          : ((blogsResponse as BlogsApiResponse).data ?? [])
+      }
+    />
+  );
 }

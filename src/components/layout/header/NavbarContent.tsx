@@ -36,7 +36,6 @@ export default function NavbarContent({
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
-  // Safely read layout data (API may return an error shape)
   const layout: LayoutData | null = isApiError(layoutData)
     ? null
     : (layoutData as LayoutApiResponse).data;

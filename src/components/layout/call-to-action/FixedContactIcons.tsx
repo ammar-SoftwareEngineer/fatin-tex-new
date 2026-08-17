@@ -12,17 +12,7 @@ export default async function FixedContactIcons() {
     : (layoutData as LayoutApiResponse).data?.call_to_actions;
 
   return (
-    <div
-      className="
-        fixed
-        left-3 sm:left-5
-        bottom-5 sm:bottom-7
-        z-50
-        flex
-        flex-col
-        gap-3 sm:gap-4
-      "
-    >
+    <div className="fixed bottom-5 left-3 z-50 flex flex-col gap-3 sm:bottom-7 sm:left-5 sm:gap-4">
       <IconsAction callToAction={callToAction} />
     </div>
   );

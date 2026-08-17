@@ -8,7 +8,6 @@ import { isApiError } from "@/types/layoutTypes";
 import type { BlogsApiResponse } from "@/types/blogTypes";
 import type { ProductsApiResponse } from "@/types/productTypes";
 
-
 const PAGES = [
   "",
   "/about",
@@ -25,7 +24,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
   const entries: MetadataRoute.Sitemap = [];
 
-  // 1) الصفحات الثابتة بكل لغة
   for (const locale of routing.locales) {
     for (const path of PAGES) {
       entries.push({
@@ -35,7 +33,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   }
 
-  // 2) صفحات المنتجات والمقالات من الـ API
   const [productsRes, blogsRes] = await Promise.all([
     fetchProductsData("en"),
     fetchBlogsData("en"),

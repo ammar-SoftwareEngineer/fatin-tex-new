@@ -64,11 +64,11 @@ export default function FooterContact({ contact }: FooterContactProps) {
               >
                 {locale === "ar" ? item.labelAr : item.label}
               </p>
-              <h4
+              <a href={item.key === "email" ? `mailto:${value}` : `tel:${value}`} target="_blank" rel="noopener noreferrer"
                 className={`font-medium ltr ${item.key === "email" ? "break-all" : ""} ${locale === "ar" ? "text-right" : "text-left"}`}
               >
                 {value}
-              </h4>
+              </a>
             </div>
           </motion.div>
         );

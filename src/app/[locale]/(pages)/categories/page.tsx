@@ -2,7 +2,7 @@ import { createPageMetadata, setupPageLocale } from "@/lib/seo";
 import CategoriesPage from "@/components/categories/CategoriesPage";
 import { fetchCategoriesData } from "@/api/categoriesService";
 import { isApiError } from "@/types/layoutTypes";
-import type { ProductCategory } from "@/types/productTypes";
+import type { CategoriesApiResponse } from "@/types/productTypes";
 
 export async function generateMetadata({
   params,
@@ -20,9 +20,13 @@ export default async function Categories({
   const locale = await setupPageLocale(params);
   const categoriesResponse = await fetchCategoriesData(locale);
 
-  const categories = isApiError(categoriesResponse)
-    ? null
-    : ((categoriesResponse as { data?: ProductCategory[] }).data ?? null);
-
-  return <CategoriesPage categories={categories} />;
+  return (
+    <CategoriesPage
+      categories={
+        isApiError(categoriesResponse)
+          ? null
+          : (categoriesResponse as CategoriesApiResponse).data
+      }
+    />
+  );
 }

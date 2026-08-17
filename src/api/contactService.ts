@@ -1,9 +1,7 @@
 /**
  * Contact page data fetch + contact form submission.
  */
-import { fetchJson } from "./fetchJson";
-
-const NEXT_PUBLIC_BACKEND_BASE_URL = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
+const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
 
 export type ContactFormData = {
   name: string;
@@ -14,31 +12,30 @@ export type ContactFormData = {
 
 export async function fetchContactData(lang = "en") {
   try {
-    return await fetchJson(`${NEXT_PUBLIC_BACKEND_BASE_URL}/contact-us?lang=${lang}`, {
+    const response = await fetch(`${BASE_URL}/contact-us?lang=${lang}`, {
       headers: { "Content-Type": "application/json", "Accept-Language": lang },
       method: "GET",
       next: { revalidate: 5 },
     });
+    return await response.json();
   } catch (err) {
-    const errorMessage = err instanceof Error ? err.message : "Internal Server Error";
-    console.error("Contact data fetch error:", errorMessage);
-    return { success: false, message: errorMessage };
+    const message = err instanceof Error ? err.message : "Internal Server Error";
+    console.error("Contact data fetch error:", message);
+    return { success: false, message };
   }
 }
 
 export async function sendContactData(formData: ContactFormData) {
   try {
-    return await fetchJson(
-      `${NEXT_PUBLIC_BACKEND_BASE_URL}/contact-us`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      }
-    );
+    const response = await fetch(`${BASE_URL}/contact-us`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    });
+    return await response.json();
   } catch (err) {
-    const errorMessage = err instanceof Error ? err.message : "Internal Server Error";
-    console.error("Contact form submission error:", errorMessage);
-    return { success: false, message: errorMessage };
+    const message = err instanceof Error ? err.message : "Internal Server Error";
+    console.error("Contact form submission error:", message);
+    return { success: false, message };
   }
 }

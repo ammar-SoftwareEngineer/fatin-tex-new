@@ -1,4 +1,4 @@
-    import { getLocale } from "next-intl/server";
+import { getLocale } from "next-intl/server";
 import { fetchLayoutData } from "@/api/layoutService";
 import FooterClient from "./FooterClient";
 

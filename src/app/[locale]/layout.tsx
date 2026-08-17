@@ -15,8 +15,7 @@ import {
   localePath,
   localeUrl,
 } from "@/lib/seo";
-import { isApiError } from "@/types/layoutTypes";
-import type { LayoutApiResponse } from "@/types/layoutTypes";
+import { isApiError, type LayoutApiResponse } from "@/types/layoutTypes";
 import "@/styles/globals.css";
 
 const inter = Inter({

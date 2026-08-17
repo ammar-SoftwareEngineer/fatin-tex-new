@@ -14,11 +14,12 @@ import {
   contactSchema,
   type ContactFormValues,
 } from "@/lib/validation/contact.schema";
+import { transitionSlow } from "@/lib/motion";
 
 type Status = "idle" | "success" | "error";
 
 const inputClass =
-  "p-4 rounded-xl bg-black/30 border border-white/10 outline-none focus:border-[#e0bc80] w-full";
+  "w-full rounded-xl border border-white/10 bg-black/30 p-4 outline-none focus:border-[#e0bc80]";
 
 const FIELDS = [
   { name: "name", type: "text", fullWidth: false },
@@ -35,7 +36,7 @@ export default function ContactForm() {
   const t = useTranslations("contact.form");
   const [status, setStatus] = useState<Status>("idle");
   const [isPending, startTransition] = useTransition();
-  const isArabic = useLocale() === "ar";
+  const fieldDirection = useLocale() === "ar" ? "rtl" : "ltr";
   const {
     register,
     handleSubmit,
@@ -51,13 +52,12 @@ export default function ContactForm() {
 
     startTransition(async () => {
       const result = await contactAction(values);
-
       if (result.ok) {
         setStatus("success");
         reset();
-      } else {
-        setStatus("error");
+        return;
       }
+      setStatus("error");
     });
   }
 
@@ -66,29 +66,25 @@ export default function ContactForm() {
       onSubmit={handleSubmit(onSubmit)}
       initial={{ opacity: 0, scale: 0.95 }}
       whileInView={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
+      transition={transitionSlow}
       viewport={{ once: true }}
-      className="bg-white/5 border border-white/10 backdrop-blur-xl rounded-[28px] p-6 sm:p-10 grid grid-cols-1 md:grid-cols-2 gap-5"
+      className="grid grid-cols-1 gap-5 rounded-[28px] border border-white/10 bg-white/5 p-6 backdrop-blur-xl sm:p-10 md:grid-cols-2"
     >
-      {FIELDS.map((field) => {
-      
-        const fieldDirection = isArabic ? "rtl" : "ltr";
-        return (
+      {FIELDS.map((field) => (
         <div
           key={field.name}
           className={field.fullWidth ? "md:col-span-2" : undefined}
         >
-
           <input
             type={field.type}
             placeholder={t(field.name)}
-            className={`${inputClass} ` }
-            style={ { direction: fieldDirection } }
+            className={inputClass}
+            style={{ direction: fieldDirection }}
             {...register(field.name)}
           />
           <FieldError message={errors[field.name]?.message} />
         </div>
-      )})}
+      ))}
 
       <div className="md:col-span-2">
         <textarea
@@ -113,7 +109,7 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={isPending}
-        className="md:col-span-2 bg-[#e0bc80] text-black py-4 rounded-xl font-medium hover:scale-[1.02] transition disabled:opacity-60 disabled:cursor-not-allowed"
+        className="rounded-xl bg-[#e0bc80] py-4 font-medium text-black transition hover:scale-[1.02] disabled:cursor-not-allowed disabled:opacity-60 md:col-span-2"
       >
         {isPending ? t("submitting") : t("submit")}
       </button>

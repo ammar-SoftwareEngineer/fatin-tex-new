@@ -9,3 +9,7 @@ export type GalleryItem = {
   thumbnail?: string;
   title?: string;
 };
+
+export type GalleryApiResponse = {
+  data: GalleryItem[];
+};
