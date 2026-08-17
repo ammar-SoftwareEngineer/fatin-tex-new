@@ -73,13 +73,28 @@
   }
 
   body {
-    font-family: "Inter", sans-serif;
+    font-family: var(--font-inter), "Inter", sans-serif;
     color: var(--text-color);
     background-color: var(--background);
   }
 
+  html[lang="ar"] body,
+  html[lang="ar"] h1,
+  html[lang="ar"] h2,
+  html[lang="ar"] h3 {
+    font-family: "Cairo", sans-serif;
+  }
+
   h1, h2, h3 {
-    font-family: "Inter", sans-serif;
+    font-family: var(--font-inter), "Inter", sans-serif;
+  }
+
+  .font-playfair {
+    font-family: var(--font-playfair), "Playfair Display", serif;
+  }
+
+  html[lang="ar"] .font-playfair {
+    font-family: "Cairo", sans-serif;
   }
 
   html {

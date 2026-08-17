@@ -17,9 +17,6 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  experimental: {
-    turbopackFileSystemCacheForDev: true,
-  },
   poweredByHeader: false,
   compress: true,
 };

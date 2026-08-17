@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display, Cairo } from "next/font/google";
+import { Inter, Playfair_Display } from "next/font/google";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
@@ -31,14 +31,6 @@ const playfair = Playfair_Display({
   display: "swap",
   preload: false,
   weight: ["400", "700"],
-});
-
-const cairo = Cairo({
-  subsets: ["arabic"],
-  variable: "--font-cairo",
-  display: "swap",
-  preload: false,
-  weight: ["400", "600", "700"],
 });
 
 export function generateStaticParams() {
@@ -121,8 +113,14 @@ export default async function LocaleLayout({ children, params }: Props) {
     <html
       lang={locale}
       dir={locale === "ar" ? "rtl" : "ltr"}
-      className={`${inter.variable} ${playfair.variable} ${cairo.variable}`}
+      className={`${inter.variable} ${playfair.variable}`}
     >
+      {locale === "ar" ? (
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap"
+        />
+      ) : null}
       <body className="min-h-screen bg-[#0b0f19] text-white font-inter antialiased">
         <NextIntlClientProvider messages={messages}>
           <div className="flex flex-col min-h-screen">
