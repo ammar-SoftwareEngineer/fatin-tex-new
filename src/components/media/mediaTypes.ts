@@ -11,5 +11,5 @@ export type GalleryItem = {
 };
 
 export type GalleryApiResponse = {
-  data: GalleryItem[];
+  data: GalleryItem[] | { gallery_videos?: GalleryItem[] };
 };

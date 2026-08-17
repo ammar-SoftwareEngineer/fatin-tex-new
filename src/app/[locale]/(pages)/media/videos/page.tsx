@@ -19,9 +19,14 @@ export default async function MediaVideosPage({
 }) {
   const locale = await setupPageLocale(params);
   const response = await fetchGalleryVideosData(locale);
-  const items = isApiError(response)
-    ? []
-    : ((response as GalleryApiResponse).data ?? []);
+  const payload = isApiError(response)
+    ? null
+    : (response as GalleryApiResponse).data;
+  const items = Array.isArray(payload)
+    ? payload
+    : Array.isArray(payload?.gallery_videos)
+      ? payload.gallery_videos
+      : [];
 
   return <MediaPageView type="videos" items={items} />;
 }

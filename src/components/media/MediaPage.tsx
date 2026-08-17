@@ -28,6 +28,7 @@ export default function MediaPage({
 
   const isVideos = type === "videos";
   const emptyKey = isVideos ? "emptyVideos" : "emptyImages";
+  const list = Array.isArray(items) ? items : [];
 
   return (
     <section className="bg-[#0f0f0f] text-white pb-28">
@@ -42,13 +43,13 @@ export default function MediaPage({
 
       <MediaHeader isVideos={isVideos} />
 
-      {items.length === 0 ? (
+      {list.length === 0 ? (
         <Container>
           <p className="text-center text-gray-500">{t(emptyKey)}</p>
         </Container>
       ) : (
         <MediaGrid
-          items={items}
+          items={list}
           isVideos={isVideos}
           onPlayVideo={setActiveVideo}
         />

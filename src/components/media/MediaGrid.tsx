@@ -22,10 +22,11 @@ export default function MediaGrid({
   onPlayVideo,
 }: MediaGridProps) {
   const t = useTranslations("media");
+  const list = Array.isArray(items) ? items : [];
 
   return (
     <Container className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
-      {items.map((item, i) =>
+      {list.map((item, i) =>
         isVideos ? (
           <motion.button
             key={item.id}
