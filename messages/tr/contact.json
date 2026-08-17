@@ -16,5 +16,12 @@
     "error": "Mesaj gönderilemedi. Lütfen tekrar deneyin.",
     "responseTime": "Genellikle 24 saat içinde yanıt veriyoruz"
   },
-  "location": { "title": "Konum", "desc": "Sanayi Şehri, Mısır" }
+  "location": { "title": "Konum", "desc": "Sanayi Şehri, Mısır" },
+  "departments": {
+    "title": "İletişim Departmanları",
+    "subtitle": "Doğrudan ilgili ekiple iletişime geçin",
+    "technical": "Teknik Yönetim",
+    "sales": "Satış Departmanı",
+    "finance": "Mali İşler ve Muhasebe"
+  }
 }

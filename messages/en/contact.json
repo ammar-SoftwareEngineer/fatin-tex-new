@@ -16,5 +16,12 @@
     "error": "Failed to send your message. Please try again.",
     "responseTime": "We usually respond within 24 hours"
   },
-  "location": { "title": "Location", "desc": "Industrial City, Egypt" }
+  "location": { "title": "Location", "desc": "Industrial City, Egypt" },
+  "departments": {
+    "title": "Contact Departments",
+    "subtitle": "Reach the right team directly",
+    "technical": "Technical Management",
+    "sales": "Sales Department",
+    "finance": "Finance & Accounting"
+  }
 }

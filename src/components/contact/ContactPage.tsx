@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * Contact page: breadcrumb, contact cards, form, and map.
+ * Contact page: breadcrumb, contact cards, departments, form, and map.
  */
 import { motion } from "framer-motion";
 import {
@@ -13,8 +13,10 @@ import { useTranslations } from "next-intl";
 import Breadcrumb from "@/components/layout/hero/Breadcrumb";
 import ContactForm from "@/components/contact/ContactForm";
 import ContactCards from "@/components/contact/ContactCards";
+import ContactDepartments from "@/components/contact/ContactDepartments";
 import Container from "@/components/common/Container";
 import type { ContactData } from "@/types/contactTypes";
+import { getContactDepartments } from "@/types/contactTypes";
 import { transitionBase, transitionSlow } from "@/lib/motion";
 
 type ContactPageProps = {
@@ -50,6 +52,7 @@ export default function ContactPage({ contactData }: ContactPageProps) {
   ];
 
   const mapSrc = contactData?.map_iframe?.split('"')[1] || "";
+  const departments = getContactDepartments(contactData);
 
   return (
     <div className="bg-[#0d0b09] text-white overflow-hidden">
@@ -66,6 +69,11 @@ export default function ContactPage({ contactData }: ContactPageProps) {
       />
 
       <ContactCards items={contactItems} />
+
+      <ContactDepartments
+        items={departments}
+        section={contactData?.departments_section}
+      />
 
       <section className="pb-28">
         <Container>
