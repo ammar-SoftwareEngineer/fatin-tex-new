@@ -1,14 +1,17 @@
 "use client";
 
+/**
+ * Footer contact cards: address, phone, and email.
+ */
 import { motion } from "framer-motion";
 import {
   HiOutlineLocationMarker,
-  HiOutlinePhone,
   HiOutlineMail,
+  HiOutlinePhone,
 } from "react-icons/hi";
-import type { FooterContactInfo } from "./types";
 import { useLocale } from "next-intl";
 import { cardHover, transitionBase, viewportOnce } from "@/lib/motion";
+import type { FooterContactInfo } from "./types";
 
 type FooterContactProps = {
   contact: FooterContactInfo;
@@ -35,40 +38,53 @@ const contactItems = [
   },
 ];
 
+function contactHref(key: keyof FooterContactInfo, value: string) {
+  if (key === "email") return `mailto:${value}`;
+  if (key === "phone") return `tel:${value}`;
+  return "";
+}
+
 export default function FooterContact({ contact }: FooterContactProps) {
-  const locale = useLocale();
+  const isArabic = useLocale() === "ar";
+  const align = isArabic ? "text-right" : "text-left";
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ ...transitionBase, delay: 0.22 }}
       viewport={viewportOnce}
-      className="grid grid-cols-12 gap-5 w-full mb-12"
+      className="mb-12 grid w-full grid-cols-12 gap-5"
     >
       {contactItems.map((item) => {
         const Icon = item.icon;
         const value = contact[item.key];
+        const href = contactHref(item.key, value);
 
         return (
           <motion.div
             key={item.key}
             whileHover={cardHover}
-            className="flex items-center gap-4 bg-white/5 border border-white/10 backdrop-blur-xl rounded-3xl px-5 py-5 col-span-12 md:col-span-4"
+            className="col-span-12 flex items-center gap-4 rounded-3xl border border-white/10 bg-white/5 px-5 py-5 backdrop-blur-xl md:col-span-4"
           >
-            <div className="w-12 h-12 rounded-full flex items-center justify-center bg-[#e0bc80]/15 text-[#e0bc80] text-2xl shrink-0">
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#e0bc80]/15 text-2xl text-[#e0bc80]">
               <Icon />
             </div>
             <div>
-              <p
-                className={`text-sm text-gray-400 mb-2 ${locale === "ar" ? "text-right" : "text-left"}`}
-              >
-                {locale === "ar" ? item.labelAr : item.label}
+              <p className={`mb-2 text-sm text-gray-400 ${align}`}>
+                {isArabic ? item.labelAr : item.label}
               </p>
-              <a href={item.key === "email" ? `mailto:${value}` : `tel:${value}`} target="_blank" rel="noopener noreferrer"
-                className={`font-medium ltr ${item.key === "email" ? "break-all" : ""} ${locale === "ar" ? "text-right" : "text-left"}`}
-              >
-                {value}
-              </a>
+              {href ? (
+                <a
+                  href={href}
+                  dir="ltr"
+                  className={`font-medium ${item.key === "email" ? "break-all" : ""} ${align}`}
+                >
+                  {value}
+                </a>
+              ) : (
+                <p className={`font-medium ${align}`}>{value}</p>
+              )}
             </div>
           </motion.div>
         );

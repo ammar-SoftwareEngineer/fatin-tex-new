@@ -6,8 +6,11 @@
 import { motion } from "framer-motion";
 import type { ReactNode } from "react";
 import Container from "@/components/common/Container";
-import { isExternalHref } from "@/lib/contact";
 import { cardHover, staggerDelay, transitionBase, viewportOnce } from "@/lib/motion";
+
+function isHttpLink(href: string) {
+  return href.startsWith("http://") || href.startsWith("https://");
+}
 
 export type ContactItem = {
   icon: ReactNode;
@@ -44,7 +47,7 @@ function ContactCard({
   item: ContactItem;
   index: number;
 }) {
-  const opensInNewTab = isExternalHref(item.link);
+  const opensInNewTab = isHttpLink(item.link);
 
   return (
     <motion.div

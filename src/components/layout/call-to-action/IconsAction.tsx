@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import type { ReactNode } from "react";
 import { FaPhoneAlt, FaWhatsapp } from "react-icons/fa";
 import siteData from "@/lib/data/site.json";
 import type { CallToAction } from "@/types/layoutTypes";
@@ -17,35 +18,62 @@ export default function IconsAction({ callToAction }: IconsActionProps) {
 
   return (
     <>
-      <motion.a
+      <ActionIcon
         href={`tel:${phone}`}
-        aria-label="Call us"
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ ...transitionFast, delay: 0.2 }}
-        whileHover={{ scale: 1.1, y: -2 }}
-        whileTap={{ scale: 0.95 }}
-        className="group relative w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center rounded-full overflow-hidden shadow-[0_10px_30px_rgba(224,188,128,0.35)]"
+        label="Call us"
+        delay={0.2}
+        shadow="shadow-[0_10px_30px_rgba(224,188,128,0.35)]"
+        gradient="from-[#e0bc80] to-[#b2895d]"
       >
-        <span className="absolute inset-0 bg-gradient-to-br from-[#e0bc80] to-[#b2895d]" />
-        <FaPhoneAlt className="relative z-10 text-white text-lg sm:text-2xl" />
-      </motion.a>
+        <FaPhoneAlt className="relative z-10 text-lg text-white sm:text-2xl" />
+      </ActionIcon>
 
-      <motion.a
+      <ActionIcon
         href={`https://wa.me/${whatsapp}`}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="WhatsApp"
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ ...transitionFast, delay: 0.35 }}
-        whileHover={{ scale: 1.1, y: -2 }}
-        whileTap={{ scale: 0.95 }}
-        className="group relative w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center rounded-full overflow-hidden shadow-[0_10px_30px_rgba(178,137,93,0.35)]"
+        label="WhatsApp"
+        delay={0.35}
+        external
+        shadow="shadow-[0_10px_30px_rgba(178,137,93,0.35)]"
+        gradient="from-[#b2895d] to-[#e0bc80]"
       >
-        <span className="absolute inset-0 bg-gradient-to-br from-[#b2895d] to-[#e0bc80]" />
-        <FaWhatsapp className="relative z-10 text-white text-[22px] sm:text-[28px]" />
-      </motion.a>
+        <FaWhatsapp className="relative z-10 text-[22px] text-white sm:text-[28px]" />
+      </ActionIcon>
     </>
+  );
+}
+
+function ActionIcon({
+  href,
+  label,
+  delay,
+  shadow,
+  gradient,
+  external,
+  children,
+}: {
+  href: string;
+  label: string;
+  delay: number;
+  shadow: string;
+  gradient: string;
+  external?: boolean;
+  children: ReactNode;
+}) {
+  return (
+    <motion.a
+      href={href}
+      aria-label={label}
+      target={external ? "_blank" : undefined}
+      rel={external ? "noopener noreferrer" : undefined}
+      initial={{ opacity: 0, x: -20 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ ...transitionFast, delay }}
+      whileHover={{ scale: 1.1, y: -2 }}
+      whileTap={{ scale: 0.95 }}
+      className={`group relative flex h-12 w-12 items-center justify-center overflow-hidden rounded-full sm:h-14 sm:w-14 ${shadow}`}
+    >
+      <span className={`absolute inset-0 bg-gradient-to-br ${gradient}`} />
+      {children}
+    </motion.a>
   );
 }

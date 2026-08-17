@@ -57,10 +57,6 @@ export function formatPhone(
   };
 }
 
-export function isExternalHref(href: string) {
-  return href.startsWith("http://") || href.startsWith("https://");
-}
-
 export function extractIframeSrc(iframeHtml?: string | null) {
   if (!iframeHtml) return "";
   return iframeHtml.match(/src="([^"]+)"/)?.[1] ?? "";

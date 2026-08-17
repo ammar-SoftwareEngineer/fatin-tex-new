@@ -5,7 +5,7 @@
  * Gallery, thumbnails (lightbox), description, and reels.
  */
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import Breadcrumb from "@/components/layout/hero/Breadcrumb";
 import ProductGallery from "@/components/products/details/ProductGallery";
 import ProductThumbnails from "@/components/products/details/ProductThumbnails";
@@ -81,15 +81,12 @@ export default function ProductDetails({ productData }: ProductDetailsProps) {
         <ProductVideos videos={productData.videos} />
       </Container>
 
-      {/* Full-screen image lightbox */}
-      <AnimatePresence>
-        <Lightbox
-          open={lightboxOpen}
-          close={() => setLightboxOpen(false)}
-          index={lightboxIndex}
-          slides={productData.images?.map((img) => ({ src: img.url }))}
-        />
-      </AnimatePresence>
+      <Lightbox
+        open={lightboxOpen}
+        close={() => setLightboxOpen(false)}
+        index={lightboxIndex}
+        slides={productData.images?.map((img) => ({ src: img.url }))}
+      />
     </section>
   );
 }

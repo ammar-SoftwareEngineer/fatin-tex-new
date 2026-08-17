@@ -52,21 +52,6 @@ export function resolveLink(item: {
   }
 }
 
-/** Same as resolveLink — kept for older imports. */
-export function resolveMenuHref(item: LayoutMenuItem): string {
-  return resolveLink(item);
-}
-
-/** Same as resolveLink — kept for older imports. */
-export function resolveFooterHref(item: {
-  id?: number;
-  href?: string | null;
-  url?: string | null;
-  link?: string | null;
-}): string {
-  return resolveLink(item);
-}
-
 /** Build category dropdown links (flat list, including children). */
 function getCategoryLinks(
   categories: ProductCategory[],

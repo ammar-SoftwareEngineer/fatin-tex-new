@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * Sondos Dyeing page: breadcrumb, content text, and optional video embed.
+ * Sondos Dyeing page: breadcrumb, content text, and optional video.
  */
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
@@ -17,10 +17,10 @@ import {
 
 export default function SondosPage({ data }: { data: SondosData | null }) {
   const t = useTranslations("sondos.page");
-console.log(data);
-    const videoSrc = data?.content?.image || "/vedio.mp4";
+  const videoSrc = data?.content?.image || "/vedio.mp4";
+
   return (
-    <div className="bg-background text-white overflow-hidden">
+    <div className="overflow-hidden bg-background text-white">
       <Breadcrumb
         items={[
           {
@@ -40,23 +40,23 @@ console.log(data);
             initial="hidden"
             whileInView="show"
             viewport={viewportOnce}
-            className="max-w-4xl mx-auto text-center"
+            className="mx-auto max-w-4xl text-center"
           >
             <motion.p
               variants={fadeUp}
-              className="text-[#e0bc80] tracking-[6px] text-xs mb-4"
+              className="mb-4 text-xs tracking-[6px] text-[#e0bc80]"
             >
               {data?.content?.sub_title ?? t("sectionSubtitle")}
             </motion.p>
             <motion.h2
               variants={fadeUp}
-              className="text-4xl md:text-6xl font-bold font-playfair"
+              className="font-playfair text-4xl font-bold md:text-6xl"
             >
               {data?.content?.title ?? t("sectionTitle")}
             </motion.h2>
             <motion.div
               variants={fadeUp}
-              className="text-gray-300 mt-6 leading-relaxed"
+              className="mt-6 leading-relaxed text-gray-300"
               dangerouslySetInnerHTML={{
                 __html:
                   data?.content?.text || `<p>${t("sectionDescription")}</p>`,
@@ -70,21 +70,18 @@ console.log(data);
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ ...transitionBase, delay: 0.1 }}
               viewport={viewportOnce}
-              className="w-full mt-20 "
+              className="mt-20 w-full"
             >
-              <div className="relative w-full overflow-hidden border-y border-white/10 rounded-3xl">
-                <div className="w-full h-[320px] sm:h-[500px] md:h-[650px] relative rounded-2xl">
-                  <div className="absolute inset-0 bg-linear-to-tr from-black/60 via-transparent to-black/40 z-10 pointer-events-none" />
-                  <video
-              className="w-full h-[280px] sm:h-[380px] md:h-[520px] lg:h-[650px] object-cover"
-              autoPlay
-              loop
-              muted
-              playsInline
-            >
-              <source src={videoSrc} type="video/mp4" />
-            </video>
-                </div>
+              <div className="relative overflow-hidden rounded-3xl border-y border-white/10">
+                <video
+                  className="h-[280px] w-full object-cover sm:h-[380px] md:h-[520px] lg:h-[650px]"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                >
+                  <source src={videoSrc} type="video/mp4" />
+                </video>
               </div>
             </motion.div>
           ) : null}

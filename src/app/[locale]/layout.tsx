@@ -45,7 +45,7 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
-/** تحديث محتوى الداشبورد على Vercel بدون انتظار redeploy */
+/** Revalidate CMS content on Vercel without waiting for a full redeploy. */
 export const revalidate = 60;
 
 export async function generateMetadata({

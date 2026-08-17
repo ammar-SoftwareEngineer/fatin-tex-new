@@ -24,8 +24,16 @@ export type HomeSection = {
   is_active: number;
   button_text?: string;
   button_link_url?: string | null;
-  statistics?: {id:number, title: string; sub_title: string;  }[];
-  benefits?: {id:number, title: string; sub_title: string; image: string; alt_image: string ;order: number; is_active: number; }[];
+  statistics?: { id: number; title: string; sub_title: string }[];
+  benefits?: {
+    id: number;
+    title: string;
+    sub_title: string;
+    image: string;
+    alt_image: string;
+    order: number;
+    is_active: number;
+  }[];
 };
 
 /** Single category item inside categories_section.categories */
@@ -88,17 +96,7 @@ export type HomeData = {
   about_us: HomeSection;
   categories_section: CategoriesSection;
   video_section: HomeSection;
-  why_choose_us_section: HomeSection & {
-    benefits: {
-      id: number;
-      title: string;
-      sub_title: string;
-      image: string;
-      alt_image: string;
-      order: number;
-      is_active: number;
-    }[];
-  };
+  why_choose_us_section: HomeSection;
   blogs_section: HomeSection & { blogs: HomeBlog[] };
 };
 
