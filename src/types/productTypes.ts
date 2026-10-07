@@ -1,3 +1,5 @@
+import type { LocalizedSlug } from "@/lib/localized-slug";
+
 export type ProductImage = {
   id: number;
   url: string;
@@ -22,10 +24,7 @@ export type ProductCategory = {
   show_in_footer: boolean;
   is_main_section: boolean;
   images: ProductImage[];
-  slug: {
-    en: string;
-    ar: string;
-  };
+  slug: LocalizedSlug;
   children?: ProductCategory[];
   products?: unknown[];
 };
@@ -42,10 +41,7 @@ export type Product = {
   sort_order: number;
   main_image: string;
   images: ProductImage[];
-  slug: {
-    en: string;
-    ar: string;
-  };
+  slug: LocalizedSlug;
   category: ProductCategory;
 };
 
@@ -63,11 +59,7 @@ export type ProductDetailsData = {
   images: ProductImage[];
   videos?: ProductVideo[];
   reels?: ProductVideo[] | string[];
-  slug: {
-    en?: string;
-    ar?: string;
-    tr?: string;
-  };
+  slug: LocalizedSlug;
   category: ProductCategory;
 };
 

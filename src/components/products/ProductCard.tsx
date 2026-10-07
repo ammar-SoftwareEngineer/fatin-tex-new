@@ -15,6 +15,8 @@ type ProductCardProps = {
   name: string;
   image: string;
   slug: LocalizedSlug;
+  /** Overrides the default product details link */
+  href?: string;
   categoryLabel?: string;
   ctaLabel: string;
   /** Adds the home-section entrance animation delay */
@@ -29,6 +31,7 @@ export default function ProductCard({
   name,
   image,
   slug,
+  href,
   categoryLabel,
   ctaLabel,
   index = 0,
@@ -39,7 +42,7 @@ export default function ProductCard({
 
   return (
     <Link
-      href={`/products/${getLocalizedSlug(slug, locale)}`}
+      href={href ?? `/products/${getLocalizedSlug(slug, locale)}`}
       className="block"
     >
       <div

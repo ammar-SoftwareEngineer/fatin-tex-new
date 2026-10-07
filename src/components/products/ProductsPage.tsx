@@ -20,19 +20,22 @@ import {
 
 type ProductsPageProps = {
   productsData?: Product[] | null;
-  categorySlug?: string | null;
+  /** Slugs of the selected category and all of its descendants */
+  categorySlugs?: string[] | null;
 };
 
 export default function ProductsPage({
   productsData,
-  categorySlug,
+  categorySlugs,
 }: ProductsPageProps) {
   const t = useTranslations("products");
   const tNav = useTranslations("nav");
 
   const products = (productsData ?? []).filter((product) => {
-    if (!categorySlug) return true;
-    return matchesLocalizedSlug(product.category?.slug, categorySlug);
+    if (!categorySlugs?.length) return true;
+    return categorySlugs.some((slug) =>
+      matchesLocalizedSlug(product.category?.slug, slug),
+    );
   });
 
   return (
@@ -42,7 +45,7 @@ export default function ProductsPage({
       </div>
 
       <Container className="pt-24">
-        <motion.div
+        {/* <motion.div
           variants={fadeUp}
           initial="hidden"
           whileInView="show"
@@ -56,7 +59,7 @@ export default function ProductsPage({
           <p className="text-gray-400 mt-4 max-w-2xl mx-auto">
             {t("heroDescription")}
           </p>
-        </motion.div>
+        </motion.div> */}
 
         <div className="grid grid-cols-12 gap-8">
           {products.map((product, i) => (

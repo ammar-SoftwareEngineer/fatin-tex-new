@@ -1,6 +1,7 @@
 import { createPageMetadata, setupPageLocale } from "@/lib/seo";
 import ProductsPage from "@/components/products/ProductsPage";
 import { fetchProductsData } from "@/api/productsService";
+import { fetchCategoryTreeSlugs } from "@/api/categoriesService";
 import { isApiError } from "@/types/layoutTypes";
 import type { ProductsApiResponse } from "@/types/productTypes";
 
@@ -21,7 +22,10 @@ export default async function Products({
 }) {
   const locale = await setupPageLocale(params);
   const { category } = await searchParams;
-  const productsResponse = await fetchProductsData(locale);
+  const [productsResponse, categorySlugs] = await Promise.all([
+    fetchProductsData(locale),
+    category ? fetchCategoryTreeSlugs(category, locale) : null,
+  ]);
 
   return (
     <ProductsPage
@@ -30,7 +34,7 @@ export default async function Products({
           ? null
           : (productsResponse as ProductsApiResponse).data
       }
-      categorySlug={category ?? null}
+      categorySlugs={categorySlugs}
     />
   );
 }

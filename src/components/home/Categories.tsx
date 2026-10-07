@@ -8,8 +8,10 @@ import { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import { motion, AnimatePresence } from "framer-motion";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import { getLocalizedSlug } from "@/lib/localized-slug";
+import type { LocalizedSlug } from "@/lib/localized-slug";
 import CategoryTabs from "@/components/categories/CategoryTabs";
 import ProductCard from "@/components/products/ProductCard";
 import Container from "@/components/common/Container";
@@ -28,15 +30,50 @@ type CategoriesProps = {
   categories?: CategoriesSection;
 };
 
+type Slide = {
+  id: number;
+  name: string;
+  image: string;
+  slug: LocalizedSlug;
+  href?: string;
+  ctaLabel: string;
+};
+
 export default function Categories({ categories }: CategoriesProps) {
   const categoriesData = categories?.categories;
   const t = useTranslations("home.categories");
+  const tCategories = useTranslations("categories");
+  const locale = useLocale();
   const [activeTab, setActiveTab] = useState(0);
 
   const { start: titleStart, highlight: titleHighlight } = splitTitleHighlight(
     categories?.title,
   );
-  const activeProducts = categoriesData?.[activeTab]?.products ?? [];
+  const activeCategory = categoriesData?.[activeTab];
+  const activeProducts = activeCategory?.products ?? [];
+
+  // Parent categories carry no products; show their sub-categories instead.
+  const slides: Slide[] = activeProducts.length
+    ? activeProducts.map((product) => ({
+        id: product.id,
+        name: product.name,
+        image: product.main_image,
+        slug: product.slug,
+        ctaLabel: t("viewMore"),
+      }))
+    : (activeCategory?.children ?? []).map((child) => {
+        const slug = getLocalizedSlug(child.slug, locale);
+        return {
+          id: child.id,
+          name: child.name,
+          image: child.image,
+          slug: child.slug,
+          href: slug
+            ? `/products?category=${encodeURIComponent(slug)}`
+            : "/categories",
+          ctaLabel: tCategories("viewProducts"),
+        };
+      });
 
   return (
     <section className="relative py-20 sm:py-28 lg:py-36 bg-[#0d0b09] text-white overflow-hidden">
@@ -94,7 +131,7 @@ export default function Categories({ categories }: CategoriesProps) {
                 disableOnInteraction: false,
                 pauseOnMouseEnter: true,
               }}
-              loop={activeProducts.length > 3}
+              loop={slides.length > 3}
               spaceBetween={24}
               speed={700}
               breakpoints={{
@@ -105,14 +142,15 @@ export default function Categories({ categories }: CategoriesProps) {
               }}
               className="categories-swiper"
             >
-              {activeProducts.map((item, i) => (
+              {slides.map((item, i) => (
                 <SwiperSlide key={`${activeTab}-${item.id}`}>
                   <ProductCard
                     name={item.name}
-                    image={item.main_image}
+                    image={item.image}
                     slug={item.slug}
-                    categoryLabel={categoriesData?.[activeTab]?.name}
-                    ctaLabel={t("viewMore")}
+                    href={item.href}
+                    categoryLabel={activeCategory?.name}
+                    ctaLabel={item.ctaLabel}
                     index={i}
                     showArrow
                     className="categories-card-in categories-card-hover"

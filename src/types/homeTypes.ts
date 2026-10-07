@@ -1,4 +1,5 @@
 import type { Blog } from "./blogTypes";
+import type { LocalizedSlug } from "@/lib/localized-slug";
 
 export type HeroSlide = {
   id: number;
@@ -54,10 +55,7 @@ export type Product = {
   sort_order: number;
   main_image: string;
   images: ImageItem[];
-  slug: {
-    en: string;
-    ar: string;
-  };
+  slug: LocalizedSlug;
 };
 
 export type HomeCategory = {
@@ -75,14 +73,11 @@ export type HomeCategory = {
 
   images: ImageItem[];
 
-  slug: {
-    en: string;
-    ar: string;
-  };
+  slug: LocalizedSlug;
 
-  children: HomeCategory[];
+  children?: HomeCategory[];
 
-  products: Product[];
+  products?: Product[];
 };
 
 export type CategoriesSection = HomeSection & {

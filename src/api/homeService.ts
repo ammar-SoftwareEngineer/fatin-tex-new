@@ -10,6 +10,7 @@ export async function fetchHomeData(lang = "en") {
       method: "GET",
       next: { revalidate: 5 },
     });
+    // console.log("Home data:", await response.json()); 
     return await response.json();
   } catch (err) {
     const message = err instanceof Error ? err.message : "Internal Server Error";
