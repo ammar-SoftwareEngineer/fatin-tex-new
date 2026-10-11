@@ -52,7 +52,7 @@ export default function MobileMenuOverlay({
           alt={siteName}
           width={90}
           height={60}
-          className="object-contain"
+          className="object-contain h-auto"
         />
         <button
           onClick={onClose}

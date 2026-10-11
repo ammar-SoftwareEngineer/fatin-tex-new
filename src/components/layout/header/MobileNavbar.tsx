@@ -57,7 +57,7 @@ export default function MobileNavbar({
               alt={siteName}
               width={90}
               height={60}
-              className="object-contain"
+              className="object-contain h-auto"
               priority
               sizes="90px"
             />

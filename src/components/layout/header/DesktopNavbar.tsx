@@ -70,7 +70,7 @@ export default function DesktopNavbar({
             alt={siteName}
             width={100}
             height={70}
-            className="object-contain"
+            className="object-contain h-auto"
             priority
             sizes="100px"
           />

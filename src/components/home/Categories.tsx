@@ -122,6 +122,7 @@ export default function Categories({ categories }: CategoriesProps) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+            
           >
             <Swiper
               key={`categories-swiper-${activeTab}`}
@@ -132,6 +133,7 @@ export default function Categories({ categories }: CategoriesProps) {
                 pauseOnMouseEnter: true,
               }}
               loop={slides.length > 3}
+              centerInsufficientSlides
               spaceBetween={24}
               speed={700}
               breakpoints={{
@@ -143,7 +145,7 @@ export default function Categories({ categories }: CategoriesProps) {
               className="categories-swiper"
             >
               {slides.map((item, i) => (
-                <SwiperSlide key={`${activeTab}-${item.id}`}>
+                <SwiperSlide key={`${activeTab}-${item.id}`} >
                   <ProductCard
                     name={item.name}
                     image={item.image}
@@ -153,7 +155,7 @@ export default function Categories({ categories }: CategoriesProps) {
                     ctaLabel={item.ctaLabel}
                     index={i}
                     showArrow
-                    className="categories-card-in categories-card-hover"
+                    className="categories-card-in categories-card-hover "
                   />
                 </SwiperSlide>
               ))}
