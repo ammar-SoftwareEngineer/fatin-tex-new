@@ -1,8 +1,7 @@
 /**
  * Fetch categories list and category details from the backend API.
  */
-import { matchesLocalizedSlug } from "@/lib/localized-slug";
-import type { ProductCategory } from "@/types/productTypes";
+import { getLocalizedSlug, matchesLocalizedSlug } from "@/lib/localized-slug";import type { ProductCategory } from "@/types/productTypes";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
 
@@ -47,7 +46,7 @@ export async function fetchCategoryTreeSlugs(
 
   const childSlugs = await Promise.all(
     children.map((child) => {
-      const childSlug = child.slug?.en || child.slug?.ar || child.slug?.tr;
+      const childSlug = getLocalizedSlug(child.slug, lang);
       return childSlug
         ? fetchCategoryTreeSlugs(childSlug, lang, maxDepth - 1)
         : Promise.resolve([]);
@@ -58,7 +57,9 @@ export async function fetchCategoryTreeSlugs(
 }
 
 async function fetchChildren(category: ProductCategory, lang: string) {
-  const response = await fetchCategoryDetailsData(category.slug.en ?? "", lang);
+  // The details endpoint only accepts the slug in the requested language
+  const slug = getLocalizedSlug(category.slug, lang);
+  const response = await fetchCategoryDetailsData(encodeURIComponent(slug), lang);
   return (response?.data?.children ?? []) as ProductCategory[];
 }
 

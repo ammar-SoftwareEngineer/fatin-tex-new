@@ -4,6 +4,7 @@
  * Footer content: brand, links, social, contact, copyright.
  * Links come from the same layout menu as the header (dynamic + navigable).
  */
+import { useLocale } from "next-intl";
 import type { fetchLayoutData } from "@/api/layoutService";
 import siteData from "@/lib/data/site.json";
 import {
@@ -27,6 +28,7 @@ type FooterClientProps = {
 };
 
 export default function FooterClient({ layoutData }: FooterClientProps) {
+  const locale = useLocale();
   const layout: LayoutData | null = isApiError(layoutData)
     ? null
     : (layoutData as LayoutApiResponse).data;
@@ -37,7 +39,7 @@ export default function FooterClient({ layoutData }: FooterClientProps) {
     email: layout?.contact?.email ?? siteData.contact.email,
   };
 
-  const logo = layout?.branding?.logo || "/logo.png";
+  const logo = locale === "tr" ? "/logo.webp" : layout?.branding?.logo || "/logo.webp";
   const description = layout?.footer?.body?.trim();
 
   // Same menu as the header → same pages when you click

@@ -20,7 +20,7 @@ export async function fetchGalleryImagesData(lang = "en") {
 
 export async function fetchGalleryVideosData(lang = "en") {
   try {
-    const response = await fetch(`${BASE_URL}/gallery-videos`, {
+    const response = await fetch(`${BASE_URL}/gallery-videos?lang=${lang}`, {
       headers: { "Content-Type": "application/json", "Accept-Language": lang },
       method: "GET",
       next: { revalidate: 60 },

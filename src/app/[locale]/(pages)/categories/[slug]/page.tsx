@@ -5,6 +5,8 @@ import {
   fetchCategoryParents,
 } from "@/api/categoriesService";
 import { createEntityMetadata, setupPageLocale } from "@/lib/seo";
+import { findSlugInLocale } from "@/lib/locale-fallback";
+import { redirect } from "@/i18n/navigation";
 import type { CategoryDetailsApiResponse } from "@/types/productTypes";
 
 type Props = { params: Promise<{ locale: string; slug: string }> };
@@ -41,7 +43,11 @@ export default async function CategoryDetailPage({ params }: Props) {
     fetchCategoryParents(slug, locale),
   ]);
 
-  if (!category) notFound();
+  if (!category) {
+    const localized = await findSlugInLocale(slug, locale, fetchCategoryDetailsData);
+    if (localized) redirect({ href: `/categories/${localized}`, locale });
+    notFound();
+  }
 
   return <CategoryDetails category={category} parents={parents ?? []} />;
 }

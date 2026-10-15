@@ -39,7 +39,7 @@ export default function NavbarContent({
   const layout: LayoutData | null = isApiError(layoutData)
     ? null
     : (layoutData as LayoutApiResponse).data;
-  const logo = layout?.branding?.logo || "/logo.png";
+  const logo = locale === "tr" ? "/logo.webp" : layout?.branding?.logo || "/logo.webp";
   const siteName = layout?.branding?.site_name || "Logo";
 
   // Static gallery submenu links

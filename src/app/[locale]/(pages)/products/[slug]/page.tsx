@@ -2,6 +2,9 @@ import { notFound } from "next/navigation";
 import ProductDetails from "@/components/products/details/ProductDetails";
 import { fetchProductDetailsData } from "@/api/productsService";
 import { fetchCategoryParents } from "@/api/categoriesService";
+import { getLocalizedSlug } from "@/lib/localized-slug";
+import { findSlugInLocale } from "@/lib/locale-fallback";
+import { redirect } from "@/i18n/navigation";
 import { createEntityMetadata, setupPageLocale } from "@/lib/seo";
 import { isApiError } from "@/types/layoutTypes";
 import type { ProductDetailsApiResponse } from "@/types/productTypes";
@@ -44,12 +47,14 @@ export default async function ProductDetailPage({
   const response = await fetchProductDetailsData(slug, locale);
 
   if (isApiError(response) || !(response as ProductDetailsApiResponse)?.data) {
+    const localized = await findSlugInLocale(slug, locale, fetchProductDetailsData);
+    if (localized) redirect({ href: `/products/${localized}`, locale });
     notFound();
   }
 
   const product = (response as ProductDetailsApiResponse).data;
   const parents = product.category
-    ? await fetchCategoryParents(product.category.slug.en ?? "", locale)
+    ? await fetchCategoryParents(getLocalizedSlug(product.category.slug, locale), locale)
     : null;
   const categories = product.category ? [...(parents ?? []), product.category] : [];
 
