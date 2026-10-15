@@ -3,5 +3,7 @@
   "title": "Product",
   "titleHighlight": "Categories",
   "description": "Browse our curated fabric categories and explore premium textiles crafted for luxury fashion.",
-  "viewProducts": "View Products"
+  "viewProducts": "View Products",
+  "productsTitle": "Products",
+  "empty": "No products in this category yet."
 }

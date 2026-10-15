@@ -1,8 +1,8 @@
 "use client";
 
 /**
- * Category card used on the categories listing page.
- * Links to the products page filtered by this category.
+ * Category card used on the categories listing and details pages.
+ * Links to the category details page.
  */
 import Image from "next/image";
 import { motion } from "framer-motion";
@@ -30,9 +30,7 @@ export default function CategoryCard({
   const t = useTranslations("categories");
 
   const slug = getLocalizedSlug(category.slug, locale);
-  const href = slug
-    ? `/products?category=${encodeURIComponent(slug)}`
-    : "/products";
+  const href = slug ? `/categories/${slug}` : "/categories";
 
   return (
     <Link href={href}>

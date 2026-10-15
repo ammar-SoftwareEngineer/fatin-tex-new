@@ -6,7 +6,7 @@
  */
 import { FaChevronDown } from "react-icons/fa";
 import { Link } from "@/i18n/navigation";
-import type { NavItem } from "./navTypes";
+import type { NavItem, NavLink } from "./navTypes";
 import { isLinkActive } from "./navUtils";
 
 type MobileNavLinkProps = {
@@ -73,30 +73,71 @@ export default function MobileNavLink({
       {/* Collapsible submenu */}
       <div
         className={`overflow-hidden transition-all duration-300 ${
-          isOpen ? "max-h-60 mt-4" : "max-h-0"
+          isOpen ? "max-h-[1000px] mt-4" : "max-h-0"
         }`}
       >
-        <div className="flex flex-col gap-3 pl-3">
-          {item.dropdown.map((sub) => {
-            const subActive = isLinkActive(pathname, search, sub.href);
-
-            return (
-              <Link
-                key={sub.href}
-                href={sub.href}
-                onClick={onNavigate}
-                className={`transition ${
-                  subActive
-                    ? "text-[#e0bc80]"
-                    : "text-gray-300 hover:text-[#e0bc80]"
-                }`}
-              >
-                {sub.name}
-              </Link>
-            );
-          })}
-        </div>
+        <MobileSubmenu
+          links={item.dropdown}
+          onNavigate={onNavigate}
+          pathname={pathname}
+          search={search}
+        />
       </div>
+    </div>
+  );
+}
+
+type MobileSubmenuProps = {
+  links: NavLink[];
+  onNavigate: () => void;
+  pathname: string;
+  search: string;
+  depth?: number;
+};
+
+/** Submenu links, with nested children indented below their parent. */
+function MobileSubmenu({
+  links,
+  onNavigate,
+  pathname,
+  search,
+  depth = 0,
+}: MobileSubmenuProps) {
+  return (
+    <div
+      className={`flex flex-col gap-3 ps-3 ${
+        depth > 0 ? "border-s border-white/10 text-sm" : ""
+      }`}
+    >
+      {links.map((sub) => {
+        const subActive = isLinkActive(pathname, search, sub.href, true);
+
+        return (
+          <div key={sub.href} className="flex flex-col gap-3">
+            <Link
+              href={sub.href}
+              onClick={onNavigate}
+              className={`transition ${
+                subActive
+                  ? "text-[#e0bc80]"
+                  : "text-gray-300 hover:text-[#e0bc80]"
+              }`}
+            >
+              {sub.name}
+            </Link>
+
+            {sub.children?.length ? (
+              <MobileSubmenu
+                links={sub.children}
+                onNavigate={onNavigate}
+                pathname={pathname}
+                search={search}
+                depth={depth + 1}
+              />
+            ) : null}
+          </div>
+        );
+      })}
     </div>
   );
 }

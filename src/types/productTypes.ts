@@ -74,3 +74,13 @@ export type ProductDetailsApiResponse = {
 export type CategoriesApiResponse = {
   data: ProductCategory[];
 };
+
+export type CategoryProduct = Omit<Product, "category">;
+
+export type CategoryDetails = Omit<ProductCategory, "products"> & {
+  products?: CategoryProduct[];
+};
+
+export type CategoryDetailsApiResponse = {
+  data: CategoryDetails;
+};

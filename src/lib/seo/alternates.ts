@@ -51,7 +51,7 @@ export function buildLanguageAlternates(
 }
 
 export function buildSlugLanguageAlternates(
-  collection: "blogs" | "products",
+  collection: "blogs" | "products" | "categories",
   slug: LocalizedSlug,
 ): Record<string, string> {
   const languages: Record<string, string> = {};

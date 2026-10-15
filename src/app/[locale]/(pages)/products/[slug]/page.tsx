@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import ProductDetails from "@/components/products/details/ProductDetails";
 import { fetchProductDetailsData } from "@/api/productsService";
+import { fetchCategoryParents } from "@/api/categoriesService";
 import { createEntityMetadata, setupPageLocale } from "@/lib/seo";
 import { isApiError } from "@/types/layoutTypes";
 import type { ProductDetailsApiResponse } from "@/types/productTypes";
@@ -46,9 +47,11 @@ export default async function ProductDetailPage({
     notFound();
   }
 
-  return (
-    <ProductDetails
-      productData={(response as ProductDetailsApiResponse).data}
-    />
-  );
+  const product = (response as ProductDetailsApiResponse).data;
+  const parents = product.category
+    ? await fetchCategoryParents(product.category.slug.en ?? "", locale)
+    : null;
+  const categories = product.category ? [...(parents ?? []), product.category] : [];
+
+  return <ProductDetails productData={product} categories={categories} />;
 }

@@ -64,7 +64,7 @@ export default function DesktopNavbar({
         </ul>
 
         {/* Center logo */}
-        <Link href="/" className="shrink-0 relative z-10">
+        <Link href="/" className="shrink-0 relative -z-10">
           <Image
             src={logo}
             alt={siteName}

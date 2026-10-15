@@ -52,30 +52,31 @@ export function resolveLink(item: {
   }
 }
 
-/** Build category dropdown links (flat list, including children). */
+/** Category details page path, e.g. /categories/garment-fabrics */
+export function getCategoryHref(
+  slug: ProductCategory["slug"] | undefined,
+  locale: string,
+): string {
+  const localized = getLocalizedSlug(slug, locale);
+  return localized ? `/categories/${localized}` : "/categories";
+}
+
+/** Build category dropdown links (nested: category → sub-categories). */
 function getCategoryLinks(
   categories: ProductCategory[],
   locale: string,
 ): NavLink[] {
-  const links: NavLink[] = [];
+  return categories.map((category) => {
+    const children = category.children?.length
+      ? getCategoryLinks(category.children, locale)
+      : undefined;
 
-  for (const category of categories) {
-    const slug = getLocalizedSlug(category.slug, locale);
-
-    links.push({
+    return {
       name: category.name,
-      href: slug
-        ? `/products?category=${encodeURIComponent(slug)}`
-        : "/categories",
-    });
-
-    // Add children too
-    if (category.children?.length) {
-      links.push(...getCategoryLinks(category.children, locale));
-    }
-  }
-
-  return links;
+      href: getCategoryHref(category.slug, locale),
+      children,
+    };
+  });
 }
 
 /**
@@ -159,5 +160,21 @@ export function isParentActive(
 ): boolean {
   // Parents with dropdowns use exact path so /products/x doesn't highlight Products wrongly
   const exact = Boolean(item.dropdown?.length);
-  return isLinkActive(pathname, search, item.href, exact);
+  return (
+    isLinkActive(pathname, search, item.href, exact) ||
+    hasActiveLink(item.dropdown, pathname, search)
+  );
+}
+
+/** True when any link (or nested child link) matches the current page. */
+export function hasActiveLink(
+  links: NavLink[] | undefined,
+  pathname: string,
+  search: string,
+): boolean {
+  return (links ?? []).some(
+    (link) =>
+      isLinkActive(pathname, search, link.href, true) ||
+      hasActiveLink(link.children, pathname, search),
+  );
 }

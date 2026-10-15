@@ -1,7 +1,10 @@
 import { Suspense } from "react";
 import { getLocale } from "next-intl/server";
 import { fetchLayoutData } from "@/api/layoutService";
-import { fetchCategoriesData } from "@/api/categoriesService";
+import {
+  fetchCategoriesData,
+  fetchNavbarCategoryTree,
+} from "@/api/categoriesService";
 import { isApiError } from "@/types/layoutTypes";
 import type { ProductCategory } from "@/types/productTypes";
 import NavbarContent from "./NavbarContent";
@@ -15,8 +18,11 @@ export default async function Navbar() {
 
   const navbarCategories = isApiError(categoriesResponse)
     ? []
-    : ((categoriesResponse as { data?: ProductCategory[] }).data ?? []).filter(
-        (category) => category.show_in_navbar,
+    : await fetchNavbarCategoryTree(
+        ((categoriesResponse as { data?: ProductCategory[] }).data ?? []).filter(
+          (category) => category.show_in_navbar,
+        ),
+        locale,
       );
 
   return (

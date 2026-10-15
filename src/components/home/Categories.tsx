@@ -68,9 +68,7 @@ export default function Categories({ categories }: CategoriesProps) {
           name: child.name,
           image: child.image,
           slug: child.slug,
-          href: slug
-            ? `/products?category=${encodeURIComponent(slug)}`
-            : "/categories",
+          href: slug ? `/categories/${slug}` : "/categories",
           ctaLabel: tCategories("viewProducts"),
         };
       });

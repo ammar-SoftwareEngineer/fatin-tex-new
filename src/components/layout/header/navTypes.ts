@@ -1,4 +1,4 @@
-export type NavLink = { name: string; href: string };
+export type NavLink = { name: string; href: string; children?: NavLink[] };
 export type NavItem = NavLink & { dropdown?: NavLink[] };
 
 export const LANGUAGES = [

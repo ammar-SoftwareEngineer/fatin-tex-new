@@ -1,6 +1,9 @@
 /**
  * Fetch categories list and category details from the backend API.
  */
+import { matchesLocalizedSlug } from "@/lib/localized-slug";
+import type { ProductCategory } from "@/types/productTypes";
+
 const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
 
 export async function fetchCategoriesData(lang = "en") {
@@ -52,6 +55,52 @@ export async function fetchCategoryTreeSlugs(
   );
 
   return [slug, ...ownSlugs, ...childSlugs.flat()];
+}
+
+async function fetchChildren(category: ProductCategory, lang: string) {
+  const response = await fetchCategoryDetailsData(category.slug.en ?? "", lang);
+  return (response?.data?.children ?? []) as ProductCategory[];
+}
+
+/** Add sub-categories (shown in navbar) to each category, `depth` levels deep. */
+export async function fetchNavbarCategoryTree(
+  categories: ProductCategory[],
+  lang = "en",
+  depth = 2,
+): Promise<ProductCategory[]> {
+  if (depth === 0) return categories;
+
+  return Promise.all(
+    categories.map(async (category) => {
+      const children = (await fetchChildren(category, lang)).filter(
+        (child) => child.show_in_navbar,
+      );
+      return {
+        ...category,
+        children: await fetchNavbarCategoryTree(children, lang, depth - 1),
+      };
+    }),
+  );
+}
+
+/** Parent categories of `slug` (top-level first), e.g. [Garment Fabrics, Winter Fabrics]. */
+export async function fetchCategoryParents(
+  slug: string,
+  lang = "en",
+  categories?: ProductCategory[],
+  parents: ProductCategory[] = [],
+): Promise<ProductCategory[] | null> {
+  const list = categories ?? (await fetchCategoriesData(lang)).data ?? [];
+
+  for (const category of list) {
+    if (matchesLocalizedSlug(category.slug, slug)) return parents;
+
+    const children = await fetchChildren(category, lang);
+    const found = await fetchCategoryParents(slug, lang, children, [...parents, category]);
+    if (found) return found;
+  }
+
+  return null;
 }
 
 export async function fetchCategoryDetailsData(slug: string, lang = "en") {

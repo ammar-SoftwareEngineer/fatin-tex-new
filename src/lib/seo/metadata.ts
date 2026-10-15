@@ -102,7 +102,7 @@ async function buildMetadata({
 
 type EntityMetaInput = {
   locale: string;
-  collection: "blogs" | "products";
+  collection: "blogs" | "products" | "categories";
   slug: LocalizedSlug;
   title: string;
   description?: string | null;

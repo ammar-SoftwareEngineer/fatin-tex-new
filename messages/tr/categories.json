@@ -3,5 +3,7 @@
   "title": "Ürün",
   "titleHighlight": "Kategorileri",
   "description": "Özenle seçilmiş kumaş kategorilerimize göz atın ve lüks moda için üretilmiş premium tekstilleri keşfedin.",
-  "viewProducts": "Ürünleri Gör"
+  "viewProducts": "Ürünleri Gör",
+  "productsTitle": "Ürünler",
+  "empty": "Bu kategoride henüz ürün bulunmuyor."
 }

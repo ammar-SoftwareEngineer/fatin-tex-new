@@ -13,15 +13,19 @@ import ProductVideos from "@/components/products/details/ProductVideos";
 import Container from "@/components/common/Container";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
-import type { ProductDetailsData } from "@/types/productTypes";
-import { useTranslations } from "next-intl";
+import type { ProductCategory, ProductDetailsData } from "@/types/productTypes";
+import { useLocale, useTranslations } from "next-intl";
+import { getLocalizedSlug } from "@/lib/localized-slug";
 import { fadeUp, viewportOnce } from "@/lib/motion";
 
 type ProductDetailsProps = {
   productData: ProductDetailsData;
+  /** Product category with its parents, top-level first */
+  categories: ProductCategory[];
 };
 
-export default function ProductDetails({ productData }: ProductDetailsProps) {
+export default function ProductDetails({ productData, categories }: ProductDetailsProps) {
+  const locale = useLocale();
   const tNav = useTranslations("nav");
   const t = useTranslations("products");
   const [lightboxOpen, setLightboxOpen] = useState(false);
@@ -38,6 +42,10 @@ export default function ProductDetails({ productData }: ProductDetailsProps) {
         <Breadcrumb
           items={[
             { label: tNav("products"), href: "/products" },
+            ...categories.map((category) => ({
+              label: category.name,
+              href: `/categories/${getLocalizedSlug(category.slug, locale)}`,
+            })),
             {
               label: productData.name,
               image: productData.main_image,
