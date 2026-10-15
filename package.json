@@ -29,6 +29,12 @@
     "yet-another-react-lightbox": "^3.32.0",
     "zod": "^4.4.3"
   },
+  "allowScripts": {
+    "@parcel/watcher": true,
+    "@swc/core": true,
+    "sharp": true,
+    "unrs-resolver": true
+  },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
