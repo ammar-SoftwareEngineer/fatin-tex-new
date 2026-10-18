@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 import SondosInfoCard from "@/components/sondos/SondosInfoCard";
 import Container from "@/components/common/Container";
 import type { HomeSection } from "@/types/homeTypes";
-
+import sundusImage from "../../../public/sondos.png";
 type SundusSectionProps = {
   sundus?: HomeSection;
 };
@@ -29,9 +29,9 @@ export default function SundusSection({ sundus }: SundusSectionProps) {
             whileInView={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.95, ease }}
             viewport={{ once: true, amount: 0.2 }}
-            className="relative rounded-[24px] md:rounded-[40px] overflow-hidden shadow-2xl border border-white/10"
+            className="relative rounded-[24px] md:rounded-[40px] overflow-hidden h-[380px] sm:h-[480px] md:h-[550px] lg:h-[670px] shadow-2xl border border-white/10"
           >
-            <video
+            {/* <video
               className="w-full h-[280px] sm:h-[380px] md:h-[520px] lg:h-[650px] object-cover"
               autoPlay
               loop
@@ -39,7 +39,8 @@ export default function SundusSection({ sundus }: SundusSectionProps) {
               playsInline
             >
               <source src={videoSrc} type="video/mp4" />
-            </video>
+            </video> */}
+            <img src={sundusImage.src} alt="Sundus" className="w-full  object-cover" />
             <div className="absolute inset-0 bg-black/30" />
           </motion.div>
 

@@ -14,7 +14,7 @@ import {
   transitionBase,
   viewportOnce,
 } from "@/lib/motion";
-
+import sondosImage from "../../../public/sondos.png";
 export default function SondosPage({ data }: { data: SondosData | null }) {
   const t = useTranslations("sondos.page");
   const videoSrc = data?.content?.image || "/vedio.mp4";
@@ -73,7 +73,7 @@ export default function SondosPage({ data }: { data: SondosData | null }) {
               className="mt-20 w-full"
             >
               <div className="relative overflow-hidden rounded-3xl border-y border-white/10">
-                <video
+                {/* <video
                   className="h-[280px] w-full object-cover sm:h-[380px] md:h-[520px] lg:h-[650px]"
                   autoPlay
                   loop
@@ -81,7 +81,8 @@ export default function SondosPage({ data }: { data: SondosData | null }) {
                   playsInline
                 >
                   <source src={videoSrc} type="video/mp4" />
-                </video>
+                </video> */}
+                <img src={sondosImage.src} alt="Sondos" className="w-full h-[280px] sm:h-[380px] md:h-[520px] lg:h-[650px] object-cover" />
               </div>
             </motion.div>
           ) : null}
