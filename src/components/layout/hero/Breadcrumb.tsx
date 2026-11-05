@@ -75,12 +75,11 @@ export default function Breadcrumb({ items }: { items: BreadcrumbItem[] }) {
           {current?.label}
         </motion.h1>
 
-        <motion.p
+        <motion.div
           variants={fadeUp}
-          className="text-sm sm:text-base md:text-lg text-gray-300 max-w-2xl leading-7 mb-8"
-        >
-          {current?.description || t("description")}
-        </motion.p>
+          className="text-sm sm:text-base md:text-lg text-gray-300 max-w-2xl leading-7 mb-8 [&_p]:m-0"
+          dangerouslySetInnerHTML={{ __html: current?.description || t("description") }}
+        />
 
         <motion.nav
           variants={staggerItem}
